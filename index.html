@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg: #0f1117;
+        --surface: #1a1d27;
+        --surface-2: #22263a;
+        --border: #2e3248;
+        --text: #e2e8f0;
+        --text-muted: #8892a4;
+        --accent: #6c63ff;
+        --accent-2: #22d3ee;
+        --green: #34d399;
+        --red: #f87171;
+        --yellow: #fbbf24;
+        --radius: 12px;
+        --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body {
+        font-family: var(--font);
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Sidebar + main layout */
+      .layout {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 220px;
+        flex-shrink: 0;
+        background: var(--surface);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px;
+        gap: 4px;
+      }
+
+      .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 8px 24px;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.3px;
+      }
+
+      .sidebar-logo .dot {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: var(--accent);
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+      }
+
+      .nav-section {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        padding: 16px 8px 6px;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 10px;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: background 0.15s, color 0.15s;
+        text-decoration: none;
+      }
+
+      .nav-item:hover { background: var(--surface-2); color: var(--text); }
+      .nav-item.active { background: var(--surface-2); color: var(--text); font-weight: 500; }
+      .nav-item.active .nav-icon { color: var(--accent); }
+
+      .nav-icon { width: 18px; text-align: center; font-size: 16px; }
+
+      .sidebar-footer {
+        margin-top: auto;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+      }
+
+      .avatar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .avatar-row:hover { background: var(--surface-2); }
+
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .avatar-info { line-height: 1.2; overflow: hidden; }
+      .avatar-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .avatar-role { font-size: 11px; color: var(--text-muted); }
+
+      /* Main */
+      .main {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Topbar */
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 32px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+        gap: 16px;
+      }
+
+      .topbar-left h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+      .topbar-left p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+      .topbar-right { display: flex; align-items: center; gap: 12px; }
+
+      .search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 7px 12px;
+        font-size: 13px;
+        color: var(--text-muted);
+        width: 200px;
+      }
+
+      .badge-btn {
+        position: relative;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 7px 10px;
+        cursor: pointer;
+        font-size: 16px;
+        color: var(--text-muted);
+        transition: background 0.15s;
+      }
+
+      .badge-btn:hover { background: var(--border); }
+
+      .badge-dot {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid var(--surface);
+      }
+
+      /* Content */
+      .content {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        flex: 1;
+      }
+
+      /* Stats grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: border-color 0.15s;
+      }
+
+      .stat-card:hover { border-color: var(--accent); }
+
+      .stat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+      .stat-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        display: grid;
+        place-items: center;
+        font-size: 16px;
+      }
+
+      .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+
+      .stat-trend {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .trend-up { color: var(--green); }
+      .trend-down { color: var(--red); }
+
+      /* Lower grid */
+      .lower-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+      }
+
+      @media (max-width: 900px) {
+        .lower-grid { grid-template-columns: 1fr; }
+      }
+
+      /* Card */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 22px;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .card-title { font-size: 15px; font-weight: 600; }
+      .card-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+      .card-action {
+        font-size: 12px;
+        color: var(--accent);
+        cursor: pointer;
+        font-weight: 500;
+        background: none;
+        border: none;
+        padding: 0;
+      }
+
+      .card-action:hover { text-decoration: underline; }
+
+      /* Activity chart (CSS bars) */
+      .chart-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 4px; }
+      .bar-pair { display: flex; align-items: flex-end; gap: 2px; height: 90px; width: 100%; }
+
+      .bar {
+        flex: 1;
+        border-radius: 4px 4px 0 0;
+        background: var(--accent);
+        opacity: 0.7;
+        transition: opacity 0.15s;
+        min-height: 4px;
+        align-self: flex-end;
+      }
+
+      .bar:hover { opacity: 1; }
+      .bar.secondary { background: var(--accent-2); }
+
+      .bar-label { font-size: 10px; color: var(--text-muted); }
+
+      .chart-legend {
+        display: flex;
+        gap: 16px;
+        margin-top: 8px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      /* Recent activity table */
+      .activity-list { display: flex; flex-direction: column; gap: 2px; }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 8px;
+        border-radius: 8px;
+        transition: background 0.15s;
+        cursor: default;
+      }
+
+      .activity-item:hover { background: var(--surface-2); }
+
+      .activity-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .activity-info { flex: 1; overflow: hidden; }
+      .activity-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .activity-desc { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+      .activity-meta { text-align: right; flex-shrink: 0; }
+      .activity-time { font-size: 11px; color: var(--text-muted); }
+      .activity-amount { font-size: 13px; font-weight: 600; }
+
+      /* Pill status */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 9px;
+        border-radius: 99px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      .pill-green { background: rgba(52,211,153,.15); color: var(--green); }
+      .pill-red { background: rgba(248,113,113,.15); color: var(--red); }
+      .pill-yellow { background: rgba(251,191,36,.15); color: var(--yellow); }
+      .pill-blue { background: rgba(108,99,255,.15); color: var(--accent); }
+
+      /* Top pages / quick stats */
+      .metric-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+        gap: 8px;
+      }
+
+      .metric-row:last-child { border-bottom: none; }
+
+      .metric-bar-wrap {
+        flex: 1;
+        max-width: 80px;
+        height: 4px;
+        background: var(--surface-2);
+        border-radius: 99px;
+        overflow: hidden;
+      }
+
+      .metric-bar-fill {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 99px;
+      }
+
+      .metric-value { font-weight: 600; min-width: 40px; text-align: right; }
+
+      @media (max-width: 768px) {
+        .sidebar { display: none; }
+        .content { padding: 20px 16px; }
+        .topbar { padding: 14px 16px; }
+        .search { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-logo">
+          <span class="dot">✦</span>
+          Pulse
+        </div>
+
+        <span class="nav-section">Overview</span>
+        <a class="nav-item active" href="#">
+          <span class="nav-icon">▣</span> Dashboard
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">◈</span> Analytics
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">◎</span> Reports
+        </a>
+
+        <span class="nav-section">Manage</span>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">⊞</span> Projects
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">⊙</span> Customers
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">⊡</span> Invoices
+        </a>
+
+        <span class="nav-section">Settings</span>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">⊕</span> Integrations
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">◉</span> Settings
+        </a>
+
+        <div class="sidebar-footer">
+          <div class="avatar-row">
+            <div class="avatar">PK</div>
+            <div class="avatar-info">
+              <div class="avatar-name">P. Khlin</div>
+              <div class="avatar-role">Admin</div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main content -->
+      <div class="main">
+        <!-- Topbar -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <h1>Dashboard</h1>
+            <p>Wednesday, 26 Feb 2026</p>
+          </div>
+          <div class="topbar-right">
+            <div class="search">
+              <span>⌕</span> Search…
+            </div>
+            <button class="badge-btn">
+              🔔
+              <span class="badge-dot"></span>
+            </button>
+            <button class="badge-btn">⊞</button>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+
+          <!-- Stats -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <span class="stat-label">Total Revenue</span>
+                <span class="stat-icon" style="background:rgba(108,99,255,.15);color:var(--accent);">$</span>
+              </div>
+              <div class="stat-value">$84,320</div>
+              <div class="stat-trend trend-up">▲ 12.4% vs last month</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <span class="stat-label">Active Users</span>
+                <span class="stat-icon" style="background:rgba(34,211,238,.15);color:var(--accent-2);">◎</span>
+              </div>
+              <div class="stat-value">3,241</div>
+              <div class="stat-trend trend-up">▲ 8.1% vs last month</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <span class="stat-label">Bounce Rate</span>
+                <span class="stat-icon" style="background:rgba(248,113,113,.15);color:var(--red);">↩</span>
+              </div>
+              <div class="stat-value">24.8%</div>
+              <div class="stat-trend trend-down">▼ 3.2% vs last month</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <span class="stat-label">Avg. Session</span>
+                <span class="stat-icon" style="background:rgba(52,211,153,.15);color:var(--green);">⏱</span>
+              </div>
+              <div class="stat-value">4m 37s</div>
+              <div class="stat-trend trend-up">▲ 0.5% vs last month</div>
+            </div>
+          </div>
+
+          <!-- Lower grid -->
+          <div class="lower-grid">
+
+            <!-- Activity chart -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Weekly Activity</div>
+                  <div class="card-subtitle">Sessions vs Conversions</div>
+                </div>
+                <button class="card-action">View report →</button>
+              </div>
+
+              <div class="chart-bars">
+                <div class="bar-col"><div class="bar-pair"><div class="bar" style="height:60%"></div><div class="bar secondary" style="height:30%"></div></div><span class="bar-label">Mon</span></div>
+                <div class="bar-col"><div class="bar-pair"><div class="bar" style="height:80%"></div><div class="bar secondary" style="height:40%"></div></div><span class="bar-label">Tue</span></div>
+                <div class="bar-col"><div class="bar-pair"><div class="bar" style="height:50%"></div><div class="bar secondary" style="height:25%"></div></div><span class="bar-label">Wed</span></div>
+                <div class="bar-col"><div class="bar-pair"><div class="bar" style="height:95%"></div><div class="bar secondary" style="height:55%"></div></div><span class="bar-label">Thu</span></div>
+                <div class="bar-col"><div class="bar-pair"><div class="bar" style="height:70%"></div><div class="bar secondary" style="height:35%"></div></div><span class="bar-label">Fri</span></div>
+                <div class="bar-col"><div class="bar-pair"><div class="bar" style="height:45%"></div><div class="bar secondary" style="height:20%"></div></div><span class="bar-label">Sat</span></div>
+                <div class="bar-col"><div class="bar-pair"><div class="bar" style="height:30%"></div><div class="bar secondary" style="height:15%"></div></div><span class="bar-label">Sun</span></div>
+              </div>
+
+              <div class="chart-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Sessions</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--accent-2)"></div>Conversions</div>
+              </div>
+
+              <!-- Recent transactions -->
+              <div style="margin-top:24px;">
+                <div class="card-header" style="margin-bottom:12px;">
+                  <div class="card-title" style="font-size:14px;">Recent Transactions</div>
+                  <button class="card-action">See all →</button>
+                </div>
+                <div class="activity-list">
+                  <div class="activity-item">
+                    <div class="activity-avatar" style="background:rgba(108,99,255,.2);color:var(--accent);">SR</div>
+                    <div class="activity-info">
+                      <div class="activity-name">Sara Reynolds</div>
+                      <div class="activity-desc">Pro Plan upgrade</div>
+                    </div>
+                    <div class="activity-meta">
+                      <div class="activity-amount" style="color:var(--green)">+$299</div>
+                      <div class="activity-time">2m ago</div>
+                    </div>
+                  </div>
+                  <div class="activity-item">
+                    <div class="activity-avatar" style="background:rgba(34,211,238,.2);color:var(--accent-2);">JM</div>
+                    <div class="activity-info">
+                      <div class="activity-name">James Mitchell</div>
+                      <div class="activity-desc">Refund issued</div>
+                    </div>
+                    <div class="activity-meta">
+                      <div class="activity-amount" style="color:var(--red)">−$49</div>
+                      <div class="activity-time">18m ago</div>
+                    </div>
+                  </div>
+                  <div class="activity-item">
+                    <div class="activity-avatar" style="background:rgba(52,211,153,.2);color:var(--green);">AL</div>
+                    <div class="activity-info">
+                      <div class="activity-name">Aisha Lowe</div>
+                      <div class="activity-desc">Enterprise Plan</div>
+                    </div>
+                    <div class="activity-meta">
+                      <div class="activity-amount" style="color:var(--green)">+$899</div>
+                      <div class="activity-time">1h ago</div>
+                    </div>
+                  </div>
+                  <div class="activity-item">
+                    <div class="activity-avatar" style="background:rgba(251,191,36,.2);color:var(--yellow);">TC</div>
+                    <div class="activity-info">
+                      <div class="activity-name">Tom Chen</div>
+                      <div class="activity-desc">Starter Plan</div>
+                    </div>
+                    <div class="activity-meta">
+                      <div class="activity-amount" style="color:var(--green)">+$19</div>
+                      <div class="activity-time">3h ago</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right column -->
+            <div style="display:flex;flex-direction:column;gap:20px;">
+
+              <!-- Status -->
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">System Status</div>
+                </div>
+                <div class="activity-list">
+                  <div class="metric-row">
+                    <span style="color:var(--text-muted)">API</span>
+                    <span class="pill pill-green">Operational</span>
+                  </div>
+                  <div class="metric-row">
+                    <span style="color:var(--text-muted)">Database</span>
+                    <span class="pill pill-green">Operational</span>
+                  </div>
+                  <div class="metric-row">
+                    <span style="color:var(--text-muted)">CDN</span>
+                    <span class="pill pill-yellow">Degraded</span>
+                  </div>
+                  <div class="metric-row">
+                    <span style="color:var(--text-muted)">Storage</span>
+                    <span class="pill pill-green">Operational</span>
+                  </div>
+                  <div class="metric-row">
+                    <span style="color:var(--text-muted)">Auth</span>
+                    <span class="pill pill-green">Operational</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Top pages -->
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Top Pages</div>
+                    <div class="card-subtitle">By sessions this week</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="metric-row">
+                    <span>/home</span>
+                    <div class="metric-bar-wrap"><div class="metric-bar-fill" style="width:95%"></div></div>
+                    <span class="metric-value">9.5k</span>
+                  </div>
+                  <div class="metric-row">
+                    <span>/pricing</span>
+                    <div class="metric-bar-wrap"><div class="metric-bar-fill" style="width:70%"></div></div>
+                    <span class="metric-value">6.6k</span>
+                  </div>
+                  <div class="metric-row">
+                    <span>/docs</span>
+                    <div class="metric-bar-wrap"><div class="metric-bar-fill" style="width:54%"></div></div>
+                    <span class="metric-value">5.1k</span>
+                  </div>
+                  <div class="metric-row">
+                    <span>/blog</span>
+                    <div class="metric-bar-wrap"><div class="metric-bar-fill" style="width:38%"></div></div>
+                    <span class="metric-value">3.6k</span>
+                  </div>
+                  <div class="metric-row">
+                    <span>/signup</span>
+                    <div class="metric-bar-wrap"><div class="metric-bar-fill" style="width:25%"></div></div>
+                    <span class="metric-value">2.4k</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
