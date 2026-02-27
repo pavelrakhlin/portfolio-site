@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import AnimatedPage from '../components/AnimatedPage';
 
 const skills = [
-  { category: 'Lorem',       items: ['Ipsum', 'Dolor', 'Sit', 'Amet', 'Consectetur'] },
-  { category: 'Adipiscing',  items: ['Elit', 'Sed', 'Do', 'Eiusmod', 'Tempor'] },
-  { category: 'Incididunt',  items: ['Ut', 'Labore', 'Dolore', 'Magna', 'Aliqua'] },
+  { category: 'Design Systems', items: ['Architecture', 'Tokens', 'Components', 'Documentation', 'Governance'] },
+  { category: 'Engineering',    items: ['React', 'TypeScript', 'CSS', 'Framer Motion', 'Vite'] },
+  { category: 'Process',        items: ['Agile', 'Code Review', 'Accessibility', 'Testing', 'CI/CD'] },
 ];
 
 const fadeUp = (delay = 0) => ({
@@ -25,26 +25,24 @@ export default function About() {
 
             {/* Left: text */}
             <motion.div style={styles.bioText} {...fadeUp(0.05)}>
-              <p className="label" style={{ marginBottom: '16px' }}>Lorem ipsum</p>
-              <h1 style={styles.name}>Lorem ipsum dolor.</h1>
-              <p style={styles.copy}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris.
+              <p className="label" style={{ marginBottom: '16px' }}>02 — Philosophy</p>
+              <h1 className="h1" style={styles.name}>Design at Scale.</h1>
+              <p className="body-lg" style={styles.copy}>
+                I focus on real problems, not just new ideas. Understanding people comes first, technology follows.
               </p>
-              <p style={styles.copy}>
-                Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              <p className="body" style={styles.copy}>
+                The goal isn't to build more, but to build what makes a difference. Every decision should be intentional, purposeful, and human-centered at its core.
               </p>
-              <p style={styles.copy}>
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
+              <p className="body" style={styles.copy}>
+                Good design begins with understanding. We invest time upfront to understand the problem space before proposing any solution. Every element on screen has a reason to exist. We remove everything that doesn't serve the user's goal.
               </p>
             </motion.div>
 
             {/* Right: photo placeholder */}
             <motion.div {...fadeUp(0.12)} style={{ minWidth: 0 }}>
-              <div style={styles.photoPlaceholder} />
+              <div style={styles.photoPlaceholder}>
+                <div className="avatar avatar-xl avatar-dark" style={{ width: '120px', height: '120px', fontSize: '2.5rem' }}>ME</div>
+              </div>
             </motion.div>
 
           </div>
@@ -57,7 +55,7 @@ export default function About() {
             transition={{ duration: 0.4 }}
             style={styles.skillsHeader}
           >
-            <p className="label" style={{ marginBottom: '12px' }}>Lorem ipsum</p>
+            <p className="label" style={{ marginBottom: '12px' }}>Core Competencies</p>
           </motion.div>
 
           <div style={styles.skillsGrid}>
@@ -65,15 +63,20 @@ export default function About() {
               <motion.div
                 key={category}
                 style={styles.skillGroup}
+                className="card"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: gi * 0.08, duration: 0.4 }}
               >
-                <h3 style={styles.skillCategory}>{category}</h3>
+                <p className="card-eyebrow">Expertise</p>
+                <h3 className="card-title" style={{ fontSize: '1.25rem', marginBottom: '1.25rem' }}>{category}</h3>
                 <ul style={styles.skillList}>
                   {items.map((item) => (
-                    <li key={item} style={styles.skillItem}>{item}</li>
+                    <li key={item} className="body" style={styles.skillItem}>
+                      <span style={{ color: 'var(--primary)', marginRight: '0.5rem' }}>→</span>
+                      {item}
+                    </li>
                   ))}
                 </ul>
               </motion.div>
@@ -90,65 +93,55 @@ const styles = {
   bio: {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
-    gap: 'var(--space-6)',
-    marginBottom: 'var(--space-7)',
+    gap: '4rem',
+    marginBottom: '6rem',
     alignItems: 'start',
   },
   bioText: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px',
+    gap: '1.5rem',
   },
   name: {
-    fontSize: 'clamp(2rem, 4vw, 3rem)',
-    fontWeight: 600,
-    letterSpacing: '-0.03em',
-    lineHeight: 1.1,
-    marginBottom: '8px',
+    marginBottom: '0.5rem',
   },
   copy: {
-    color: 'var(--muted)',
-    fontSize: '1rem',
-    lineHeight: 1.75,
+    color: 'var(--text-muted)',
     maxWidth: '52ch',
   },
   photoPlaceholder: {
     width: '100%',
     aspectRatio: '3 / 4',
-    borderRadius: 'var(--radius-lg)',
-    background: 'linear-gradient(145deg, #e0e7ff 0%, #ede9fe 50%, #ddd6fe 100%)',
+    border: '1px solid var(--border)',
+    backgroundColor: 'var(--bg-main)',
     maxWidth: '420px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   skillsHeader: {
-    marginBottom: 'var(--space-3)',
+    marginBottom: '2rem',
+    paddingBottom: '1rem',
+    borderBottom: '1px solid var(--border)',
   },
   skillsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-    gap: 'var(--space-4)',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: '2rem',
   },
   skillGroup: {
-    padding: '20px 22px',
-    background: 'var(--surface)',
-    border: '1px solid var(--border)',
-    borderRadius: 'var(--radius)',
-  },
-  skillCategory: {
-    fontSize: '0.85rem',
-    fontWeight: 600,
-    color: 'var(--accent)',
-    letterSpacing: '0.04em',
-    textTransform: 'uppercase',
-    marginBottom: '12px',
+    padding: '2rem',
+    backgroundColor: 'var(--bg-page)',
   },
   skillList: {
     listStyle: 'none',
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px',
+    gap: '0.75rem',
+    marginTop: 'auto',
   },
   skillItem: {
-    fontSize: '0.9rem',
-    color: 'var(--muted)',
+    display: 'flex',
+    alignItems: 'center',
   },
 };

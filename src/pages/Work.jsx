@@ -4,34 +4,34 @@ import ProjectCard from '../components/ProjectCard';
 
 const projects = [
   {
-    title: 'Lorem ipsum dolor',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    tags: ['Lorem', 'Ipsum', 'Dolor'],
+    title: 'Figma Design System',
+    description: 'This design system is built on the principles of editorial brutalism — structured, intentional, and high-contrast.',
+    tags: ['Design', 'Systems', 'Figma'],
   },
   {
-    title: 'Consectetur adipiscing',
-    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    tags: ['Sit', 'Amet'],
+    title: 'Component Library v2',
+    description: 'All components follow a zero-radius, border-heavy aesthetic. They are compositional and purpose-driven.',
+    tags: ['React', 'Library'],
   },
   {
-    title: 'Sed do eiusmod',
-    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-    tags: ['Elit', 'Tempor'],
+    title: 'Brand Guidelines',
+    description: 'Design guidelines emphasize legibility, hierarchy, and restraint. No element is decorative without purpose.',
+    tags: ['Brand', 'Identity'],
   },
   {
-    title: 'Ut labore dolore',
-    description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    tags: ['Ut', 'Labore'],
+    title: 'Icon Set 3.0',
+    description: 'A comprehensive collection of intentionally crafted icons following editorial geometry.',
+    tags: ['Iconography', 'Vector'],
   },
   {
-    title: 'Magna aliqua',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.',
-    tags: ['Magna', 'Aliqua'],
+    title: 'Motion Principles',
+    description: 'Animation guidelines for state transitions, component reveals, and interactive elements.',
+    tags: ['Motion', 'UX'],
   },
   {
-    title: 'Minim veniam',
-    description: 'Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute.',
-    tags: ['Minim', 'Veniam'],
+    title: 'Accessibility Audit',
+    description: 'Ensuring color contrast, semantic HTML, and keyboard navigation across all components.',
+    tags: ['A11y', 'Audit'],
   },
 ];
 
@@ -57,10 +57,10 @@ export default function Work() {
             transition={{ duration: 0.35 }}
             style={styles.header}
           >
-            <p className="label">Lorem ipsum</p>
-            <h1 style={styles.heading}>Lorem ipsum dolor</h1>
-            <p style={styles.sub}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p className="label">01 — Archive</p>
+            <h1 className="h1" style={styles.heading}>Selected Work</h1>
+            <p className="body-lg" style={styles.sub}>
+              A collection of projects focused on design systems, component libraries, and intentional user experiences.
             </p>
           </motion.div>
 
@@ -84,21 +84,21 @@ export default function Work() {
 
 const styles = {
   header: {
-    marginBottom: 'var(--space-5)',
+    marginBottom: '4rem',
     maxWidth: '52ch',
+    paddingBottom: '2rem',
+    borderBottom: '1px solid var(--border)',
   },
   heading: {
     marginTop: '12px',
     marginBottom: '16px',
   },
   sub: {
-    color: 'var(--muted)',
-    fontSize: '1.05rem',
-    lineHeight: 1.7,
+    color: 'var(--text-muted)',
   },
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-    gap: 'var(--space-3)',
+    gap: '2rem',
   },
 };

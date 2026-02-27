@@ -2,10 +2,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const links = [
-  { to: '/',        label: 'Home'    },
-  { to: '/work',    label: 'Work'    },
-  { to: '/about',   label: 'About'   },
-  { to: '/contact', label: 'Contact' },
+  { to: '/',        label: 'Home',    num: '01' },
+  { to: '/work',    label: 'Work',    num: '02' },
+  { to: '/about',   label: 'About',   num: '03' },
+  { to: '/contact', label: 'Contact', num: '04' },
 ];
 
 export default function Nav() {
@@ -15,23 +15,17 @@ export default function Nav() {
     <header style={styles.header}>
       <div className="container" style={styles.inner}>
         <Link to="/" style={styles.logo}>
-          <span style={styles.logoDot} />
-          Portfolio
+          <div style={styles.logoBox} />
+          <span style={styles.logoText}>Portfolio</span>
         </Link>
 
         <nav style={styles.nav}>
-          {links.map(({ to, label }) => {
+          {links.map(({ to, label, num }) => {
             const active = pathname === to;
             return (
               <Link key={to} to={to} style={{ ...styles.link, ...(active ? styles.linkActive : {}) }}>
-                {label}
-                {active && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    style={styles.underline}
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
+                <span style={styles.linkText}>{label}</span>
+                <span style={styles.linkNum}>{num}</span>
               </Link>
             );
           })}
@@ -47,10 +41,8 @@ const styles = {
     top: 0,
     zIndex: 100,
     height: 'var(--nav-height)',
-    background: 'rgba(250,250,250,0.85)',
-    backdropFilter: 'blur(12px)',
-    WebkitBackdropFilter: 'blur(12px)',
-    borderBottom: '1px solid var(--border)',
+    background: 'var(--bg-main)',
+    borderBottom: '2px solid var(--border)',
   },
   inner: {
     height: '100%',
@@ -62,43 +54,48 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    fontWeight: 600,
-    fontSize: '1rem',
-    letterSpacing: '-0.02em',
+    color: 'var(--primary)',
   },
-  logoDot: {
+  logoBox: {
     width: 24,
     height: 24,
-    borderRadius: 6,
-    background: 'var(--accent)',
-    display: 'inline-block',
-    flexShrink: 0,
+    background: 'var(--primary)',
+    border: '1px solid var(--border)',
+  },
+  logoText: {
+    fontFamily: 'var(--font-heading)',
+    fontWeight: 700,
+    fontSize: '1.25rem',
+    letterSpacing: '-0.02em',
+    textTransform: 'uppercase',
   },
   nav: {
     display: 'flex',
-    alignItems: 'center',
-    gap: 'var(--space-1)',
+    alignItems: 'stretch',
+    height: '100%',
   },
   link: {
-    position: 'relative',
-    padding: '6px 12px',
-    fontSize: '0.9rem',
-    fontWeight: 400,
-    color: 'var(--muted)',
-    borderRadius: 'var(--radius-sm)',
-    transition: 'color 0.18s',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '0 1.5rem',
+    borderLeft: '1px solid var(--border)',
+    color: 'var(--text-dark)',
+    transition: 'background-color var(--transition), color var(--transition)',
+    height: '100%',
   },
   linkActive: {
-    color: 'var(--text)',
+    backgroundColor: 'var(--primary)',
+    color: 'var(--text-inverse)',
+  },
+  linkText: {
+    fontFamily: 'var(--font-body)',
+    fontSize: '0.875rem',
     fontWeight: 500,
   },
-  underline: {
-    position: 'absolute',
-    bottom: 0,
-    left: '12px',
-    right: '12px',
-    height: '2px',
-    borderRadius: '99px',
-    background: 'var(--accent)',
+  linkNum: {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.625rem',
+    opacity: 0.6,
   },
 };

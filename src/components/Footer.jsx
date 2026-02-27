@@ -4,12 +4,21 @@ export default function Footer() {
   return (
     <footer style={styles.footer}>
       <div className="container" style={styles.inner}>
-        <span style={styles.copy}>© {new Date().getFullYear()} Lorem ipsum dolor sit amet.</span>
+        <div style={styles.branding}>
+          <span className="h4" style={{ margin: 0, lineHeight: 1 }}>PORTFOLIO</span>
+          <span className="caption" style={{ color: 'var(--text-muted)' }}>Editorial Brutalism</span>
+        </div>
+        
         <nav style={styles.links}>
-          <Link to="/work"    style={styles.link}>Lorem</Link>
-          <Link to="/about"   style={styles.link}>Ipsum</Link>
-          <Link to="/contact" style={styles.link}>Dolor</Link>
+          <Link to="/work"    className="link">Work</Link>
+          <Link to="/about"   className="link">About</Link>
+          <Link to="/contact" className="link">Contact</Link>
         </nav>
+        
+        <div style={styles.bottom}>
+          <span className="mono" style={styles.copy}>© {new Date().getFullYear()} — All rights reserved.</span>
+          <span className="badge badge-default">Status: Active</span>
+        </div>
       </div>
     </footer>
   );
@@ -17,27 +26,38 @@ export default function Footer() {
 
 const styles = {
   footer: {
-    borderTop: '1px solid var(--border)',
-    padding: '24px 0',
+    borderTop: '2px solid var(--border)',
+    backgroundColor: 'var(--bg-main)',
+    padding: '3rem 0',
+    marginTop: 'auto',
   },
   inner: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: '12px',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '2rem',
+    alignItems: 'start',
   },
-  copy: {
-    fontSize: '0.8rem',
-    color: 'var(--muted)',
+  branding: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.5rem',
   },
   links: {
     display: 'flex',
-    gap: '20px',
+    gap: '2rem',
+    justifyContent: 'flex-end',
   },
-  link: {
-    fontSize: '0.8rem',
-    color: 'var(--muted)',
-    transition: 'color 0.18s',
+  bottom: {
+    gridColumn: '1 / -1',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: '2rem',
+    marginTop: '1rem',
+    borderTop: '1px solid var(--border)',
+  },
+  copy: {
+    fontSize: '0.75rem',
+    color: 'var(--text-muted)',
   },
 };

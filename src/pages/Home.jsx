@@ -5,19 +5,19 @@ import ProjectCard from '../components/ProjectCard';
 
 const featured = [
   {
-    title: 'Lorem ipsum dolor',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    tags: ['Lorem', 'Ipsum', 'Dolor'],
+    title: 'Design System',
+    description: 'A component reference built on structure, contrast, and typographic intent.',
+    tags: ['Design', 'Systems', 'Figma'],
   },
   {
-    title: 'Consectetur adipiscing',
-    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    tags: ['Sit', 'Amet'],
+    title: 'Component Library v2',
+    description: 'Every element is purposeful — nothing is decorative without reason.',
+    tags: ['React', 'Library'],
   },
   {
-    title: 'Sed do eiusmod',
-    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-    tags: ['Elit', 'Tempor'],
+    title: 'Brand Guidelines',
+    description: 'Clarity drives decisions. Good design begins with understanding.',
+    tags: ['Brand', 'Identity'],
   },
 ];
 
@@ -30,39 +30,16 @@ export default function Home() {
   return (
     <AnimatedPage>
       {/* Hero */}
-      <section style={styles.hero}>
+      <section style={styles.hero} className="hero">
         <div className="container">
-          <motion.p
-            className="label"
-            variants={fadeUp}
-            initial="initial"
-            animate="animate"
-            transition={{ delay: 0.05 }}
-            style={{ marginBottom: '20px' }}
-          >
-            Lorem ipsum dolor
-          </motion.p>
-
-          <motion.h1
-            variants={fadeUp}
-            initial="initial"
-            animate="animate"
-            transition={{ delay: 0.1 }}
-            style={styles.heroHeading}
-          >
-            Lorem ipsum dolor sit amet<br />
-            consectetur adipiscing elit
-          </motion.h1>
-
           <motion.p
             variants={fadeUp}
             initial="initial"
             animate="animate"
             transition={{ delay: 0.15 }}
-            style={styles.heroCopy}
+            className="hero-body"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+            I focus on real problems, not just new ideas. Understanding people comes first, technology follows. The goal isn't to build more, but to build what makes a difference.
           </motion.p>
 
           <motion.div
@@ -72,14 +49,14 @@ export default function Home() {
             transition={{ delay: 0.2 }}
             style={styles.heroCta}
           >
-            <Link to="/work"    className="btn btn-primary">Lorem ipsum</Link>
-            <Link to="/contact" className="btn btn-outline">Lorem ipsum</Link>
+            <Link to="/work" className="btn btn-primary">View Work</Link>
+            <Link to="/contact" className="btn btn-outline">Get in Touch</Link>
           </motion.div>
         </div>
       </section>
 
       {/* Featured work */}
-      <section className="section" style={{ background: 'var(--surface)' }}>
+      <section className="section" style={{ backgroundColor: 'var(--bg-page)' }}>
         <div className="container">
           <motion.div
             style={styles.sectionHeader}
@@ -88,8 +65,8 @@ export default function Home() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.4 }}
           >
-            <p className="label">Lorem ipsum</p>
-            <Link to="/work" style={styles.seeAll}>Lorem ipsum →</Link>
+            <p className="label">01 — Featured Work</p>
+            <Link to="/work" className="link">See all projects →</Link>
           </motion.div>
 
           <div style={styles.grid}>
@@ -109,7 +86,7 @@ export default function Home() {
       </section>
 
       {/* Blurb / CTA strip */}
-      <section className="section">
+      <section className="section" style={{ backgroundColor: 'var(--bg-main)' }}>
         <div className="container">
           <motion.div
             style={styles.blurb}
@@ -118,12 +95,13 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 style={{ maxWidth: '18ch' }}>Lorem ipsum dolor sit amet?</h2>
-            <p style={{ color: 'var(--muted)', maxWidth: '42ch', fontSize: '1rem' }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p className="hero-eyebrow">02 — Collaboration</p>
+            <h2 className="h2" style={{ color: 'var(--primary)' }}>Let's build something intentional.</h2>
+            <p className="body" style={{ color: 'var(--primary)', opacity: 0.85, maxWidth: '42ch', margin: '1rem 0 2rem' }}>
+              Every decision should be intentional, purposeful, and human-centered at its core.
             </p>
-            <Link to="/contact" className="btn btn-primary" style={{ alignSelf: 'flex-start', marginTop: '8px' }}>
-              Lorem ipsum
+            <Link to="/contact" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
+              Start a conversation
             </Link>
           </motion.div>
         </div>
@@ -134,47 +112,35 @@ export default function Home() {
 
 const styles = {
   hero: {
-    paddingTop: 'var(--space-8)',
-    paddingBottom: 'var(--space-7)',
-  },
-  heroHeading: {
-    marginBottom: '24px',
-    color: 'var(--text)',
-  },
-  heroCopy: {
-    fontSize: '1.1rem',
-    color: 'var(--muted)',
-    lineHeight: 1.7,
-    marginBottom: '36px',
-    maxWidth: '50ch',
+    paddingTop: '6rem',
+    paddingBottom: '6rem',
   },
   heroCta: {
     display: 'flex',
-    gap: '12px',
+    gap: '1rem',
     flexWrap: 'wrap',
+    marginTop: '3rem',
+    paddingTop: '2rem',
+    borderTop: '1px solid var(--border)',
   },
   sectionHeader: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 'var(--space-4)',
+    marginBottom: '3rem',
+    paddingBottom: '1rem',
+    borderBottom: '1px solid var(--border)',
     flexWrap: 'wrap',
     gap: '12px',
   },
-  seeAll: {
-    fontSize: '0.875rem',
-    fontWeight: 500,
-    color: 'var(--accent)',
-  },
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: 'var(--space-3)',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+    gap: '2rem',
   },
   blurb: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px',
     maxWidth: '540px',
   },
 };
