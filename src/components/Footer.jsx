@@ -6,7 +6,6 @@ export default function Footer() {
       <div className="container" style={styles.inner}>
         <div style={styles.branding}>
           <span className="h4" style={{ margin: 0, lineHeight: 1 }}>PORTFOLIO</span>
-          <span className="caption" style={{ color: 'var(--text-muted)' }}>Editorial Brutalism</span>
         </div>
         
         <nav style={styles.links}>

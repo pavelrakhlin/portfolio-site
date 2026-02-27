@@ -20,7 +20,6 @@ export default function ProjectCard({ title, description, tags = [], index = 0 }
     >
       <div className="card-image" style={{ backgroundColor: bg }} />
       <div className="card-content" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-        <p className="card-eyebrow">Project — 0{index + 1}</p>
         <h3 className="card-title">{title}</h3>
         <p className="card-body">{description}</p>
         

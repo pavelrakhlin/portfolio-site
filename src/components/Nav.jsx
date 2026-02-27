@@ -2,10 +2,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const links = [
-  { to: '/',        label: 'Home',    num: '01' },
-  { to: '/work',    label: 'Work',    num: '02' },
-  { to: '/about',   label: 'About',   num: '03' },
-  { to: '/contact', label: 'Contact', num: '04' },
+  { to: '/',        label: 'Home' },
+  { to: '/work',    label: 'Work' },
+  { to: '/about',   label: 'About' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 export default function Nav() {
@@ -15,17 +15,15 @@ export default function Nav() {
     <header style={styles.header}>
       <div className="container" style={styles.inner}>
         <Link to="/" style={styles.logo}>
-          <div style={styles.logoBox} />
           <span style={styles.logoText}>Portfolio</span>
         </Link>
 
         <nav style={styles.nav}>
-          {links.map(({ to, label, num }) => {
+          {links.map(({ to, label }) => {
             const active = pathname === to;
             return (
               <Link key={to} to={to} style={{ ...styles.link, ...(active ? styles.linkActive : {}) }}>
                 <span style={styles.linkText}>{label}</span>
-                <span style={styles.linkNum}>{num}</span>
               </Link>
             );
           })}
@@ -49,18 +47,14 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 0,
+    paddingRight: 0,
   },
   logo: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
     color: 'var(--primary)',
-  },
-  logoBox: {
-    width: 24,
-    height: 24,
-    background: 'var(--primary)',
-    border: '1px solid var(--border)',
   },
   logoText: {
     fontFamily: 'var(--font-heading)',
@@ -73,12 +67,13 @@ const styles = {
     display: 'flex',
     alignItems: 'stretch',
     height: '100%',
+    width: 'fit-content',
   },
   link: {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '0 1.5rem',
+    padding: '0 40px',
     borderLeft: '1px solid var(--border)',
     color: 'var(--text-dark)',
     transition: 'background-color var(--transition), color var(--transition)',
@@ -92,10 +87,5 @@ const styles = {
     fontFamily: 'var(--font-body)',
     fontSize: '0.875rem',
     fontWeight: 500,
-  },
-  linkNum: {
-    fontFamily: 'var(--font-mono)',
-    fontSize: '0.625rem',
-    opacity: 0.6,
   },
 };

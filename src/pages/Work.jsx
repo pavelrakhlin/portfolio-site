@@ -57,7 +57,6 @@ export default function Work() {
             transition={{ duration: 0.35 }}
             style={styles.header}
           >
-            <p className="label">01 — Archive</p>
             <h1 className="h1" style={styles.heading}>Selected Work</h1>
             <p className="body-lg" style={styles.sub}>
               A collection of projects focused on design systems, component libraries, and intentional user experiences.
@@ -88,17 +87,23 @@ const styles = {
     maxWidth: '52ch',
     paddingBottom: '2rem',
     borderBottom: '1px solid var(--border)',
+    width: '100%',
+    height: 'fit-content',
+    maxHeight: '186px',
   },
   heading: {
     marginTop: '12px',
     marginBottom: '16px',
+    width: '100%',
   },
   sub: {
     color: 'var(--text-muted)',
+    width: '100%',
   },
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
     gap: '2rem',
+    width: '100%',
   },
 };
