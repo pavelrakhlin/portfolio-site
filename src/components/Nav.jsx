@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 const links = [
   { to: '/',        label: 'Home' },
@@ -15,14 +14,21 @@ export default function Nav() {
     <header style={styles.header}>
       <div className="container" style={styles.inner}>
         <Link to="/" style={styles.logo}>
-          <span style={styles.logoText}>Portfolio</span>
+          <span style={styles.logoText}>Pavel Rakhlin</span>
         </Link>
 
         <nav style={styles.nav}>
           {links.map(({ to, label }) => {
             const active = pathname === to;
             return (
-              <Link key={to} to={to} style={{ ...styles.link, ...(active ? styles.linkActive : {}) }}>
+              <Link
+                key={to}
+                to={to}
+                style={{
+                  ...styles.link,
+                  ...(active ? styles.linkActive : {}),
+                }}
+              >
                 <span style={styles.linkText}>{label}</span>
               </Link>
             );
@@ -47,8 +53,8 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 0,
-    paddingRight: 0,
+    marginLeft: '40px',
+    marginRight: '40px',
   },
   logo: {
     display: 'flex',
@@ -73,8 +79,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '0 40px',
-    borderLeft: '1px solid var(--border)',
+    padding: '0 1.5rem',
     color: 'var(--text-dark)',
     transition: 'background-color var(--transition), color var(--transition)',
     height: '100%',

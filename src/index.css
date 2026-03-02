@@ -89,7 +89,7 @@ p { max-width: 65ch; }
 }
 
 .section {
-  padding-block: var(--space-7);
+  padding-block: 40px;
   border-bottom: 1px solid var(--border);
 }
 .section:last-child {
@@ -318,4 +318,11 @@ p { max-width: 65ch; }
 
 .page-content {
   min-height: calc(100vh - var(--nav-height) - 80px);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.page-content .container {
+  margin-top: 0;
+  margin-bottom: 0;
 }

@@ -58,17 +58,7 @@ export default function Home() {
       {/* Featured work */}
       <section className="section" style={{ backgroundColor: 'var(--bg-page)' }}>
         <div className="container">
-          <motion.div
-            style={styles.sectionHeader}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.4 }}
-          >
-            <p className="label">01 — Featured Work</p>
-            <Link to="/work" className="link">See all projects →</Link>
-          </motion.div>
-
+          <Link to="/work" className="link" style={{ marginBottom: '3rem', display: 'block' }}>See all projects →</Link>
           <div style={styles.grid}>
             {featured.map((project, i) => (
               <motion.div
@@ -82,28 +72,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Blurb / CTA strip */}
-      <section className="section" style={{ backgroundColor: 'var(--bg-main)' }}>
-        <div className="container">
-          <motion.div
-            style={styles.blurb}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="hero-eyebrow">02 — Collaboration</p>
-            <h2 className="h2" style={{ color: 'var(--primary)' }}>Let's build something intentional.</h2>
-            <p className="body" style={{ color: 'var(--primary)', opacity: 0.85, maxWidth: '42ch', margin: '1rem 0 2rem' }}>
-              Every decision should be intentional, purposeful, and human-centered at its core.
-            </p>
-            <Link to="/contact" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
-              Start a conversation
-            </Link>
-          </motion.div>
         </div>
       </section>
     </AnimatedPage>
@@ -120,27 +88,11 @@ const styles = {
     gap: '1rem',
     flexWrap: 'wrap',
     marginTop: '3rem',
-    paddingTop: '2rem',
-    borderTop: '1px solid var(--border)',
-  },
-  sectionHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: '3rem',
-    paddingBottom: '1rem',
-    borderBottom: '1px solid var(--border)',
-    flexWrap: 'wrap',
-    gap: '12px',
+    height: 'fit-content',
   },
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
     gap: '2rem',
-  },
-  blurb: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: '540px',
   },
 };
