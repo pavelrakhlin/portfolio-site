@@ -10,7 +10,7 @@ export default function Footer() {
 
 const styles = {
   footer: {
-    borderTop: '2px solid var(--border)',
+    borderTop: 'none',
     backgroundColor: 'var(--bg-main)',
     padding: '3rem 0',
     marginTop: 'auto',

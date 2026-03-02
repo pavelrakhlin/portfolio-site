@@ -58,7 +58,7 @@ export default function Home() {
       {/* Featured work */}
       <section className="section" style={{ backgroundColor: 'var(--bg-page)' }}>
         <div className="container">
-          <Link to="/work" className="link" style={{ marginBottom: '3rem', display: 'block' }}>See all projects →</Link>
+          <Link to="/work" className="link" style={{ marginBottom: '3rem', display: 'block', textAlign: 'right' }}>See all projects →</Link>
           <div style={styles.grid}>
             {featured.map((project, i) => (
               <motion.div
