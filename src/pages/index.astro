@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getFeaturedProjects } from '../lib/projects';
+
+const featured = await getFeaturedProjects();
+---
+
+<Base title="Your Name — Designer">
+  <section class="container intro">
+    <p class="eyebrow" data-reveal>Designer · Portfolio</p>
+    <h1 data-reveal>
+      I design clear, human interfaces for products people rely on.
+    </h1>
+    <p class="intro__lede muted" data-reveal>
+      Selected case studies below. I care about the details — and about the
+      story behind each decision.
+    </p>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <a href="/work">View all →</a>
+    </div>
+
+    {
+      featured.length > 0 ? (
+        <div class="grid" data-reveal-group>
+          {featured.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      ) : (
+        <p class="muted">
+          No featured projects yet. Add one in <code>src/content/projects/</code>{' '}
+          and set <code>featured: true</code>.
+        </p>
+      )
+    }
+  </section>
+</Base>
+
+<style>
+  .intro {
+    padding-block: var(--space-24) var(--space-16);
+    max-width: var(--max-width-prose);
+  }
+  .intro h1 {
+    margin-block: var(--space-4);
+  }
+  .intro__lede {
+    font-size: var(--text-lg);
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
+  }
+  .section-head h2 {
+    margin: 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-8);
+  }
+</style>

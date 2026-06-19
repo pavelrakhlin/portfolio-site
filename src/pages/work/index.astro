@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../lib/projects';
+
+const projects = await getProjects();
+---
+
+<Base
+  title="Work — Your Name"
+  description="A complete list of case studies and selected projects."
+>
+  <section class="container page-head">
+    <h1 data-reveal>Work</h1>
+    <p class="muted" data-reveal>{projects.length} case studies.</p>
+  </section>
+
+  <section class="container">
+    {
+      projects.length > 0 ? (
+        <div class="grid" data-reveal-group>
+          {projects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      ) : (
+        <p class="muted">No projects yet.</p>
+      )
+    }
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-block: var(--space-16) var(--space-8);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-8);
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Optional social share image (absolute or site-relative URL). */
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Design portfolio — selected work and case studies.',
+  ogImage,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = ogImage
+  ? new URL(ogImage, Astro.site).href
+  : undefined;
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta
+      name="twitter:card"
+      content={ogImageUrl ? 'summary_large_image' : 'summary'}
+    />
+
+    <!-- Swap no-js -> js so reveal fallback only applies without JS. -->
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+    </script>
+
+    <ClientRouter />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      // Run on first load and after every View Transition navigation.
+      initReveal();
+      document.addEventListener('astro:page-load', initReveal);
+    </script>
+
+    <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: var(--space-2);
+        background: var(--color-accent);
+        color: var(--color-accent-contrast);
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius);
+        z-index: 100;
+      }
+      .skip-link:focus {
+        left: var(--space-4);
+      }
+    </style>
+  </body>
+</html>

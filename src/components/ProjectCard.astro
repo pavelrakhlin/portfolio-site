@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, summary, role, year, cover, coverAlt } = project.data;
+---
+
+<a href={`/work/${project.id}/`} class="card" data-reveal>
+  <div class="card__media">
+    <!-- transition:name lets the cover morph into the case-study hero. -->
+    <Image
+      src={cover}
+      alt={coverAlt}
+      widths={[400, 800, 1200]}
+      sizes="(max-width: 700px) 100vw, 50vw"
+      transition:name={`cover-${project.id}`}
+    />
+  </div>
+  <div class="card__body">
+    <p class="eyebrow">{role} · {year}</p>
+    <h3>{title}</h3>
+    <p class="muted">{summary}</p>
+  </div>
+</a>
+
+<style>
+  .card__body {
+    padding: var(--space-6);
+  }
+  .card__body h3 {
+    margin-bottom: var(--space-2);
+  }
+  .card__body p:last-child {
+    margin-bottom: 0;
+  }
+</style>

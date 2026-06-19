@@ -1,0 +1,94 @@
+---
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { getProjects } from '../../lib/projects';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { title, summary, role, year, tags, cover, coverAlt } = project.data;
+const { Content } = await render(project);
+---
+
+<Base title={`${title} — Your Name`} description={summary}>
+  <article>
+    <header class="container case-head">
+      <a href="/work" class="back" data-reveal>← Back to work</a>
+      <p class="eyebrow" data-reveal>{role} · {year}</p>
+      <h1 data-reveal>{title}</h1>
+      <p class="case-head__summary muted" data-reveal>{summary}</p>
+      {
+        tags.length > 0 && (
+          <ul class="tags" data-reveal>
+            {tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="container case-hero">
+      <Image
+        src={cover}
+        alt={coverAlt}
+        widths={[640, 1024, 1600]}
+        sizes="(max-width: 1088px) 100vw, 1088px"
+        transition:name={`cover-${project.id}`}
+      />
+    </div>
+
+    <div class="container">
+      <div class="prose case-body">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .case-head {
+    padding-block: var(--space-12) var(--space-8);
+    max-width: var(--max-width-prose);
+  }
+  .back {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+  .case-head h1 {
+    margin-block: var(--space-4) var(--space-3);
+  }
+  .case-head__summary {
+    font-size: var(--text-lg);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-6);
+  }
+  .tags li {
+    font-size: var(--text-xs);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: var(--space-1) var(--space-3);
+    color: var(--color-muted);
+  }
+  .case-hero img {
+    width: 100%;
+    border-radius: var(--radius);
+    margin-bottom: var(--space-16);
+  }
+  .case-body {
+    margin-inline: auto;
+  }
+</style>
