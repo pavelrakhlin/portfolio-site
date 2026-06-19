@@ -16,6 +16,15 @@ const { project } = Astro.props;
 const { title, summary, role, year, tags, cover, coverAlt, sections } =
   project.data;
 const { Content } = await render(project);
+
+// Collapse legacy image-only sections into the `media` shape so the markup
+// below has a single code path. `as const` keeps the discriminated union
+// narrowing intact.
+const normalized = sections.map((s) =>
+  s.media
+    ? s
+    : { ...s, media: { type: 'image' as const, src: s.image!, alt: s.imageAlt! } },
+);
 ---
 
 <Base title={`${title} — Your Name`} description={summary}>
@@ -55,21 +64,53 @@ const { Content } = await render(project);
     </div>
 
     {
-      sections.length > 0 ? (
+      normalized.length > 0 ? (
         <div class="sections">
-          {sections.map((section) => (
+          {normalized.map((section) => (
             <section class="section" data-reveal-group>
               <div class="section__text">
                 <h2>{section.heading}</h2>
                 <p>{section.body}</p>
               </div>
               <div class="section__media">
-                <Image
-                  src={section.image}
-                  alt={section.imageAlt}
-                  widths={[640, 1024, 1280]}
-                  sizes="(max-width: 768px) 100vw, 1190px"
-                />
+                {section.media.type === 'image' && (
+                  <Image
+                    src={section.media.src}
+                    alt={section.media.alt}
+                    widths={[640, 1024, 1280]}
+                    sizes="(max-width: 768px) 100vw, 1190px"
+                  />
+                )}
+
+                {section.media.type === 'gif' && (
+                  /* Plain <img> (NOT astro:assets) so the animation survives. */
+                  <img
+                    src={section.media.src}
+                    alt={section.media.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+
+                {section.media.type === 'video' && (
+                  /* No `autoplay` attr — JS plays it on scroll-in only when
+                     reduced-motion is off. Poster shows for everyone first. */
+                  <video
+                    class="section__video"
+                    poster={section.media.poster.src}
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                    aria-label={section.media.alt}
+                    data-autoplay-video
+                  >
+                    {section.media.webm && (
+                      <source src={section.media.webm} type="video/webm" />
+                    )}
+                    <source src={section.media.mp4} type="video/mp4" />
+                  </video>
+                )}
               </div>
             </section>
           ))}
@@ -145,8 +186,10 @@ const { Content } = await render(project);
     color: var(--color-muted);
     margin: 0;
   }
-  .section__media img {
+  .section__media img,
+  .section__media video {
     width: 100%;
     border-radius: 0;
+    display: block;
   }
 </style>

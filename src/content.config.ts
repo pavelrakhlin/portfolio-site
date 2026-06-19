@@ -21,16 +21,52 @@ const projects = defineCollection({
       // Lower numbers sort first on listing pages.
       order: z.number().default(99),
       draft: z.boolean().default(false),
-      // Alternating text + image sections that make up the case-study body.
-      // Layout alternates image left/right automatically.
+      // Text + media sections that make up the case-study body.
+      // Each section carries ONE media item. Use the `media` object to pick
+      // its type: a static `image` (optimized via astro:assets), an animated
+      // `gif`, or a looping `video`. The legacy `image`/`imageAlt` fields are
+      // still accepted (older projects) and render as a static image.
       sections: z
         .array(
-          z.object({
-            heading: z.string(),
-            body: z.string(),
-            image: image(),
-            imageAlt: z.string(),
-          }),
+          z
+            .object({
+              heading: z.string(),
+              body: z.string(),
+              // Legacy image-only section (kept for existing projects).
+              image: image().optional(),
+              imageAlt: z.string().optional(),
+              // New: one media item per section.
+              //  - image: relative path, optimized + responsive via <Image>.
+              //  - gif:   absolute /public path (e.g. /case-media/foo.gif),
+              //           served verbatim so the animation is preserved.
+              //  - video: absolute /public paths for mp4 (required) + optional
+              //           webm; `poster` is a still frame (optimized image).
+              media: z
+                .discriminatedUnion('type', [
+                  z.object({
+                    type: z.literal('image'),
+                    src: image(),
+                    alt: z.string(),
+                  }),
+                  z.object({
+                    type: z.literal('gif'),
+                    src: z.string(),
+                    alt: z.string(),
+                  }),
+                  z.object({
+                    type: z.literal('video'),
+                    webm: z.string().optional(),
+                    mp4: z.string(),
+                    poster: image(),
+                    alt: z.string(),
+                  }),
+                ])
+                .optional(),
+            })
+            .refine((s) => s.media || (s.image && s.imageAlt), {
+              message:
+                'Section needs a `media` object (image|gif|video) or the legacy `image` + `imageAlt`.',
+            }),
         )
         .default([]),
     }),

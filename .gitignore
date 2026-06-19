@@ -20,5 +20,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# raw incoming materials (briefs, source gifs) — not committed
+_incoming/
+
 # jetbrains setting folder
 .idea/
