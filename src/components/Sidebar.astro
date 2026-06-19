@@ -1,0 +1,308 @@
+---
+import { getProjects } from '../lib/projects';
+
+const projects = await getProjects();
+const path = Astro.url.pathname;
+const onWork = path.startsWith('/work');
+const onContact = path.startsWith('/contact');
+const isCurrent = (href: string) => path === href || path === `${href}/`;
+---
+
+<!-- Mobile top bar: brand + menu toggle. Hidden on desktop. -->
+<div class="topbar">
+  <a href="/" class="topbar__brand">Pavel R</a>
+  <button
+    class="topbar__toggle"
+    aria-expanded="false"
+    aria-controls="sidebar"
+    aria-label="Toggle navigation"
+  >
+    Menu
+  </button>
+</div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar__inner">
+    <a
+      href="/"
+      class="sidebar__brand"
+      aria-current={path === '/' ? 'page' : undefined}>Pavel R</a
+    >
+
+    <nav class="sidebar__nav" aria-label="Primary">
+      <ul class="nav">
+        <li>
+          <details class="group" open={onWork}>
+            <summary>Work</summary>
+            <div class="group__content">
+              <ul class="children">
+                {
+                  projects.map((project) => (
+                    <li>
+                      <a
+                        href={`/work/${project.id}/`}
+                        aria-current={
+                          isCurrent(`/work/${project.id}`) ? 'page' : undefined
+                        }
+                      >
+                        {project.data.title}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </details>
+        </li>
+
+        <li>
+          <a
+            href="/about"
+            class="nav__top"
+            aria-current={path.startsWith('/about') ? 'page' : undefined}
+            >About me</a
+          >
+        </li>
+
+        <li>
+          <details class="group" open={onContact}>
+            <summary>Contact</summary>
+            <div class="group__content">
+              <ul class="children">
+                <li><a href="mailto:pavel_rakhlin@intuit.com">Email</a></li>
+                <li>
+                  <a href="https://www.linkedin.com/" target="_blank" rel="me noopener"
+                    >LinkedIn</a
+                  >
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/" target="_blank" rel="me noopener"
+                    >Instagram</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </details>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
+
+<script>
+  const prefersReduced = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Smoothly animate <details> open/close by tweening the content height.
+  // Falls back to instant toggle under reduced-motion.
+  function setupAccordions() {
+    const groups =
+      document.querySelectorAll<HTMLDetailsElement>('.sidebar .group');
+    groups.forEach((details) => {
+      if (details.dataset.accordion === 'ready') return;
+      details.dataset.accordion = 'ready';
+      const summary = details.querySelector('summary');
+      const content = details.querySelector<HTMLElement>('.group__content');
+      if (!summary || !content) return;
+
+      let animation: Animation | null = null;
+
+      const animateOpen = () => {
+        const end = content.offsetHeight;
+        animation?.cancel();
+        animation = content.animate(
+          { height: ['0px', `${end}px`], opacity: [0, 1] },
+          { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+        );
+        animation.onfinish = () => (animation = null);
+      };
+
+      const animateClose = () => {
+        const start = content.offsetHeight;
+        animation?.cancel();
+        animation = content.animate(
+          { height: [`${start}px`, '0px'], opacity: [1, 0] },
+          { duration: 260, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+        );
+        animation.onfinish = () => {
+          details.open = false;
+          animation = null;
+        };
+      };
+
+      summary.addEventListener('click', (e) => {
+        if (prefersReduced()) return; // native instant toggle
+        e.preventDefault();
+        if (details.open) {
+          animateClose();
+        } else {
+          details.open = true;
+          animateOpen();
+        }
+      });
+    });
+  }
+
+  // Mobile toggle: open/close the sidebar. Closes after navigating.
+  const setupToggle = () => {
+    const btn = document.querySelector<HTMLButtonElement>('.topbar__toggle');
+    const root = document.documentElement;
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const open = root.classList.toggle('nav-open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  };
+
+  const init = () => {
+    setupToggle();
+    setupAccordions();
+  };
+  init();
+  document.addEventListener('astro:page-load', () => {
+    document.documentElement.classList.remove('nav-open');
+    init();
+  });
+</script>
+
+<style>
+  /* ---- Desktop: sticky sidebar inside the padded flex parent ---- */
+  .sidebar {
+    position: sticky;
+    top: 75px;
+    flex: 0 0 var(--sidebar-width);
+    width: var(--sidebar-width);
+    align-self: flex-start;
+    max-height: calc(100vh - 150px);
+    background: var(--color-bg);
+    overflow-y: auto;
+    z-index: 20;
+  }
+  .sidebar__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .sidebar__brand {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+  .sidebar__brand[aria-current='page'] {
+    color: var(--color-accent);
+  }
+
+  .nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav > li {
+    margin-bottom: var(--space-3);
+  }
+
+  /* Top-level items (both <summary> and plain links) share one look. */
+  .group > summary,
+  .nav__top {
+    display: block;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    cursor: pointer;
+    list-style: none; /* hide default disclosure triangle */
+    transition: color 0.2s var(--ease);
+  }
+  .group > summary::-webkit-details-marker {
+    display: none;
+  }
+  .group > summary:hover,
+  .nav__top:hover {
+    color: var(--color-accent);
+    opacity: 1;
+  }
+  .nav__top[aria-current='page'] {
+    color: var(--color-accent);
+  }
+
+  .group[open] > summary {
+    color: var(--color-accent);
+  }
+
+  .group__content {
+    overflow: hidden;
+  }
+  .children {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-4);
+  }
+  .children li {
+    margin-bottom: var(--space-2);
+  }
+  .children a {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    transition: color 0.2s var(--ease);
+  }
+  .children a:hover {
+    color: var(--color-text);
+    opacity: 1;
+  }
+  .children a[aria-current='page'] {
+    color: var(--color-accent);
+  }
+
+  /* ---- Mobile top bar ---- */
+  .topbar {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-6);
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(10px);
+  }
+  .topbar__brand {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .topbar__toggle {
+    font: inherit;
+    font-size: var(--text-sm);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-1) var(--space-3);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  @media (max-width: 60rem) {
+    .topbar {
+      display: flex;
+    }
+    .sidebar {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      max-height: none;
+      transform: translateX(-100%);
+      transition: transform 0.3s var(--ease);
+    }
+    .sidebar__inner {
+      padding: var(--space-12) var(--space-6) var(--space-6);
+    }
+    :global(.nav-open) .sidebar {
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sidebar {
+      transition: none;
+    }
+  }
+</style>

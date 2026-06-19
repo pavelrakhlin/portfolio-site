@@ -7,63 +7,54 @@ const featured = await getFeaturedProjects();
 ---
 
 <Base title="Your Name — Designer">
-  <section class="container intro">
-    <p class="eyebrow" data-reveal>Designer · Portfolio</p>
-    <h1 data-reveal>
-      I design clear, human interfaces for products people rely on.
-    </h1>
-    <p class="intro__lede muted" data-reveal>
-      Selected case studies below. I care about the details — and about the
-      story behind each decision.
-    </p>
-  </section>
-
-  <section class="container">
-    <div class="section-head">
-      <h2>Selected work</h2>
-      <a href="/work">View all →</a>
-    </div>
+  <div class="container">
+    <section class="intro">
+      <h1 data-reveal>
+        I design clear, human interfaces for products people rely on.
+      </h1>
+      <p class="intro__lede muted" data-reveal>
+        Selected work is in the sidebar. I care about the details — and about
+        the story behind each decision.
+      </p>
+    </section>
 
     {
-      featured.length > 0 ? (
-        <div class="grid" data-reveal-group>
-          {featured.map((project) => (
-            <ProjectCard project={project} />
-          ))}
-        </div>
-      ) : (
-        <p class="muted">
-          No featured projects yet. Add one in <code>src/content/projects/</code>{' '}
-          and set <code>featured: true</code>.
-        </p>
+      featured.length > 0 && (
+        <section class="featured">
+          <p class="section-label">Selected</p>
+          <div class="grid" data-reveal-group>
+            {featured.map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        </section>
       )
     }
-  </section>
+  </div>
 </Base>
 
 <style>
   .intro {
-    padding-block: var(--space-24) var(--space-16);
-    max-width: var(--max-width-prose);
+    max-width: 36rem;
+    margin-bottom: var(--space-16);
   }
   .intro h1 {
-    margin-block: var(--space-4);
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-6);
   }
   .intro__lede {
     font-size: var(--text-lg);
   }
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: var(--space-8);
-  }
-  .section-head h2 {
-    margin: 0;
+  .section-label {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin-bottom: var(--space-6);
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--space-8);
   }
 </style>

@@ -1,7 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -55,11 +54,12 @@ const ogImageUrl = ogImage
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
-    <Header />
-    <main id="main">
-      <slot />
-    </main>
-    <Footer />
+    <div class="app-shell">
+      <Sidebar />
+      <main id="main" class="app-content">
+        <slot />
+      </main>
+    </div>
 
     <script>
       import { initReveal } from '../scripts/reveal';
@@ -69,6 +69,25 @@ const ogImageUrl = ogImage
     </script>
 
     <style>
+      /* Single padded parent: 75px frame wraps the nav + content row. */
+      .app-shell {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-12);
+        padding: 75px;
+        min-height: 100vh;
+      }
+      .app-content {
+        flex: 1;
+        min-width: 0;
+      }
+      @media (max-width: 60rem) {
+        .app-shell {
+          display: block;
+          padding: 0;
+        }
+      }
+
       .skip-link {
         position: absolute;
         left: -9999px;

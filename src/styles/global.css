@@ -12,9 +12,8 @@
   --color-accent-contrast: #ffffff;
 
   /* Typography */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif;
-  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   /* Modular type scale (1.25) */
   --text-xs: 0.8rem;
@@ -38,8 +37,9 @@
   --space-24: 6rem;
 
   /* Layout */
-  --max-width: 68rem;
+  --max-width: 60rem;
   --max-width-prose: 42rem;
+  --sidebar-width: 17rem;
   --radius: 10px;
 
   /* Motion */
@@ -125,8 +125,12 @@ img {
 .container {
   width: 100%;
   max-width: var(--max-width);
-  margin-inline: auto;
-  padding-inline: var(--space-6);
+  margin-inline: 0;
+}
+@media (max-width: 60rem) {
+  .container {
+    padding: var(--space-6);
+  }
 }
 
 .prose {

@@ -10,12 +10,12 @@ const projects = await getProjects();
   title="Work — Your Name"
   description="A complete list of case studies and selected projects."
 >
-  <section class="container page-head">
-    <h1 data-reveal>Work</h1>
-    <p class="muted" data-reveal>{projects.length} case studies.</p>
-  </section>
+  <div class="container">
+    <section class="page-head">
+      <h1 data-reveal>Work</h1>
+      <p class="muted" data-reveal>{projects.length} case studies.</p>
+    </section>
 
-  <section class="container">
     {
       projects.length > 0 ? (
         <div class="grid" data-reveal-group>
@@ -27,12 +27,12 @@ const projects = await getProjects();
         <p class="muted">No projects yet.</p>
       )
     }
-  </section>
+  </div>
 </Base>
 
 <style>
   .page-head {
-    padding-block: var(--space-16) var(--space-8);
+    margin-bottom: var(--space-8);
   }
   .grid {
     display: grid;
