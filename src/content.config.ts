@@ -21,6 +21,18 @@ const projects = defineCollection({
       // Lower numbers sort first on listing pages.
       order: z.number().default(99),
       draft: z.boolean().default(false),
+      // Alternating text + image sections that make up the case-study body.
+      // Layout alternates image left/right automatically.
+      sections: z
+        .array(
+          z.object({
+            heading: z.string(),
+            body: z.string(),
+            image: image(),
+            imageAlt: z.string(),
+          }),
+        )
+        .default([]),
     }),
 });
 

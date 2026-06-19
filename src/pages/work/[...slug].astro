@@ -13,29 +13,38 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, summary, role, year, tags, cover, coverAlt } = project.data;
+const { title, summary, role, year, tags, cover, coverAlt, sections } =
+  project.data;
 const { Content } = await render(project);
 ---
 
 <Base title={`${title} — Your Name`} description={summary}>
   <article class="container">
     <header class="case-head">
-      <a href="/work" class="back" data-reveal>← Back to work</a>
-      <p class="eyebrow" data-reveal>{role} · {year}</p>
       <h1 data-reveal>{title}</h1>
       <p class="case-head__summary muted" data-reveal>{summary}</p>
-      {
-        tags.length > 0 && (
-          <ul class="tags" data-reveal>
-            {tags.map((tag) => (
-              <li>{tag}</li>
-            ))}
-          </ul>
-        )
-      }
+
+      <dl class="info-row" data-reveal>
+        <div class="info-row__item">
+          <dt>Role</dt>
+          <dd>{role}</dd>
+        </div>
+        {
+          tags.length > 0 && (
+            <div class="info-row__item">
+              <dt>Discipline</dt>
+              <dd>{tags.join(', ')}</dd>
+            </div>
+          )
+        }
+        <div class="info-row__item">
+          <dt>Year</dt>
+          <dd>{year}</dd>
+        </div>
+      </dl>
     </header>
 
-    <div class="case-hero">
+    <div class="case-hero" data-reveal>
       <Image
         src={cover}
         alt={coverAlt}
@@ -45,48 +54,99 @@ const { Content } = await render(project);
       />
     </div>
 
-    <div class="prose case-body">
-      <Content />
-    </div>
+    {
+      sections.length > 0 ? (
+        <div class="sections">
+          {sections.map((section) => (
+            <section class="section" data-reveal-group>
+              <div class="section__text">
+                <h2>{section.heading}</h2>
+                <p>{section.body}</p>
+              </div>
+              <div class="section__media">
+                <Image
+                  src={section.image}
+                  alt={section.imageAlt}
+                  widths={[640, 1024, 1280]}
+                  sizes="(max-width: 768px) 100vw, 1190px"
+                />
+              </div>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <div class="prose case-body">
+          <Content />
+        </div>
+      )
+    }
   </article>
 </Base>
 
 <style>
   .case-head {
-    margin-bottom: var(--space-8);
-    max-width: var(--max-width-prose);
-  }
-  .back {
-    font-size: var(--text-sm);
-    color: var(--color-muted);
+    margin-bottom: var(--space-12);
   }
   .case-head h1 {
-    margin-block: var(--space-4) var(--space-3);
+    margin-bottom: var(--space-3);
   }
   .case-head__summary {
     font-size: var(--text-lg);
+    max-width: var(--max-width-prose);
+    margin-bottom: var(--space-8);
   }
-  .tags {
+
+  /* Info row: Role · Discipline · Year */
+  .info-row {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2);
-    list-style: none;
-    padding: 0;
-    margin-top: var(--space-6);
+    gap: var(--space-12);
+    margin: 0;
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
   }
-  .tags li {
+  .info-row__item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+  .info-row dt {
     font-size: var(--text-xs);
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    padding: var(--space-1) var(--space-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--color-muted);
   }
+  .info-row dd {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
   .case-hero img {
     width: 100%;
-    border-radius: var(--radius);
+    border-radius: 0;
     margin-bottom: var(--space-16);
   }
-  .case-body {
-    margin-inline: auto;
+
+  /* Stacked text + full-width image sections */
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+  .section__text {
+    max-width: var(--max-width-prose);
+    margin-bottom: var(--space-8);
+  }
+  .section__text h2 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+  .section__text p {
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .section__media img {
+    width: 100%;
+    border-radius: 0;
   }
 </style>

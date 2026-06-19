@@ -8,7 +8,7 @@ const onContact = path.startsWith('/contact');
 const isCurrent = (href: string) => path === href || path === `${href}/`;
 ---
 
-<!-- Mobile top bar: brand + menu toggle. Hidden on desktop. -->
+<!-- Mobile top bar: brand + hamburger toggle. Hidden on desktop. -->
 <div class="topbar">
   <a href="/" class="topbar__brand">Pavel R</a>
   <button
@@ -17,7 +17,7 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     aria-controls="sidebar"
     aria-label="Toggle navigation"
   >
-    Menu
+    <span class="topbar__bars" aria-hidden="true"></span>
   </button>
 </div>
 
@@ -143,11 +143,13 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     });
   }
 
-  // Mobile toggle: open/close the sidebar. Closes after navigating.
+  // Mobile toggle: open/close the sidebar. Guarded so the listener is only
+  // attached once even though init() re-runs after each View Transition.
   const setupToggle = () => {
     const btn = document.querySelector<HTMLButtonElement>('.topbar__toggle');
     const root = document.documentElement;
-    if (!btn) return;
+    if (!btn || btn.dataset.toggle === 'ready') return;
+    btn.dataset.toggle = 'ready';
     btn.addEventListener('click', () => {
       const open = root.classList.toggle('nav-open');
       btn.setAttribute('aria-expanded', String(open));
@@ -185,7 +187,7 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
   }
 
   .sidebar__brand {
-    font-size: var(--text-base);
+    font-size: 1rem;
     font-weight: 700;
     color: var(--color-text);
     line-height: 1.2;
@@ -207,7 +209,8 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
   .group > summary,
   .nav__top {
     display: block;
-    font-size: var(--text-base);
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--color-text);
     cursor: pointer;
     list-style: none; /* hide default disclosure triangle */
@@ -241,7 +244,8 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     margin-bottom: var(--space-2);
   }
   .children a {
-    font-size: var(--text-base);
+    font-size: 1rem;
+    font-weight: 400;
     color: var(--color-muted);
     transition: color 0.2s var(--ease);
   }
@@ -270,17 +274,53 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     color: var(--color-text);
   }
   .topbar__toggle {
-    font: inherit;
-    font-size: var(--text-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     background: none;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: var(--space-1) var(--space-3);
+    border: none;
+    padding: 0;
     color: var(--color-text);
     cursor: pointer;
   }
+  /* Hamburger: middle bar + ::before/::after for top & bottom. */
+  .topbar__bars,
+  .topbar__bars::before,
+  .topbar__bars::after {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-text);
+    transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+  }
+  .topbar__bars {
+    position: relative;
+  }
+  .topbar__bars::before {
+    position: absolute;
+    top: -7px;
+  }
+  .topbar__bars::after {
+    position: absolute;
+    top: 7px;
+  }
+  /* Animate to an X when the nav is open. */
+  :global(.nav-open) .topbar__bars {
+    background: transparent;
+  }
+  :global(.nav-open) .topbar__bars::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+  :global(.nav-open) .topbar__bars::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
 
-  @media (max-width: 60rem) {
+  @media (max-width: 768px) {
     .topbar {
       display: flex;
     }

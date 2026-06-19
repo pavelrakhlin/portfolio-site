@@ -6,25 +6,29 @@ year: 2024
 tags:
   - Product Design
   - Information Architecture
-cover: ../../assets/sample-cover.png
-coverAlt: Placeholder gradient cover image for the second example project.
+cover: ../../assets/cover-placeholder.png
+coverAlt: Placeholder cover image for the second example project.
 featured: true
 order: 2
+sections:
+  - heading: The problem
+    body: >-
+      Placeholder copy describing the challenge. Replace with the real context,
+      the users affected, and the evidence that framed the work.
+    image: ../../assets/placeholder-1.png
+    imageAlt: Placeholder image for the second project's problem section.
+  - heading: Approach
+    body: >-
+      Placeholder copy describing the process and the key decisions. Swap in
+      your explorations, sketches, and rationale.
+    image: ../../assets/placeholder-2.png
+    imageAlt: Placeholder image for the second project's approach section.
+  - heading: Outcome
+    body: >-
+      Placeholder copy summarizing results and impact. Add metrics or
+      qualitative wins here.
+    image: ../../assets/placeholder-3.png
+    imageAlt: Placeholder image for the second project's outcome section.
 ---
 
-## Overview
-
-A second placeholder case study. Replace this with a real project — copy the
-file, swap the cover image, and update the frontmatter.
-
-## The problem
-
-Describe the challenge and who it affected.
-
-## Approach
-
-Walk through your process and the trade-offs you made.
-
-## Outcome
-
-Close with results.
+Fallback body used only when a project defines no `sections`.

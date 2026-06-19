@@ -6,24 +6,29 @@ year: 2023
 tags:
   - Design Systems
   - Components
-cover: ../../assets/sample-cover.png
-coverAlt: Placeholder gradient cover image for the third example project.
+cover: ../../assets/cover-placeholder.png
+coverAlt: Placeholder cover image for the third example project.
 featured: false
 order: 3
+sections:
+  - heading: The problem
+    body: >-
+      Placeholder copy describing inconsistency across the product and the cost
+      it imposed on the team. Replace with your real framing.
+    image: ../../assets/placeholder-1.png
+    imageAlt: Placeholder image for the third project's problem section.
+  - heading: Approach
+    body: >-
+      Placeholder copy describing how the tokens, components, and documentation
+      came together. Swap in your real process.
+    image: ../../assets/placeholder-2.png
+    imageAlt: Placeholder image for the third project's approach section.
+  - heading: Outcome
+    body: >-
+      Placeholder copy summarizing adoption and the consistency gains. Add real
+      results here.
+    image: ../../assets/placeholder-3.png
+    imageAlt: Placeholder image for the third project's outcome section.
 ---
 
-## Overview
-
-A third placeholder case study. Replace this with a real project.
-
-## The problem
-
-Describe the challenge and who it affected.
-
-## Approach
-
-Walk through your process and the trade-offs you made.
-
-## Outcome
-
-Close with results.
+Fallback body used only when a project defines no `sections`.

@@ -73,15 +73,17 @@ const ogImageUrl = ogImage
       .app-shell {
         display: flex;
         align-items: flex-start;
-        gap: var(--space-12);
+        gap: 60px;
         padding: 75px;
         min-height: 100vh;
+        max-width: var(--max-width);
+        margin-inline: auto;
       }
       .app-content {
         flex: 1;
         min-width: 0;
       }
-      @media (max-width: 60rem) {
+      @media (max-width: 768px) {
         .app-shell {
           display: block;
           padding: 0;
