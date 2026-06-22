@@ -221,7 +221,7 @@ img {
 .lightbox__backdrop {
   position: absolute;
   inset: 0;
-  background: rgb(10 10 10 / 0.92); /* dark scrim in both light and dark mode */
+  background: rgb(10 10 10 / 0.6); /* semi-transparent scrim, both themes */
 }
 .lightbox__figure {
   position: relative;
@@ -277,19 +277,41 @@ img {
 .lightbox__btn[hidden] {
   display: none;
 }
-.lightbox__prev {
-  left: var(--space-4);
-  top: 50%;
-  transform: translateY(-50%);
+
+/* Visually-hidden but focusable + screen-reader announced. Keyboard users
+   Tab to these; mouse users navigate via the image hover zones instead. */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
-.lightbox__next {
-  right: var(--space-4);
-  top: 50%;
-  transform: translateY(-50%);
-}
-.lightbox__close {
+/* When focused via keyboard, surface the control so the focus ring is visible. */
+.lightbox__btn.sr-only:focus-visible {
+  position: fixed !important;
+  width: auto;
+  height: auto;
+  min-width: 44px;
+  min-height: 44px;
+  clip: auto;
+  margin: 0;
   top: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.lightbox__prev.sr-only:focus-visible {
+  left: var(--space-4);
+  transform: none;
+}
+.lightbox__next.sr-only:focus-visible {
+  left: auto;
   right: var(--space-4);
+  transform: none;
 }
 
 /* ============================================================
@@ -313,9 +335,8 @@ img {
   top: 0;
   left: 0;
   z-index: 90; /* above the lightbox; JS suppresses it inside the open overlay */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 56px;
+  height: 56px;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s var(--ease);
@@ -323,36 +344,46 @@ img {
 .cursor-dot.is-active {
   opacity: 1;
 }
+/* The dot only appears over media (or inside the open lightbox), so the ring
+   is shown at full size whenever active — no separate grow state.
+   Fill is translucent; opacity chosen so the icon keeps WCAG AA contrast over
+   any image content in both light and dark mode (see note below). */
 .cursor-dot__ring {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  inset: 0;
   border-radius: 50%;
   background: var(--color-accent);
-  /* Grow via width/height (not transform:scale) so the sibling + never scales. */
-  transition: width 0.2s var(--ease), height 0.2s var(--ease);
+  opacity: 0.75;
 }
-.cursor-dot.is-grown .cursor-dot__ring {
-  width: 56px;
-  height: 56px;
-}
-.cursor-dot__plus {
-  position: relative;
+/* One glyph per state; reveal the one matching data-icon. Each glyph fills the
+   dot and is geometrically centered, so every state (+, ×, ‹, ›) sits dead
+   center at an identical size regardless of the character's own metrics. */
+.cursor-dot__glyph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
-  font-size: 18px; /* fixed — independent of the ring's size */
+  font-size: 30px;
   line-height: 1;
   color: var(--color-accent-contrast);
   opacity: 0;
-  transition: opacity 0.15s var(--ease);
 }
-.cursor-dot.is-grown .cursor-dot__plus {
+.cursor-dot[data-icon='plus'] .cursor-dot__glyph[data-glyph='plus'],
+.cursor-dot[data-icon='close'] .cursor-dot__glyph[data-glyph='close'],
+.cursor-dot[data-icon='prev'] .cursor-dot__glyph[data-glyph='prev'],
+.cursor-dot[data-icon='next'] .cursor-dot__glyph[data-glyph='next'] {
   opacity: 1;
 }
 
-/* Hide the OS cursor only over eligible media, on fine pointers. */
+/* Hide the OS cursor only over eligible media (and the open lightbox image),
+   on fine pointers, so the custom dot stands in for it. */
 @media (hover: hover) and (pointer: fine) {
   .media-trigger,
-  .media-trigger * {
+  .media-trigger *,
+  .lightbox__figure,
+  .lightbox__figure * {
     cursor: none;
   }
 }
@@ -370,7 +401,7 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .cursor-dot,
   .cursor-dot__ring,
-  .cursor-dot__plus,
+  .cursor-dot__glyph,
   .lightbox,
   .lightbox__img {
     transition: none !important;

@@ -56,14 +56,18 @@ function buildOverlay(): void {
   overlay.setAttribute('aria-modal', 'true');
   overlay.setAttribute('aria-label', 'Image viewer');
   overlay.hidden = true;
+  // The visible navigation is the figure itself (left/right 20% = prev/next,
+  // middle = close — driven by the custom cursor zones). The buttons below are
+  // visually hidden (.sr-only) but stay focusable + announced so keyboard and
+  // screen-reader users can navigate.
   overlay.innerHTML = `
     <div class="lightbox__backdrop" data-lb-close></div>
     <figure class="lightbox__figure">
       <img class="lightbox__img" alt="" />
     </figure>
-    <button class="lightbox__btn lightbox__prev" type="button" aria-label="Previous image">&#8249;</button>
-    <button class="lightbox__btn lightbox__next" type="button" aria-label="Next image">&#8250;</button>
-    <button class="lightbox__btn lightbox__close" type="button" aria-label="Close image viewer" data-lb-close>&#215;</button>
+    <button class="lightbox__btn sr-only lightbox__prev" type="button" aria-label="Previous image">&#8249;</button>
+    <button class="lightbox__btn sr-only lightbox__next" type="button" aria-label="Next image">&#8250;</button>
+    <button class="lightbox__btn sr-only lightbox__close" type="button" aria-label="Close image viewer" data-lb-close>&#215;</button>
     <p class="lightbox__counter" aria-live="polite"></p>`;
   document.body.appendChild(overlay);
 
@@ -72,9 +76,19 @@ function buildOverlay(): void {
   prevBtn = overlay.querySelector('.lightbox__prev')!;
   nextBtn = overlay.querySelector('.lightbox__next')!;
   closeBtn = overlay.querySelector('.lightbox__close')!;
+  const figure = overlay.querySelector<HTMLElement>('.lightbox__figure')!;
 
   prevBtn.addEventListener('click', () => go(-1));
   nextBtn.addEventListener('click', () => go(+1));
+  // Click the image by zone: left 20% → prev, right 20% → next, middle → close.
+  figure.addEventListener('click', (e) => {
+    const r = figure.getBoundingClientRect();
+    const zone = (e.clientX - r.left) / r.width;
+    const multi = state.triggers.length > 1;
+    if (multi && zone < 0.2) go(-1);
+    else if (multi && zone > 0.8) go(+1);
+    else close();
+  });
   overlay.addEventListener('click', (e) => {
     if ((e.target as HTMLElement).hasAttribute('data-lb-close')) close();
   });
@@ -212,44 +226,59 @@ export function initCursor(): void {
     cursorEl = document.createElement('div');
     cursorEl.className = 'cursor-dot';
     cursorEl.setAttribute('aria-hidden', 'true');
-    cursorEl.innerHTML =
-      '<span class="cursor-dot__ring"></span><span class="cursor-dot__plus">+</span>';
+    // One ring + a glyph per state; CSS reveals the glyph that matches
+    // the current data-icon. Carets/× are entities so they don't depend on
+    // an icon font.
+    cursorEl.innerHTML = `
+      <span class="cursor-dot__ring"></span>
+      <span class="cursor-dot__glyph" data-glyph="plus">+</span>
+      <span class="cursor-dot__glyph" data-glyph="close">&#215;</span>
+      <span class="cursor-dot__glyph" data-glyph="prev">&#8249;</span>
+      <span class="cursor-dot__glyph" data-glyph="next">&#8250;</span>`;
     document.body.appendChild(cursorEl);
   }
 
   if (cursorBound) return;
   cursorBound = true;
 
-  const reduced = REDUCED();
-  let targetX = 0;
-  let targetY = 0;
-  let renderX = 0;
-  let renderY = 0;
-
+  // Snap the dot directly to the pointer — no follow-lag. The dot only shows
+  // over media, where any lag reads as the indicator "trailing" the cursor.
   const place = (x: number, y: number) => {
     cursorEl!.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
   };
 
-  const loop = () => {
-    renderX += (targetX - renderX) * 0.2;
-    renderY += (targetY - renderY) * 0.2;
-    place(renderX, renderY);
-    requestAnimationFrame(loop);
+  // Which icon/state for the current pointer position.
+  //   - lightbox open: caret in the left/right 20% of the image, else close
+  //   - over a thumbnail: plus
+  //   - otherwise: hidden (OS cursor shows)
+  const resolve = (target: HTMLElement, x: number): string | null => {
+    if (state.open) {
+      const fig = overlay?.querySelector<HTMLElement>('.lightbox__figure');
+      if (fig && fig.contains(target)) {
+        const r = fig.getBoundingClientRect();
+        const zone = (x - r.left) / r.width;
+        const multi = state.triggers.length > 1;
+        if (multi && zone < 0.2) return 'prev';
+        if (multi && zone > 0.8) return 'next';
+        return 'close';
+      }
+      return null; // over backdrop/chrome → normal cursor
+    }
+    return target.closest(TRIGGER_SELECTOR) ? 'plus' : null;
   };
 
   window.addEventListener('mousemove', (e) => {
-    targetX = e.clientX;
-    targetY = e.clientY;
-    if (reduced) place(targetX, targetY); // snap, no follow-lag
-    cursorEl!.classList.add('is-active');
-    const overMedia = !!(e.target as HTMLElement).closest(TRIGGER_SELECTOR);
-    // Suppress the affordance inside the open lightbox (no re-open there).
-    cursorEl!.classList.toggle('is-grown', overMedia && !state.open);
+    place(e.clientX, e.clientY);
+    const icon = resolve(e.target as HTMLElement, e.clientX);
+    if (icon) {
+      cursorEl!.dataset.icon = icon;
+      cursorEl!.classList.add('is-active');
+    } else {
+      cursorEl!.classList.remove('is-active');
+    }
   });
 
   window.addEventListener('mouseleave', () =>
     cursorEl!.classList.remove('is-active'),
   );
-
-  if (!reduced) requestAnimationFrame(loop);
 }
