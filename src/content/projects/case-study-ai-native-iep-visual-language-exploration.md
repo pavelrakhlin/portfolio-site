@@ -1,5 +1,5 @@
 ---
-title: AI Native IEP — Design Language Rebrand
+title: AI Native Design Language Exploration
 summary: Defining a new visual and interaction language for an AI-first expert platform — fluid, anticipatory, and human by design.
 role: Product Designer
 year: 2026
@@ -8,7 +8,7 @@ tags:
   - Brand & Identity
   - Motion
   - AI-Native UX
-cover: ../../assets/cover-placeholder.png
+cover: ../../assets/case-study-AI-Native-IEP-visual-language-exploration/hero-neo-mind.png
 coverAlt: PLACEHOLDER — replace with the AI Native IEP hero/key-art frame from Figma.
 featured: true
 order: 1
@@ -24,7 +24,7 @@ sections:
       challenge: codify that vision into a design language that feels alive,
       intelligent, and distinctly AI-native — not as a theme or aesthetic, but
       as a philosophy of interaction.
-    image: ../../assets/placeholder-1.png
+    image: ../../assets/case-study-ai-native-iep-visual-language-exploration/hero-neo-mind.png
     imageAlt: PLACEHOLDER — before/after or a frame contrasting the old static UI with the new fluid interface.
   - heading: Principles as a foundation
     body: >-
