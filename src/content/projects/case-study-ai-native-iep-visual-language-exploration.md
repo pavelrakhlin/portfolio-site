@@ -24,8 +24,11 @@ sections:
       challenge: codify that vision into a design language that feels alive,
       intelligent, and distinctly AI-native — not as a theme or aesthetic, but
       as a philosophy of interaction.
-    image: ../../assets/case-study-ai-native-iep-visual-language-exploration/hero-neo-mind.png
-    imageAlt: PLACEHOLDER — before/after or a frame contrasting the old static UI with the new fluid interface.
+    media:
+      type: video
+      mp4: /case-media/ai-native-iep-arc-1.mp4
+      poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/test-screen.png
+      alt: The four design principles laid out as an animated arc diagram.
   - heading: Principles as a foundation
     body: >-
       Four principles grounded every decision. Deliver an outcome, not just an
