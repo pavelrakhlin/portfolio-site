@@ -12,7 +12,7 @@ cover: ../../assets/case-study-ai-native-iep-visual-language-exploration/hero-ne
 coverAlt: PLACEHOLDER — replace with the AI Native IEP hero/key-art frame from Figma.
 featured: true
 order: 1
-draft: true
+draft: false
 sections:
   - heading: The shift
     body: >-

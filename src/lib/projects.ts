@@ -8,7 +8,7 @@ const byOrderThenYear = (
 /** All non-draft projects, sorted. Drafts are hidden in production builds. */
 export async function getProjects() {
   const all = await getCollection('projects', ({ data }) =>
-    import.meta.env.PROD ? !data.draft : true,
+    import.meta.env.PROD ? !data.draft : false,
   );
   return all.sort(byOrderThenYear);
 }
