@@ -54,13 +54,20 @@ const normalized = sections.map((s) =>
     </header>
 
     <div class="case-hero" data-reveal>
-      <Image
-        src={cover}
-        alt={coverAlt}
-        widths={[640, 1024, 1600]}
-        sizes="(max-width: 1088px) 100vw, 1088px"
-        transition:name={`cover-${project.id}`}
-      />
+      <button
+        class="media-trigger"
+        data-lightbox
+        data-alt={coverAlt}
+        aria-label={`Enlarge image: ${coverAlt}`}
+      >
+        <Image
+          src={cover}
+          alt={coverAlt}
+          widths={[640, 1024, 1600]}
+          sizes="(max-width: 1088px) 100vw, 1088px"
+          transition:name={`cover-${project.id}`}
+        />
+      </button>
     </div>
 
     {
@@ -74,22 +81,36 @@ const normalized = sections.map((s) =>
               </div>
               <div class="section__media">
                 {section.media.type === 'image' && (
-                  <Image
-                    src={section.media.src}
-                    alt={section.media.alt}
-                    widths={[640, 1024, 1280]}
-                    sizes="(max-width: 768px) 100vw, 1190px"
-                  />
+                  <button
+                    class="media-trigger"
+                    data-lightbox
+                    data-alt={section.media.alt}
+                    aria-label={`Enlarge image: ${section.media.alt}`}
+                  >
+                    <Image
+                      src={section.media.src}
+                      alt={section.media.alt}
+                      widths={[640, 1024, 1280]}
+                      sizes="(max-width: 768px) 100vw, 1190px"
+                    />
+                  </button>
                 )}
 
                 {section.media.type === 'gif' && (
                   /* Plain <img> (NOT astro:assets) so the animation survives. */
-                  <img
-                    src={section.media.src}
-                    alt={section.media.alt}
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  <button
+                    class="media-trigger"
+                    data-lightbox
+                    data-alt={section.media.alt}
+                    aria-label={`Enlarge image: ${section.media.alt}`}
+                  >
+                    <img
+                      src={section.media.src}
+                      alt={section.media.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </button>
                 )}
 
                 {section.media.type === 'video' && (
@@ -160,6 +181,19 @@ const normalized = sections.map((s) =>
   .info-row dd {
     margin: 0;
     font-size: var(--text-sm);
+  }
+
+  /* Layout-neutral button wrapper so media stays clickable + keyboard-
+     accessible without changing how it renders. */
+  .media-trigger {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
   }
 
   .case-hero img {

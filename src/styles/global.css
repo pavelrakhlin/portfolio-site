@@ -203,3 +203,176 @@ img {
     transform: none !important;
   }
 }
+
+/* ============================================================
+   Lightbox overlay (built by src/scripts/lightbox.ts)
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox[hidden] {
+  display: none;
+}
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(10 10 10 / 0.92); /* dark scrim in both light and dark mode */
+}
+.lightbox__figure {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: 92vw;
+  max-height: 88vh;
+}
+.lightbox__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 88vh;
+  box-shadow: 0 24px 80px -20px rgb(0 0 0 / 0.6);
+}
+.lightbox__counter {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin: 0;
+  color: #fff;
+  font-size: var(--text-sm);
+  opacity: 0.85;
+}
+.lightbox__btn {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s var(--ease);
+}
+.lightbox__btn:hover {
+  background: rgb(255 255 255 / 0.22);
+}
+.lightbox__btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.lightbox__btn[hidden] {
+  display: none;
+}
+.lightbox__prev {
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lightbox__next {
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lightbox__close {
+  top: var(--space-4);
+  right: var(--space-4);
+}
+
+/* ============================================================
+   Media trigger reset (global; complements the scoped rule)
+   ============================================================ */
+.media-trigger {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* ============================================================
+   Custom cursor (pointer devices only — JS guards creation)
+   ============================================================ */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90; /* above the lightbox; JS suppresses it inside the open overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+.cursor-dot.is-active {
+  opacity: 1;
+}
+.cursor-dot__ring {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  /* Grow via width/height (not transform:scale) so the sibling + never scales. */
+  transition: width 0.2s var(--ease), height 0.2s var(--ease);
+}
+.cursor-dot.is-grown .cursor-dot__ring {
+  width: 56px;
+  height: 56px;
+}
+.cursor-dot__plus {
+  position: relative;
+  z-index: 1;
+  font-size: 18px; /* fixed — independent of the ring's size */
+  line-height: 1;
+  color: var(--color-accent-contrast);
+  opacity: 0;
+  transition: opacity 0.15s var(--ease);
+}
+.cursor-dot.is-grown .cursor-dot__plus {
+  opacity: 1;
+}
+
+/* Hide the OS cursor only over eligible media, on fine pointers. */
+@media (hover: hover) and (pointer: fine) {
+  .media-trigger,
+  .media-trigger * {
+    cursor: none;
+  }
+}
+
+/* Touch / coarse pointers: no custom cursor; normal taps. */
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot {
+    display: none !important;
+  }
+  .media-trigger {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-dot__ring,
+  .cursor-dot__plus,
+  .lightbox,
+  .lightbox__img {
+    transition: none !important;
+  }
+}
