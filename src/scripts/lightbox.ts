@@ -226,15 +226,20 @@ export function initCursor(): void {
     cursorEl = document.createElement('div');
     cursorEl.className = 'cursor-dot';
     cursorEl.setAttribute('aria-hidden', 'true');
-    // One ring + a glyph per state; CSS reveals the glyph that matches
-    // the current data-icon. Carets/× are entities so they don't depend on
-    // an icon font.
-    cursorEl.innerHTML = `
-      <span class="cursor-dot__ring"></span>
-      <span class="cursor-dot__glyph" data-glyph="plus">+</span>
-      <span class="cursor-dot__glyph" data-glyph="close">&#215;</span>
-      <span class="cursor-dot__glyph" data-glyph="prev">&#8249;</span>
-      <span class="cursor-dot__glyph" data-glyph="next">&#8250;</span>`;
+    // One ring + a glyph per state; CSS reveals the glyph matching the current
+    // data-icon. Icons are inline SVGs (not font characters) so each is drawn
+    // symmetrically around the viewBox center — guaranteeing perfect centering
+    // and identical sizing across all four states.
+    const glyph = (name: string, paths: string) =>
+      `<svg class="cursor-dot__glyph" data-glyph="${name}" viewBox="0 0 24 24" ` +
+      `fill="none" stroke="currentColor" stroke-width="2" ` +
+      `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+    cursorEl.innerHTML =
+      `<span class="cursor-dot__ring"></span>` +
+      glyph('plus', '<path d="M12 5v14M5 12h14" />') +
+      glyph('close', '<path d="M6 6l12 12M18 6L6 18" />') +
+      glyph('prev', '<path d="M15 5l-7 7 7 7" />') +
+      glyph('next', '<path d="M9 5l7 7-7 7" />');
     document.body.appendChild(cursorEl);
   }
 

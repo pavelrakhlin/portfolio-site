@@ -355,18 +355,17 @@ img {
   background: var(--color-accent);
   opacity: 0.75;
 }
-/* One glyph per state; reveal the one matching data-icon. Each glyph fills the
-   dot and is geometrically centered, so every state (+, ×, ‹, ›) sits dead
-   center at an identical size regardless of the character's own metrics. */
+/* One glyph per state; reveal the one matching data-icon. Inline SVGs drawn
+   symmetrically around their viewBox center, sized identically and centered in
+   the dot — so every state (+, ×, ‹, ›) sits dead center at the same size. */
 .cursor-dot__glyph {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
   z-index: 1;
-  font-size: 30px;
-  line-height: 1;
   color: var(--color-accent-contrast);
   opacity: 0;
 }
