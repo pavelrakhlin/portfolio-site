@@ -39,6 +39,7 @@ const state: LBState = { open: false, index: 0, triggers: [], lastFocus: null };
 
 let overlay: HTMLElement | null = null;
 let imgEl: HTMLImageElement;
+let videoEl: HTMLVideoElement;
 let counterEl: HTMLElement;
 let prevBtn: HTMLButtonElement;
 let nextBtn: HTMLButtonElement;
@@ -64,6 +65,13 @@ function buildOverlay(): void {
     <div class="lightbox__backdrop" data-lb-close></div>
     <figure class="lightbox__figure">
       <img class="lightbox__img" alt="" />
+      <video
+        class="lightbox__video"
+        muted
+        loop
+        playsinline
+        hidden
+      ></video>
     </figure>
     <button class="lightbox__btn sr-only lightbox__prev" type="button" aria-label="Previous image">&#8249;</button>
     <button class="lightbox__btn sr-only lightbox__next" type="button" aria-label="Next image">&#8250;</button>
@@ -72,6 +80,7 @@ function buildOverlay(): void {
   document.body.appendChild(overlay);
 
   imgEl = overlay.querySelector('.lightbox__img')!;
+  videoEl = overlay.querySelector('.lightbox__video')!;
   counterEl = overlay.querySelector('.lightbox__counter')!;
   prevBtn = overlay.querySelector('.lightbox__prev')!;
   nextBtn = overlay.querySelector('.lightbox__next')!;
@@ -95,14 +104,62 @@ function buildOverlay(): void {
   overlay.addEventListener('keydown', onKeydown);
 }
 
+function pauseLightboxVideo(): void {
+  videoEl.pause();
+  videoEl.removeAttribute('src');
+  videoEl.innerHTML = '';
+}
+
 function render(): void {
   const trigger = state.triggers[state.index];
-  const inner = trigger.querySelector('img');
-  // The `src` attribute is the largest rendition Astro emits; fall back to the
-  // browser-selected source for safety. Gifs carry their raw /public src.
-  const full = inner?.getAttribute('src') || inner?.currentSrc || '';
-  imgEl.src = full;
-  imgEl.alt = trigger.getAttribute('data-alt') || inner?.alt || '';
+  const isVideo = trigger.dataset.media === 'video';
+
+  if (isVideo) {
+    imgEl.hidden = true;
+    imgEl.removeAttribute('src');
+    videoEl.hidden = false;
+
+    const inner = trigger.querySelector('video');
+    const mp4 =
+      inner?.querySelector('source[type="video/mp4"]')?.getAttribute('src') ||
+      '';
+    const webm =
+      inner?.querySelector('source[type="video/webm"]')?.getAttribute('src') ||
+      undefined;
+
+    pauseLightboxVideo();
+    if (webm) {
+      const source = document.createElement('source');
+      source.src = webm;
+      source.type = 'video/webm';
+      videoEl.appendChild(source);
+    }
+    if (mp4) {
+      const source = document.createElement('source');
+      source.src = mp4;
+      source.type = 'video/mp4';
+      videoEl.appendChild(source);
+    }
+
+    videoEl.setAttribute(
+      'aria-label',
+      trigger.getAttribute('data-alt') || inner?.getAttribute('aria-label') || '',
+    );
+    videoEl.load();
+    if (!REDUCED()) videoEl.play().catch(() => {});
+  } else {
+    pauseLightboxVideo();
+    videoEl.hidden = true;
+    imgEl.hidden = false;
+
+    const inner = trigger.querySelector('img');
+    // The `src` attribute is the largest rendition Astro emits; fall back to the
+    // browser-selected source for safety. Gifs carry their raw /public src.
+    const full = inner?.getAttribute('src') || inner?.currentSrc || '';
+    imgEl.src = full;
+    imgEl.alt = trigger.getAttribute('data-alt') || inner?.alt || '';
+  }
+
   counterEl.textContent = `${state.index + 1} / ${state.triggers.length}`;
   const multi = state.triggers.length > 1;
   prevBtn.hidden = !multi;
@@ -121,9 +178,10 @@ function open(index: number, triggers: HTMLElement[]): void {
   closeBtn.focus(); // move focus into the dialog
 
   if (REDUCED()) return;
+  const active = imgEl.hidden ? videoEl : imgEl;
   animate(overlay!, { opacity: [0, 1] }, { duration: 0.25 });
   animate(
-    imgEl,
+    active,
     { opacity: [0, 1], transform: ['scale(0.96)', 'scale(1)'] },
     { duration: 0.35, easing: [0.22, 1, 0.36, 1] },
   );
@@ -132,6 +190,7 @@ function open(index: number, triggers: HTMLElement[]): void {
 function close(): void {
   if (!state.open) return;
   const finish = () => {
+    pauseLightboxVideo();
     overlay!.hidden = true;
     document.body.style.overflow = '';
     state.open = false;
@@ -151,7 +210,10 @@ function go(delta: number): void {
   if (n === 0) return;
   state.index = (state.index + delta + n) % n; // wrap-around
   render();
-  if (!REDUCED()) animate(imgEl, { opacity: [0.4, 1] }, { duration: 0.2 });
+  if (!REDUCED()) {
+    const active = imgEl.hidden ? videoEl : imgEl;
+    animate(active, { opacity: [0.4, 1] }, { duration: 0.2 });
+  }
 }
 
 function onKeydown(e: KeyboardEvent): void {
