@@ -8,7 +8,7 @@ tags:
   - Brand & Identity
   - Motion
   - AI-Native UX
-cover: ../../assets/case-study-AI-Native-IEP-visual-language-exploration/hero-neo-mind.png
+cover: ../../assets/case-study-ai-native-iep-visual-language-exploration/hero-neo-mind.png
 coverAlt: PLACEHOLDER — replace with the AI Native IEP hero/key-art frame from Figma.
 featured: true
 order: 1
