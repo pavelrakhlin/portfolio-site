@@ -374,7 +374,8 @@ img {
   /* --rot lets the close state add a 45° spin without clobbering centering. */
   --rot: 0deg;
   transform: translate(-50%, -50%) rotate(var(--rot));
-  transition: transform 0.2s var(--ease);
+  /* Quick fade as glyphs swap between states (plus / × / carets). */
+  transition: transform 0.2s var(--ease), opacity 0.15s var(--ease);
   z-index: 1;
   color: var(--color-accent-contrast);
   opacity: 0;
