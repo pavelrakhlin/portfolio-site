@@ -234,10 +234,11 @@ export function initCursor(): void {
       `<svg class="cursor-dot__glyph" data-glyph="${name}" viewBox="0 0 24 24" ` +
       `fill="none" stroke="currentColor" stroke-width="2" ` +
       `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+    // The "close" state reuses the plus glyph rotated 45° (an ×) — see the
+    // data-icon='close' rule in global.css — so there's no separate close icon.
     cursorEl.innerHTML =
       `<span class="cursor-dot__ring"></span>` +
       glyph('plus', '<path d="M12 5v14M5 12h14" />') +
-      glyph('close', '<path d="M6 6l12 12M18 6L6 18" />') +
       glyph('prev', '<path d="M15 5l-7 7 7 7" />') +
       glyph('next', '<path d="M9 5l7 7-7 7" />');
     document.body.appendChild(cursorEl);

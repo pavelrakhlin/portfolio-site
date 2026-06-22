@@ -347,13 +347,20 @@ img {
 /* The dot only appears over media (or inside the open lightbox), so the ring
    is shown at full size whenever active — no separate grow state.
    Fill is translucent; opacity chosen so the icon keeps WCAG AA contrast over
-   any image content in both light and dark mode (see note below). */
+   any image content in both light and dark mode (see note below).
+   The ring scales up subtly on entry (its own transform is free — the dot's
+   position transform lives on the parent and the icon stays centered). */
 .cursor-dot__ring {
   position: absolute;
   inset: 0;
   border-radius: 50%;
   background: var(--color-accent);
   opacity: 0.75;
+  transform: scale(0.4);
+  transition: transform 0.25s var(--ease);
+}
+.cursor-dot.is-active .cursor-dot__ring {
+  transform: scale(1);
 }
 /* One glyph per state; reveal the one matching data-icon. Inline SVGs drawn
    symmetrically around their viewBox center, sized identically and centered in
@@ -364,16 +371,23 @@ img {
   left: 50%;
   width: 26px;
   height: 26px;
-  transform: translate(-50%, -50%);
+  /* --rot lets the close state add a 45° spin without clobbering centering. */
+  --rot: 0deg;
+  transform: translate(-50%, -50%) rotate(var(--rot));
+  transition: transform 0.2s var(--ease);
   z-index: 1;
   color: var(--color-accent-contrast);
   opacity: 0;
 }
 .cursor-dot[data-icon='plus'] .cursor-dot__glyph[data-glyph='plus'],
-.cursor-dot[data-icon='close'] .cursor-dot__glyph[data-glyph='close'],
 .cursor-dot[data-icon='prev'] .cursor-dot__glyph[data-glyph='prev'],
 .cursor-dot[data-icon='next'] .cursor-dot__glyph[data-glyph='next'] {
   opacity: 1;
+}
+/* "Close" reuses the plus glyph, rotated 45° into an ×. */
+.cursor-dot[data-icon='close'] .cursor-dot__glyph[data-glyph='plus'] {
+  opacity: 1;
+  --rot: 45deg;
 }
 
 /* Hide the OS cursor only over eligible media (and the open lightbox image),
@@ -404,5 +418,9 @@ img {
   .lightbox,
   .lightbox__img {
     transition: none !important;
+  }
+  /* No entry scale — show the ring at full size immediately. */
+  .cursor-dot__ring {
+    transform: none !important;
   }
 }
