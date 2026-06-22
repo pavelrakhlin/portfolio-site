@@ -203,3 +203,225 @@ img {
     transform: none !important;
   }
 }
+
+/* ============================================================
+   Lightbox overlay (built by src/scripts/lightbox.ts)
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox[hidden] {
+  display: none;
+}
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(10 10 10 / 0.6); /* semi-transparent scrim, both themes */
+}
+.lightbox__figure {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: 92vw;
+  max-height: 88vh;
+}
+.lightbox__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 88vh;
+  box-shadow: 0 24px 80px -20px rgb(0 0 0 / 0.6);
+}
+.lightbox__counter {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin: 0;
+  color: #fff;
+  font-size: var(--text-sm);
+  opacity: 0.85;
+}
+.lightbox__btn {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s var(--ease);
+}
+.lightbox__btn:hover {
+  background: rgb(255 255 255 / 0.22);
+}
+.lightbox__btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.lightbox__btn[hidden] {
+  display: none;
+}
+
+/* Visually-hidden but focusable + screen-reader announced. Keyboard users
+   Tab to these; mouse users navigate via the image hover zones instead. */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* When focused via keyboard, surface the control so the focus ring is visible. */
+.lightbox__btn.sr-only:focus-visible {
+  position: fixed !important;
+  width: auto;
+  height: auto;
+  min-width: 44px;
+  min-height: 44px;
+  clip: auto;
+  margin: 0;
+  top: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.lightbox__prev.sr-only:focus-visible {
+  left: var(--space-4);
+  transform: none;
+}
+.lightbox__next.sr-only:focus-visible {
+  left: auto;
+  right: var(--space-4);
+  transform: none;
+}
+
+/* ============================================================
+   Media trigger reset (global; complements the scoped rule)
+   ============================================================ */
+.media-trigger {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* ============================================================
+   Custom cursor (pointer devices only — JS guards creation)
+   ============================================================ */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90; /* above the lightbox; JS suppresses it inside the open overlay */
+  width: 56px;
+  height: 56px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+.cursor-dot.is-active {
+  opacity: 1;
+}
+/* The dot only appears over media (or inside the open lightbox), so the ring
+   is shown at full size whenever active — no separate grow state.
+   Fill is translucent; opacity chosen so the icon keeps WCAG AA contrast over
+   any image content in both light and dark mode (see note below).
+   The ring scales up subtly on entry (its own transform is free — the dot's
+   position transform lives on the parent and the icon stays centered). */
+.cursor-dot__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.75;
+  transform: scale(0.4);
+  transition: transform 0.25s var(--ease);
+}
+.cursor-dot.is-active .cursor-dot__ring {
+  transform: scale(1);
+}
+/* One glyph per state; reveal the one matching data-icon. Inline SVGs drawn
+   symmetrically around their viewBox center, sized identically and centered in
+   the dot — so every state (+, ×, ‹, ›) sits dead center at the same size. */
+.cursor-dot__glyph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  /* --rot lets the close state add a 45° spin without clobbering centering. */
+  --rot: 0deg;
+  transform: translate(-50%, -50%) rotate(var(--rot));
+  /* Quick fade as glyphs swap between states (plus / × / carets). */
+  transition: transform 0.2s var(--ease), opacity 0.15s var(--ease);
+  z-index: 1;
+  color: var(--color-accent-contrast);
+  opacity: 0;
+}
+.cursor-dot[data-icon='plus'] .cursor-dot__glyph[data-glyph='plus'],
+.cursor-dot[data-icon='prev'] .cursor-dot__glyph[data-glyph='prev'],
+.cursor-dot[data-icon='next'] .cursor-dot__glyph[data-glyph='next'] {
+  opacity: 1;
+}
+/* "Close" reuses the plus glyph, rotated 45° into an ×. */
+.cursor-dot[data-icon='close'] .cursor-dot__glyph[data-glyph='plus'] {
+  opacity: 1;
+  --rot: 45deg;
+}
+
+/* Hide the OS cursor only over eligible media (and the open lightbox image),
+   on fine pointers, so the custom dot stands in for it. */
+@media (hover: hover) and (pointer: fine) {
+  .media-trigger,
+  .media-trigger *,
+  .lightbox__figure,
+  .lightbox__figure * {
+    cursor: none;
+  }
+}
+
+/* Touch / coarse pointers: no custom cursor; normal taps. */
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot {
+    display: none !important;
+  }
+  .media-trigger {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-dot__ring,
+  .cursor-dot__glyph,
+  .lightbox,
+  .lightbox__img {
+    transition: none !important;
+  }
+  /* No entry scale — show the ring at full size immediately. */
+  .cursor-dot__ring {
+    transform: none !important;
+  }
+}
