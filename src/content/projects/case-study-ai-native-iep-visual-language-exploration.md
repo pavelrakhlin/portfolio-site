@@ -34,8 +34,11 @@ sections:
       pixel exists to empower experts to serve customers confidently. And
       design for imperfection: AI outputs won't always be right, so experts
       always have a path to take control.
-    image: ../../assets/placeholder-2.png
-    imageAlt: PLACEHOLDER — the four design principles laid out as a frame.
+    media:
+      type: video
+      mp4: /case-media/ai-native-iep-arc-1.mp4
+      poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/test-screen.png
+      alt: The four design principles laid out as an animated arc diagram.
   - heading: The creative challenge
     body: >-
       How might we express the intelligence, adaptability, and humanity of AI

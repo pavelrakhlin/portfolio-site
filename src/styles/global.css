@@ -230,13 +230,18 @@ img {
   max-width: 92vw;
   max-height: 88vh;
 }
-.lightbox__img {
+.lightbox__img,
+.lightbox__video {
   display: block;
   width: auto;
   height: auto;
   max-width: 92vw;
   max-height: 88vh;
   box-shadow: 0 24px 80px -20px rgb(0 0 0 / 0.6);
+}
+.lightbox__img[hidden],
+.lightbox__video[hidden] {
+  display: none;
 }
 .lightbox__counter {
   position: absolute;
@@ -417,7 +422,8 @@ img {
   .cursor-dot__ring,
   .cursor-dot__glyph,
   .lightbox,
-  .lightbox__img {
+  .lightbox__img,
+  .lightbox__video {
     transition: none !important;
   }
   /* No entry scale — show the ring at full size immediately. */
