@@ -1,5 +1,5 @@
 ---
-title: Redesigning the onboarding flow
+title: Case study 2
 summary: Cutting first-run drop-off by rethinking the first five minutes of the product.
 role: Product Designer
 year: 2025

@@ -1,5 +1,5 @@
 ---
-title: AI Native Design Language Exploration
+title: AI Native Visual Language
 summary: Defining a new visual and interaction language for an AI-first expert platform — fluid, anticipatory, and human by design.
 role: Product Designer
 year: 2026

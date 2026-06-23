@@ -1,5 +1,5 @@
 ---
-title: Dashboard information architecture
+title: Case study 3
 summary: Restructuring a cluttered analytics dashboard around the decisions users actually make.
 role: Product Designer
 year: 2024
