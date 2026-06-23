@@ -93,6 +93,11 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
   const prefersReduced = () =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Remember each group's open state across View Transition navigations so a
+  // tab stays expanded/collapsed based on the user's last click, not the
+  // route-derived `open` default. This module persists across navigations.
+  const openState = new Map<string, boolean>();
+
   // Smoothly animate <details> open/close by tweening the content height.
   // Falls back to instant toggle under reduced-motion.
   function setupAccordions() {
@@ -104,6 +109,15 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
       const summary = details.querySelector('summary');
       const content = details.querySelector<HTMLElement>('.group__content');
       if (!summary || !content) return;
+
+      // Restore the remembered state (instant, no animation); on first sight
+      // seed it from the server-rendered default.
+      const key = summary.textContent?.trim() || details.dataset.accordion;
+      if (openState.has(key)) {
+        details.open = openState.get(key)!;
+      } else {
+        openState.set(key, details.open);
+      }
 
       let animation: Animation | null = null;
 
@@ -131,11 +145,17 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
       };
 
       summary.addEventListener('click', (e) => {
-        if (prefersReduced()) return; // native instant toggle
+        if (prefersReduced()) {
+          // Native instant toggle still updates the remembered state.
+          openState.set(key, !details.open);
+          return;
+        }
         e.preventDefault();
         if (details.open) {
+          openState.set(key, false);
           animateClose();
         } else {
+          openState.set(key, true);
           details.open = true;
           animateOpen();
         }
