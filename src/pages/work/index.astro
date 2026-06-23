@@ -12,13 +12,13 @@ const projects = await getProjects();
 >
   <div class="container">
     <section class="page-head">
-      <h1 data-reveal>Work</h1>
-      <p class="muted" data-reveal>{projects.length} case studies.</p>
+      <h1>Work</h1>
+      <p class="muted">{projects.length} case studies.</p>
     </section>
 
     {
       projects.length > 0 ? (
-        <div class="grid" data-reveal-group>
+        <div class="grid">
           {projects.map((project) => (
             <ProjectCard project={project} />
           ))}

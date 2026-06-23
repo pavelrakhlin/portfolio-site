@@ -182,30 +182,22 @@ img {
   transition: transform 0.5s var(--ease);
 }
 
-/* ============================================================
-   Reveal-on-scroll initial state (Motion sets the rest).
-   With reduced motion or no JS, content is always visible.
-   ============================================================ */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(20px);
-}
-.no-js [data-reveal],
-[data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+}
+
+/* ============================================================
+   Page navigation: disable the default View Transition crossfade
+   so content (titles included) swaps instantly instead of fading.
+   ClientRouter still handles client-side routing.
+   ============================================================ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
 }
 
 /* ============================================================

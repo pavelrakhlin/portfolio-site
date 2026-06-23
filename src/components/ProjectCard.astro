@@ -10,15 +10,13 @@ const { project } = Astro.props;
 const { title, summary, role, year, cover, coverAlt } = project.data;
 ---
 
-<a href={`/work/${project.id}/`} class="card" data-reveal>
+<a href={`/work/${project.id}/`} class="card">
   <div class="card__media">
-    <!-- transition:name lets the cover morph into the case-study hero. -->
     <Image
       src={cover}
       alt={coverAlt}
       widths={[400, 800, 1200]}
       sizes="(max-width: 700px) 100vw, 50vw"
-      transition:name={`cover-${project.id}`}
     />
   </div>
   <div class="card__body">
