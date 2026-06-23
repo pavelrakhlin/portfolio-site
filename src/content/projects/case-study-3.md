@@ -1,5 +1,5 @@
 ---
-title: Case study 3
+title: FY27 Vision Work
 summary: Restructuring a cluttered analytics dashboard around the decisions users actually make.
 role: Product Designer
 year: 2024

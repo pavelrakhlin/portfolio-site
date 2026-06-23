@@ -1,5 +1,5 @@
 ---
-title: Case study 2
+title: Guidance Agent
 summary: Cutting first-run drop-off by rethinking the first five minutes of the product.
 role: Product Designer
 year: 2025
