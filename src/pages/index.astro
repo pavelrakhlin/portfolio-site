@@ -9,10 +9,10 @@ const featured = await getFeaturedProjects();
 <Base title="Your Name — Designer">
   <div class="container">
     <section class="intro">
-      <h1 data-reveal>
+      <h1>
         I design clear, human interfaces for products people rely on.
       </h1>
-      <p class="intro__lede muted" data-reveal>
+      <p class="intro__lede muted">
         Selected work is in the sidebar. I care about the details — and about
         the story behind each decision.
       </p>
@@ -22,7 +22,7 @@ const featured = await getFeaturedProjects();
       featured.length > 0 && (
         <section class="featured">
           <p class="section-label">Selected</p>
-          <div class="grid" data-reveal-group>
+          <div class="grid">
             {featured.map((project) => (
               <ProjectCard project={project} />
             ))}

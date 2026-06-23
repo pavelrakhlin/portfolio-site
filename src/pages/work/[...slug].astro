@@ -30,10 +30,10 @@ const normalized = sections.map((s) =>
 <Base title={`${title} — Pavel R`} description={summary}>
   <article class="container">
     <header class="case-head">
-      <h1 data-reveal>{title}</h1>
-      <p class="case-head__summary muted" data-reveal>{summary}</p>
+      <h1>{title}</h1>
+      <p class="case-head__summary muted">{summary}</p>
 
-      <dl class="info-row" data-reveal>
+      <dl class="info-row">
         <div class="info-row__item">
           <dt>Role</dt>
           <dd>{role}</dd>
@@ -53,7 +53,7 @@ const normalized = sections.map((s) =>
       </dl>
     </header>
 
-    <div class="case-hero" data-reveal>
+    <div class="case-hero">
       <button
         class="media-trigger"
         data-lightbox
@@ -65,7 +65,6 @@ const normalized = sections.map((s) =>
           alt={coverAlt}
           widths={[640, 1024, 1600]}
           sizes="(max-width: 1088px) 100vw, 1088px"
-          transition:name={`cover-${project.id}`}
         />
       </button>
     </div>
@@ -74,7 +73,7 @@ const normalized = sections.map((s) =>
       normalized.length > 0 ? (
         <div class="sections">
           {normalized.map((section) => (
-            <section class="section" data-reveal-group>
+            <section class="section">
               <div class="section__text">
                 <h2>{section.heading}</h2>
                 <p>{section.body}</p>
