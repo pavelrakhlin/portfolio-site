@@ -184,7 +184,7 @@ function open(index: number, triggers: HTMLElement[]): void {
   animate(
     active,
     { opacity: [0, 1], transform: ['scale(0.96)', 'scale(1)'] },
-    { duration: 0.35, easing: [0.22, 1, 0.36, 1] },
+    { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
   );
 }
 
