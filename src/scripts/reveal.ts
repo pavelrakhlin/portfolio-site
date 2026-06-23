@@ -23,7 +23,7 @@ export function initReveal(): void {
       animate(
         element,
         { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0)'] },
-        { duration: 0.6, easing: [0.22, 1, 0.36, 1] },
+        { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
       );
       element.classList.add('is-visible');
     },
@@ -42,7 +42,7 @@ export function initReveal(): void {
         {
           duration: 0.6,
           delay: stagger(0.08),
-          easing: [0.22, 1, 0.36, 1],
+          ease: [0.22, 1, 0.36, 1],
         },
       );
       children.forEach((c) => c.classList.add('is-visible'));
