@@ -70,6 +70,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Reserve space for the scrollbar at all times so locking body scroll when
+     the lightbox opens (overflow: hidden) doesn't widen the viewport and shift
+     content sideways. */
+  scrollbar-gutter: stable;
 }
 
 body {

@@ -1,0 +1,31 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e3]:
+    - complementary [ref=e4]:
+      - generic [ref=e5]:
+        - link "Pavel R" [ref=e6] [cursor=pointer]:
+          - /url: /
+        - navigation "Primary" [ref=e7]:
+          - list [ref=e8]:
+            - listitem [ref=e9]:
+              - group [ref=e10]:
+                - generic "Work" [ref=e11] [cursor=pointer]
+                - generic [ref=e12]:
+                  - list
+            - listitem [ref=e13]:
+              - link "About me" [ref=e14] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e15]:
+              - group [ref=e16]:
+                - generic "Contact" [ref=e17] [cursor=pointer]
+    - main [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - heading "Work" [level=1] [ref=e21]
+          - paragraph [ref=e22]: 0 case studies.
+        - paragraph [ref=e23]: No projects yet.
+  - generic:
+    - img
+    - img
+    - img
