@@ -176,6 +176,7 @@ function open(index: number, triggers: HTMLElement[]): void {
   document.body.style.overflow = 'hidden'; // scroll lock
   state.open = true;
   closeBtn.focus(); // move focus into the dialog
+  refreshCursor(); // plus → × (or zone icon) without waiting for mousemove
 
   if (REDUCED()) return;
   const active = imgEl.hidden ? videoEl : imgEl;
@@ -195,6 +196,7 @@ function close(): void {
     document.body.style.overflow = '';
     state.open = false;
     state.lastFocus?.focus(); // return focus to the triggering thumbnail
+    refreshCursor();
   };
   if (REDUCED()) {
     finish();
@@ -275,6 +277,46 @@ export function initLightbox(): void {
 
 let cursorEl: HTMLElement | null = null;
 let cursorBound = false;
+let lastPointer = { x: 0, y: 0 };
+
+function placeCursor(x: number, y: number): void {
+  if (!cursorEl) return;
+  cursorEl.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+}
+
+function resolveCursorIcon(target: HTMLElement, x: number): string | null {
+  if (state.open) {
+    const fig = overlay?.querySelector<HTMLElement>('.lightbox__figure');
+    if (fig && fig.contains(target)) {
+      const r = fig.getBoundingClientRect();
+      const zone = (x - r.left) / r.width;
+      const multi = state.triggers.length > 1;
+      if (multi && zone < 0.2) return 'prev';
+      if (multi && zone > 0.8) return 'next';
+      return 'close';
+    }
+    return null; // over backdrop/chrome → normal cursor
+  }
+  return target.closest(TRIGGER_SELECTOR) ? 'plus' : null;
+}
+
+function refreshCursor(): void {
+  if (!cursorEl || !FINE_POINTER()) return;
+  const { x, y } = lastPointer;
+  placeCursor(x, y);
+  const target = document.elementFromPoint(x, y) as HTMLElement | null;
+  if (!target) {
+    cursorEl.classList.remove('is-active');
+    return;
+  }
+  const icon = resolveCursorIcon(target, x);
+  if (icon) {
+    cursorEl.dataset.icon = icon;
+    cursorEl.classList.add('is-active');
+  } else {
+    cursorEl.classList.remove('is-active');
+  }
+}
 
 export function initCursor(): void {
   if (!FINE_POINTER()) return; // pointer devices only
@@ -309,41 +351,9 @@ export function initCursor(): void {
   if (cursorBound) return;
   cursorBound = true;
 
-  // Snap the dot directly to the pointer — no follow-lag. The dot only shows
-  // over media, where any lag reads as the indicator "trailing" the cursor.
-  const place = (x: number, y: number) => {
-    cursorEl!.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-  };
-
-  // Which icon/state for the current pointer position.
-  //   - lightbox open: caret in the left/right 20% of the image, else close
-  //   - over a thumbnail: plus
-  //   - otherwise: hidden (OS cursor shows)
-  const resolve = (target: HTMLElement, x: number): string | null => {
-    if (state.open) {
-      const fig = overlay?.querySelector<HTMLElement>('.lightbox__figure');
-      if (fig && fig.contains(target)) {
-        const r = fig.getBoundingClientRect();
-        const zone = (x - r.left) / r.width;
-        const multi = state.triggers.length > 1;
-        if (multi && zone < 0.2) return 'prev';
-        if (multi && zone > 0.8) return 'next';
-        return 'close';
-      }
-      return null; // over backdrop/chrome → normal cursor
-    }
-    return target.closest(TRIGGER_SELECTOR) ? 'plus' : null;
-  };
-
   window.addEventListener('mousemove', (e) => {
-    place(e.clientX, e.clientY);
-    const icon = resolve(e.target as HTMLElement, e.clientX);
-    if (icon) {
-      cursorEl!.dataset.icon = icon;
-      cursorEl!.classList.add('is-active');
-    } else {
-      cursorEl!.classList.remove('is-active');
-    }
+    lastPointer = { x: e.clientX, y: e.clientY };
+    refreshCursor();
   });
 
   window.addEventListener('mouseleave', () =>
