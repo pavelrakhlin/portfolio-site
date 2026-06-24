@@ -14,36 +14,16 @@ featured: true
 order: 1
 draft: false
 sections:
-  - heading: The shift
+  - heading: The challenge
     body: >-
       AI Native IEP is the foundation of a new generation of expert
       experiences — a GenAI-powered platform that changes how experts handle
       calls and cases. It marks a paradigm shift away from static,
       navigation-heavy systems toward a fluid, anticipatory interface where
-      information, tools, and insights arrive at the right moment. The
+      information, tools, and insights arrive at the right moment. ==The
       challenge: codify that vision into a design language that feels alive,
       intelligent, and distinctly AI-native — not as a theme or aesthetic, but
-      as a philosophy of interaction.
-    media:
-      type: video
-      mp4: /case-media/ai-native-iep-arc-1.mp4
-      poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/test-screen.png
-      alt: The four design principles laid out as an animated arc diagram.
-  - heading: Principles as a foundation
-    body: >-
-      Four principles grounded every decision. Deliver an outcome, not just an
-      output — interfaces that don't only show, but do. Information is always
-      at hand, but never in the way. We are the hammer, not the house — every
-      pixel exists to empower experts to serve customers confidently. And
-      design for imperfection: AI outputs won't always be right, so experts
-      always have a path to take control.
-    media:
-      type: video
-      mp4: /case-media/ai-native-iep-arc-1.mp4
-      poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/test-screen.png
-      alt: The four design principles laid out as an animated arc diagram.
-  - heading: The creative challenge
-    body: >-
+      as a philosophy of interaction.==
       How might we express the intelligence, adaptability, and humanity of AI
       Native through its design language? The target qualities: Fluid —
       adaptive, responsive, always in motion. Intentional — purposeful
@@ -52,9 +32,8 @@ sections:
       foresight, not just data. Rather than commit early, we explored several
       distinct creative directions to find what AI Native could look, feel, and
       behave like.
-    image: ../../assets/placeholder-3.png
-    imageAlt: PLACEHOLDER — moodboard or keyword/tone frame (Fluid, Adaptive, Intentional, Human, Anticipatory).
-  - heading: 'Direction 1 — Salt: the quiet catalyst'
+  - heading: 'Directions'
+    dividerBefore: true
     body: >-
       Salt is essential yet invisible: it enhances everything around it, brings
       balance, and reveals depth without taking center stage. Like a chef
@@ -63,38 +42,12 @@ sections:
       ability without overpowering it. The visual language leans on balance and
       restraint, with material cues of glass, translucence, crystalline
       structure, and shimmer.
-    image: ../../assets/placeholder-1.png
-    imageAlt: PLACEHOLDER — Salt concept frame (glass / translucence / crystalline / shimmer).
-  - heading: 'Direction 2 — The Right-Hand: the indispensable helper'
-    body: >-
-      A right-hand is someone's most trusted, reliable assistant — working away
-      in the background so the expert can focus on the task that matters. The
-      attributes: dependable (constant, knows your needs), discreet
-      (unintrusive, modest, subtle), and astute (knows what you need before you
-      do). The language expresses an assistant that is present without being in
-      the way.
-    image: ../../assets/placeholder-2.png
-    imageAlt: PLACEHOLDER — Right-Hand concept frame (assistive, background, discreet states).
-  - heading: 'Direction 3 — Prometheus: illuminating the path'
-    body: >-
-      Like fire before it, AI changes the way we do everything — and instead of
-      consuming us, it reignites the spark. This direction frames AI Native as a
-      powerful new tool that helps experts shine, with attributes of optimism
-      (illuminated, glowing), enlightenment (clear, direct), and transformation
-      (fluid, adaptive). Material cues: warm, flame, soft, glowing.
-    image: ../../assets/placeholder-3.png
-    imageAlt: PLACEHOLDER — Prometheus concept frame (warm, glowing, igniting).
-  - heading: From philosophy to system
-    body: >-
-      The directions narrow to one, then translate from concept into a tangible
-      design language — visual identity, interaction styles, and foundational
-      components explored across a mild-to-wild spectrum that shows range and
-      potential. The end state is a foundation ready for systemization: tokens,
-      motion timing, spacing logic, and component rules that let the language
-      live in code and scale across future surfaces.
-    image: ../../assets/cover-placeholder.png
-    imageAlt: PLACEHOLDER — mild-to-wild spectrum or a foundational component / token frame.
-  - heading: 'Prototype — Neo Mind'
+    media:
+      type: video
+      mp4: /case-study-ai-native-design-language/concept-directions.mp4
+      poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/poster-concept-directions.png
+      alt: Three creative directions — Salt, Right-Hand, and Prometheus — explored side by side.
+  - heading: 'Neo Mind'
     body: >-
       Neo Mind makes the language tangible as "fluid intelligence." The expert
       moves between customer chat and a parallel conversation with Intuit
@@ -108,7 +61,7 @@ sections:
       mp4: /case-study-ai-native-design-language/proto-neo-mind.mp4
       poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/poster-proto-neo-mind.png
       alt: Neo Mind prototype cycling through the customer-chat, AI-chat, and guidance states.
-  - heading: 'Prototype — Lucid'
+  - heading: 'Lucid'
     body: >-
       Lucid pursues the same state model with a quieter, more restrained
       surface — "human intelligence, enhanced." Guidance and the AI conversation
@@ -120,7 +73,7 @@ sections:
       mp4: /case-study-ai-native-design-language/proto-neo-lucid.mp4
       poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/poster-proto-neo-lucid.png
       alt: Lucid prototype showing a restrained single-field interface with guidance states.
-  - heading: 'Prototype — Arc'
+  - heading: 'Arc'
     body: >-
       Arc puts the conversation and the work side by side. The chat thread sits
       next to a live document canvas, so research, drafting, and the customer
@@ -132,7 +85,7 @@ sections:
       mp4: /case-study-ai-native-design-language/proto-neo-arc-1.mp4
       poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/poster-proto-neo-arc-1.png
       alt: Arc prototype with the chat thread beside a live document canvas.
-  - heading: 'Prototype — Arc with canvas'
+  - heading: 'Arc with canvas'
     body: >-
       A second Arc pass pushes the canvas further — customer chat with canvas
       and AI chat with canvas — exploring how the expert pivots between
@@ -144,7 +97,7 @@ sections:
       mp4: /case-study-ai-native-design-language/proto-neo-arc-2.mp4
       poster: ../../assets/case-study-ai-native-iep-visual-language-exploration/poster-proto-neo-arc-2.png
       alt: Arc prototype flexing between customer-chat-with-canvas and AI-chat-with-canvas modes.
-  - heading: 'Prototype — Expert copilot'
+  - heading: 'Expert copilot'
     body: >-
       The expert copilot prototype brings the language into a full working
       shell — engagements and customer rails on the left, a structured workflow,

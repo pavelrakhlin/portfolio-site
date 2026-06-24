@@ -16,14 +16,14 @@
       "id": "channel-0-input",
       "sessions": [
         {
-          "durationMs": 15884.44462500047,
+          "durationMs": 10257.926416667033,
           "keyStrokesFilename": "keystrokes-0.json",
           "mouseClicksFilename": "mouseclicks-0.json",
           "mouseMovesFilename": "mousemoves-0.json",
-          "processTimeEndMs": 16859.49679166879,
-          "processTimeStartMs": 975.0521666683198,
-          "unixEndMs": 1782337872314.6213,
-          "unixStartMs": 1782337856430.1768
+          "processTimeEndMs": 12125.688041665853,
+          "processTimeStartMs": 1867.7616249988205,
+          "unixEndMs": 1782343391091.107,
+          "unixStartMs": 1782343380833.1804
         }
       ],
       "type": "input"
@@ -31,38 +31,38 @@
     {
       "configuration": {
         "cropRect": {
-          "height": 644,
-          "width": 1176,
-          "x": 288,
-          "y": 204,
+          "height": 642,
+          "width": 1174,
+          "x": 289,
+          "y": 205,
           "yAxis": "topBasedIncreasingDownwards"
         },
         "displayId": 1,
         "excludeFinderDesktopIcons": false,
         "excludedWindowIds": [
-          3294,
-          3295,
-          3346,
-          3347
+          4048,
+          4049,
+          4050,
+          4052
         ]
       },
       "id": "channel-1-display",
       "sessions": [
         {
           "bounds": {
-            "height": 644,
-            "width": 1176,
-            "x": 288,
-            "y": 204
+            "height": 642,
+            "width": 1174,
+            "x": 289,
+            "y": 205
           },
           "displayRefreshRate": 120,
-          "durationMs": 15884.444625,
+          "durationMs": 10257.926417,
           "outputFilename": "channel-1-display-0.mp4",
-          "processTimeEndMs": 16859.496791333626,
-          "processTimeStartMs": 975.0521663336258,
+          "processTimeEndMs": 12125.688041333071,
+          "processTimeStartMs": 1867.7616243330704,
           "recordingScale": 0.5,
-          "unixEndMs": 1782337872314.6213,
-          "unixStartMs": 1782337856430.1768
+          "unixEndMs": 1782343391091.107,
+          "unixStartMs": 1782343380833.1804
         }
       ],
       "type": "display"
@@ -70,11 +70,11 @@
   ],
   "sessions": [
     {
-      "durationMs": 15884.44462500047,
-      "processTimeEndMs": 16859.49679166879,
-      "processTimeStartMs": 975.0521666683198,
-      "unixEndMs": 1782337872314.6213,
-      "unixStartMs": 1782337856430.1768
+      "durationMs": 10257.926416667033,
+      "processTimeEndMs": 12125.688041665853,
+      "processTimeStartMs": 1867.7616249988205,
+      "unixEndMs": 1782343391091.107,
+      "unixStartMs": 1782343380833.1804
     }
   ],
   "state": "complete"

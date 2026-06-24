@@ -1,10 +1,10 @@
 {
   "json": {
-    "id": "Q1jNTMFZUx",
+    "id": "PrCCPclv2W",
     "name": "proto-neo-mind",
-    "createdAt": "2026-06-24T21:51:14.629Z",
-    "updatedAt": "2026-06-24T21:51:14.629Z",
-    "lastSavedAt": "2026-06-24T21:52:57.620Z",
+    "createdAt": "2026-06-24T23:23:12.246Z",
+    "updatedAt": "2026-06-24T23:23:12.246Z",
+    "lastSavedAt": "2026-06-24T23:23:46.924Z",
     "config": {
       "backgroundGradient": {
         "start": {
@@ -127,7 +127,7 @@
       "adjustDeviceFrameToRecordingSize": true,
       "recordingRange": [
         0,
-        15884.44462500047
+        10257.926416667033
       ],
       "recordingCrop": {
         "x": 0,
@@ -141,17 +141,17 @@
     },
     "scenes": [
       {
-        "id": "HCyfYWXeyW",
+        "id": "UrUAm58r5k",
         "name": "Default",
         "zoomRanges": [],
         "type": "recording",
         "sessionIndex": 0,
         "slices": [
           {
-            "id": "qB0OVc7yDm",
+            "id": "7D5zioqCnL",
             "timeScale": 1,
-            "sourceStartMs": 3668.961394361522,
-            "sourceEndMs": 14946.707121561474,
+            "sourceStartMs": 1456.4583023664468,
+            "sourceEndMs": 9235.473259367169,
             "volume": 1,
             "systemAudioVolume": 1,
             "externalDeviceAudioVolume": 1,
