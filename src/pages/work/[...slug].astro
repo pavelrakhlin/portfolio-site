@@ -209,23 +209,40 @@ const normalized = sections.map((s) =>
     margin-bottom: var(--space-16);
   }
 
-  /* Stacked text + full-width image sections */
+  /* Stacked text + full-width image sections. Even spacing around each text
+     block is handled by .section__text's symmetric margin-block, so the
+     container itself adds no gap. */
   .sections {
     display: flex;
     flex-direction: column;
-    gap: var(--space-24);
   }
+  /* Inline header + body: heading on the left, body copy on the right.
+     Equal top/bottom margin keeps each text block evenly spaced between the
+     media above and below it. */
   .section__text {
-    max-width: var(--max-width-prose);
-    margin-bottom: var(--space-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: var(--space-12);
+    align-items: start;
+    margin-block: var(--space-16);
   }
   .section__text h2 {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-3);
+    font-size: var(--text-2xl);
+    margin: 0;
   }
   .section__text p {
-    color: var(--color-muted);
+    color: var(--color-text);
     margin: 0;
+    font-size: 16px;
+    max-width: var(--max-width-prose);
+  }
+
+  /* Stack heading above body on narrow screens. */
+  @media (max-width: 768px) {
+    .section__text {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
   }
   .section__media img,
   .section__media video {
