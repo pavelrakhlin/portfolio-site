@@ -13,7 +13,7 @@
 
   /* Typography */
   --font-sans: 'Geist Variable', Helvetica, Arial, sans-serif;
-  --font-serif: 'Geist Variable', Helvetica, Arial, sans-serif;
+  --font-serif: 'Playfair Display Variable', Georgia, 'Times New Roman', serif;
 
   /* Modular type scale (1.25) */
   --text-xs: 0.8rem;
@@ -91,9 +91,10 @@ h1,
 h2,
 h3 {
   font-family: var(--font-serif);
+  font-optical-sizing: auto;
   line-height: 1.15;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   margin: 0 0 var(--space-4);
 }
 
