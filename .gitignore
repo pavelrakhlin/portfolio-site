@@ -25,3 +25,6 @@ _incoming/
 
 # jetbrains setting folder
 .idea/
+
+# Playwright MCP session artifacts (console logs, page snapshots)
+.playwright-mcp/

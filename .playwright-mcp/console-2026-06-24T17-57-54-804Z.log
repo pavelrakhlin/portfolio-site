@@ -1,7 +1,0 @@
-[     750ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/settings-K4OHAGC2.js?v=d719c428:0
-[     750ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/astro-IQQQXCO3.js?v=d719c428:0
-[     750ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/audit-73G7L2C4.js?v=d719c428:0
-[     750ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/xray-XH6VIXDC.js?v=d719c428:0
-[     750ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/toolbar-2H5PSQQU.js?v=d719c428:0
-[     750ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/ui-library-EVFCBMCE.js?v=d719c428:0
-[     803ms] Failed to fetch dynamically imported module: http://localhost:4322/node_modules/.vite/deps/settings-K4OHAGC2.js?v=d719c428
