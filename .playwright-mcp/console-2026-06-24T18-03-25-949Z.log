@@ -1,0 +1,12 @@
+[     117ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/@id/astro/runtime/client/dev-toolbar/entrypoint.js:0
+[   80751ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4322/@vite/client:1598
+[   82269ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/settings-K4OHAGC2.js?v=235f9214:0
+[   82269ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/ui-library-EVFCBMCE.js?v=235f9214:0
+[   82269ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/astro-IQQQXCO3.js?v=235f9214:0
+[   82270ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/audit-73G7L2C4.js?v=235f9214:0
+[   82270ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/xray-XH6VIXDC.js?v=235f9214:0
+[   82270ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/node_modules/.vite/deps/toolbar-2H5PSQQU.js?v=235f9214:0
+[   82271ms] Failed to fetch dynamically imported module: http://localhost:4322/node_modules/.vite/deps/settings-K4OHAGC2.js?v=235f9214
+[  203757ms] [ERROR] Failed to load resource: the server responded with a status of 504 (Outdated Optimize Dep) @ http://localhost:4322/@id/astro/runtime/client/dev-toolbar/entrypoint.js:0
+[  204294ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4322/@vite/client:1598
+[  211816ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4322/@vite/client:1598

@@ -145,6 +145,22 @@ img {
 
 .muted { color: var(--color-muted); }
 
+mark {
+  background: #fff066;
+  color: inherit;
+  padding: 0.05em 0.12em;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+@media (prefers-color-scheme: dark) {
+  mark {
+    background: #6b5a00;
+    color: #faf6e8;
+  }
+}
+
 .eyebrow {
   font-family: var(--font-sans);
   font-size: var(--text-sm);

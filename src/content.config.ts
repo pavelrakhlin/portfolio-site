@@ -32,6 +32,7 @@ const projects = defineCollection({
             .object({
               heading: z.string(),
               body: z.string(),
+              dividerBefore: z.boolean().default(false),
               // Legacy image-only section (kept for existing projects).
               image: image().optional(),
               imageAlt: z.string().optional(),
@@ -63,9 +64,9 @@ const projects = defineCollection({
                 ])
                 .optional(),
             })
-            .refine((s) => s.media || (s.image && s.imageAlt), {
+            .refine((s) => !s.media || !s.image, {
               message:
-                'Section needs a `media` object (image|gif|video) or the legacy `image` + `imageAlt`.',
+                'Use either `media` or the legacy `image` + `imageAlt`, not both.',
             }),
         )
         .default([]),
