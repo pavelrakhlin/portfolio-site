@@ -1,0 +1,257 @@
+2026-06-24T14:50:55.465-0700 notice   [Polyrecorder] Polyrecorder started. appStart=21175.433961291666 modelIdentifier=MacBookPro18,3 operatingSystem=Version 26.3.1 (Build 25D2128) systemLaunch=2026-06-24 15:58:00 +0000 version=2.7.0
+2026-06-24T14:50:55.465-0700 notice   [polyrecorder] Connect RecordKit logger to Polyrecorder logger rkLogLevel=debug
+2026-06-24T14:50:55.465-0700 debug    [Polyrecorder] Accessing active displays
+2026-06-24T14:50:55.583-0700 notice   [Polyrecorder] Active displays: [polyrecorder.DisplayDiscovery.Display(displayID: 1, bounds: polyrecorder.Bounds(x: 0.0, y: 0.0, width: 1512.0, height: 982.0), refreshRate: 120.0, isMain: true, isBuiltin: true), polyrecorder.DisplayDiscovery.Display(displayID: 2, bounds: polyrecorder.Bounds(x: -1030.0, y: -1440.0, width: 3440.0, height: 1440.0), refreshRate: 100.0, isMain: false, isBuiltin: false)]
+2026-06-24T14:50:55.584-0700 notice   [Polyrecorder] Thermal state at startup. thermalState=nominal
+2026-06-24T14:50:55.584-0700 debug    [Polyrecorder] Validating configuration.
+2026-06-24T14:50:55.584-0700 notice   [Polyrecorder] Configuration validated: {
+  "channels" : [
+    {
+      "type" : "input",
+      "captureKeyStrokes" : true
+    },
+    {
+      "displayId" : 1,
+      "type" : "display",
+      "cropRect" : {
+        "yAxis" : "topBasedIncreasingDownwards",
+        "width" : 1176,
+        "height" : 644,
+        "x" : 288,
+        "y" : 204
+      },
+      "excludedWindowIds" : [
+        3294,
+        3295,
+        3346,
+        3347
+      ],
+      "excludeFinderDesktopIcons" : false
+    }
+  ],
+  "logLevel" : "debug",
+  "outputDirectory" : "\/Users\/prakhlin\/Library\/Application Support\/Screen Studio\/Screen Studio Recordings\/Area 2026-06-24 14:50:54"
+}
+2026-06-24T14:50:55.584-0700 debug    [Polyrecorder] Creating output directory. url=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54
+2026-06-24T14:50:55.585-0700 notice   [Polyrecorder] Created output directory. url=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54
+2026-06-24T14:50:55.585-0700 debug    [Polyrecorder] Redirecting logs to file. url=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/polyrecorder.log
+2026-06-24T14:50:55.586-0700 notice   [Polyrecorder] Redirected logs to file. url=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/polyrecorder.log
+2026-06-24T14:50:55.586-0700 debug    [Polyrecorder] Attaching uncaught exception handler.
+2026-06-24T14:50:55.586-0700 notice   [Polyrecorder] Attached uncaught exception handler.
+2026-06-24T14:50:55.586-0700 debug    [Polyrecorder] Enabling DAL devices...
+2026-06-24T14:50:55.653-0700 notice   [Polyrecorder] Enabled DAL devices.
+2026-06-24T14:50:55.653-0700 debug    [Polyrecorder] Creating conductor with recorders. channels=2
+2026-06-24T14:50:55.653-0700 debug    [CursorRecorder] Checking if cursor folder/files don't exist yet.
+2026-06-24T14:50:55.657-0700 notice   [CursorRecorder] Checked cursor folder/files don't exist yet.
+2026-06-24T14:50:55.657-0700 debug    [CursorRecorder] Creating display link. displayId=1
+2026-06-24T14:50:55.680-0700 notice   [CursorRecorder] Created display link. displayId=1
+2026-06-24T14:50:55.680-0700 debug    [InputRecorder] Checking input monitoring authorization status. id=channel-0-input
+2026-06-24T14:50:55.698-0700 notice   [InputRecorder] Input monitoring is authorized. id=channel-0-input
+2026-06-24T14:50:55.729-0700 debug    [DisplayRecorder: channel-1-display] Checking if displayID 1 is in Active Displays list id=channel-1-display
+2026-06-24T14:50:55.738-0700 debug    [DisplayRecorder: channel-1-display] Creating DisplayRecorderOutput id=channel-1-display
+2026-06-24T14:50:55.752-0700 notice   [DisplayRecorder: channel-1-display] Created DisplayRecorderOutput id=channel-1-display output=DisplayRecorderOutput(cropRect: Optional((288.0, 204.0, 1176.0, 644.0)), recordBounds: (288.0, 204.0, 1176.0, 644.0), displayScaleFactor: 2, displayRefreshRate: 120.0, minFrameDuration: CMTime(seconds:0.008333333333333333 timescale:120 value:1 flags:valid), recordingScale: 0.5, assetWriterSettings: polyrecorder.AssetWriterSettings(mediaType: __C.AVMediaType(_rawValue: vide), outputSettings: ["AVVideoCodecKey": avc1, "AVVideoHeightKey": 1288, "AVVideoCompressionPropertiesKey": {
+    AllowFrameReordering = 1;
+    AverageBitRate = 14313608;
+    AverageNonDroppableFrameRate = 30;
+    ExpectedFrameRate = 120;
+    H264EntropyMode = CABAC;
+    MaxKeyFrameInterval = 30;
+    ProfileLevel = "H264_High_AutoLevel";
+}, "AVVideoWidthKey": 2352, "AVVideoEncoderSpecificationKey": {
+    EnableHardwareAcceleratedVideoEncoder = 1;
+}, "AVVideoScalingModeKey": AVVideoScalingModeResizeAspect]))
+2026-06-24T14:50:55.752-0700 debug    [polyrecorder] Set handler for frameRepeater id=channel-1-display
+2026-06-24T14:50:55.752-0700 info     [Polyrecorder] Created conductor with recorders. channels=2 recorders=3
+2026-06-24T14:50:55.752-0700 debug    [Polyrecorder] Attaching recorder abortion handler.
+2026-06-24T14:50:55.752-0700 notice   [Polyrecorder] Attached recorder abortion handler.
+2026-06-24T14:50:55.752-0700 debug    [Polyrecorder] Installing signal handlers on process 4050.
+2026-06-24T14:50:55.752-0700 notice   [Polyrecorder] Installed signal handlers on process 4050.
+2026-06-24T14:50:55.752-0700 notice   [Polyrecorder] Setup finished.
+2026-06-24T14:50:55.752-0700 debug    [Conductor] Starting recording.
+2026-06-24T14:50:55.752-0700 debug    [Conductor] Starting latency critical activity.
+2026-06-24T14:50:55.753-0700 notice   [Conductor] Started latency critical activity.
+2026-06-24T14:50:55.753-0700 debug    [Conductor] Setting up all recorders. recorders=3
+2026-06-24T14:50:55.753-0700 debug    [InputRecorder] Starting event monitor. id=channel-0-input
+2026-06-24T14:50:55.753-0700 info     [InputRecorder] Event monitor started. id=channel-0-input
+2026-06-24T14:50:55.753-0700 notice   [InputRecorder] Setup complete id=channel-0-input
+2026-06-24T14:50:55.753-0700 debug    [CursorRecorder] Creating cursor image directory. id=channel-0-cursor url=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/cursors/
+2026-06-24T14:50:55.753-0700 debug    [DisplayRecorder: channel-1-display] Accessing ShareableContent id=channel-1-display
+2026-06-24T14:50:55.755-0700 notice   [CursorRecorder] Created cursor image directory. id=channel-0-cursor url=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/cursors/
+2026-06-24T14:50:55.859-0700 notice   [DisplayRecorder: channel-1-display] Received ShareableContent attempt=1 id=channel-1-display restarted=false
+2026-06-24T14:50:55.859-0700 debug    [DisplayRecorder: channel-1-display] Creating SCContentFilter from configuration id=channel-1-display
+2026-06-24T14:50:55.861-0700 debug    [DisplayRecorder: channel-1-display] Creating SCStream id=channel-1-display streamConfig=SCStreamConfiguration sourceRect:(288.0, 204.0, 1176.0, 644.0) width:2352 height:1288 queueDepth:8
+2026-06-24T14:50:55.999-0700 notice   [DisplayRecorder: channel-1-display] Created SCStream id=channel-1-display
+2026-06-24T14:50:55.999-0700 debug    [DisplayRecorder: channel-1-display] Add StreamOutput to capture screen content id=channel-1-display
+2026-06-24T14:50:55.999-0700 debug    [DisplayRecorder: channel-1-display] Enable verbose SCK logging id=channel-1-display
+2026-06-24T14:50:55.999-0700 debug    [DisplayRecorder: channel-1-display] Start stream capture id=channel-1-display
+2026-06-24T14:50:56.067-0700 debug    [CursorRecorder] Preloading system cursors. cursors=49 id=channel-0-cursor
+2026-06-24T14:50:56.068-0700 notice   [CursorRecorder] Preloaded system cursors. dropped=dropped: (public)columnResize > existing: (public)resizeLeftRight, dropped: (public)rowResize > existing: (public)resizeUpDown, dropped: (private)closedHand > existing: (public)closedHand, dropped: (private)crosshair > existing: (public)crosshair, dropped: (private)genericDrag > existing: (public)arrow, dropped: (private)hand > existing: (public)openHand, dropped: (private)horizontalResize > existing: (public)resizeLeftRight, dropped: (private)overrideHelp > existing: (private)help, dropped: (private)verticalResize > existing: (public)resizeUpDown, dropped: (private)zoomIn > existing: (public)zoomIn, dropped: (private)zoomOut > existing: (public)zoomOut id=channel-0-cursor
+2026-06-24T14:50:56.068-0700 debug    [CursorRecorder] Writing preloaded cursors information to disk. count=38 id=channel-0-cursor
+2026-06-24T14:50:56.100-0700 notice   [CursorRecorder] Cursor information written to disk. count=38 id=channel-0-cursor
+2026-06-24T14:50:56.100-0700 debug    [CursorRecorder] Configuring display link output handler. errorRateLimit=10.0 id=channel-0-cursor
+2026-06-24T14:50:56.100-0700 info     [CursorRecorder] Display link output handler configured. errorRateLimit=10.0 id=channel-0-cursor
+2026-06-24T14:50:56.100-0700 debug    [CursorRecorder] Setting current display on display link. displayId=1 id=channel-0-cursor
+2026-06-24T14:50:56.103-0700 info     [CursorRecorder] Current display on display link set. displayId=1 id=channel-0-cursor
+2026-06-24T14:50:56.103-0700 debug    [CursorRecorder] Starting display link. displayId=1 id=channel-0-cursor
+2026-06-24T14:50:56.103-0700 notice   [CursorRecorder] Started display link. displayId=1 id=channel-0-cursor
+2026-06-24T14:50:56.103-0700 notice   [CursorRecorder] Setup complete id=channel-0-cursor
+2026-06-24T14:50:56.119-0700 notice   [CursorRecorder] Refresh rate of current display changed. currentDisplay=1 id=channel-0-cursor refreshRate=120 FPS
+2026-06-24T14:50:56.197-0700 notice   [DisplayRecorder: channel-1-display] Started stream capture id=channel-1-display
+2026-06-24T14:50:56.197-0700 debug    [DisplayRecorder: channel-1-display] Waiting for ring buffer to have a frame id=channel-1-display
+2026-06-24T14:50:56.235-0700 debug    [StreamCoordinator: channel-1-display] Stream did output sample buffer id=channel-1-display isValid=true
+2026-06-24T14:50:56.236-0700 debug    [DisplayRecorder: channel-1-display] Checking delta of presentation time stamp to host time clock. framePTS=21176.177840083 hostTime=21176.214372875 id=channel-1-display
+2026-06-24T14:50:56.236-0700 notice   [DisplayRecorder: channel-1-display] Trivial delta between presentation time stamp to host time clock, will trust frame PTS. framePTS=21176.177840083 hostTime=21176.214372875 hostTimeDelta=0.036532792 id=channel-1-display
+2026-06-24T14:50:56.236-0700 notice   [DisplayRecorder: channel-1-display] Ring buffer has a frame id=channel-1-display
+2026-06-24T14:50:56.236-0700 debug    [DisplayRecorder: channel-1-display] Disable verbose SCK logging id=channel-1-display
+2026-06-24T14:50:56.236-0700 notice   [DisplayRecorder: channel-1-display] Setup complete id=channel-1-display
+2026-06-24T14:50:56.236-0700 notice   [Conductor] Did setup all recorders. recorders=3
+2026-06-24T14:50:56.236-0700 debug    [Conductor] Calling prepare on all recorders for session. recorders=3
+2026-06-24T14:50:56.236-0700 notice   [InputRecorder] Preparing session. id=channel-0-input sessions=0
+2026-06-24T14:50:56.236-0700 debug    [DisplayRecorder: channel-1-display] Creating SessionWriter id=channel-1-display
+2026-06-24T14:50:56.236-0700 debug    [SessionWriter: channel-1-display-0] Creating AVAssetWriter id=channel-1-display
+2026-06-24T14:50:56.242-0700 notice   [SessionWriter: channel-1-display-0] Created AVAssetWriter id=channel-1-display
+2026-06-24T14:50:56.242-0700 debug    [SessionWriter: channel-1-display-0] Add AVAssetWriter.error observation id=channel-1-display
+2026-06-24T14:50:56.243-0700 notice   [SessionWriter: channel-1-display-0] Added AVAssetWriter.error observation id=channel-1-display
+2026-06-24T14:50:56.243-0700 debug    [SessionWriter: channel-1-display-0] Creating AVAssetWriterInput id=channel-1-display mediaType=AVMediaType(_rawValue: vide) outputSettings=["AVVideoCodecKey": avc1, "AVVideoHeightKey": 1288, "AVVideoCompressionPropertiesKey": {
+    AllowFrameReordering = 1;
+    AverageBitRate = 14313608;
+    AverageNonDroppableFrameRate = 30;
+    ExpectedFrameRate = 120;
+    H264EntropyMode = CABAC;
+    MaxKeyFrameInterval = 30;
+    ProfileLevel = "H264_High_AutoLevel";
+}, "AVVideoWidthKey": 2352, "AVVideoEncoderSpecificationKey": {
+    EnableHardwareAcceleratedVideoEncoder = 1;
+}, "AVVideoScalingModeKey": AVVideoScalingModeResizeAspect]
+2026-06-24T14:50:56.245-0700 notice   [InputRecorder] Prepared session. id=channel-0-input sessions=1
+2026-06-24T14:50:56.387-0700 debug    [SessionWriter: channel-1-display-0] Adding AVAssetWriterInput to AVAssetWriter. id=channel-1-display
+2026-06-24T14:50:56.388-0700 notice   [SessionWriter: channel-1-display-0] Added AVAssetWriterInput to AVAssetWriter id=channel-1-display
+2026-06-24T14:50:56.428-0700 debug    [DisplayRecorder: channel-1-display] Processing initial samples from buffer. bufferCount=3 id=channel-1-display
+2026-06-24T14:50:56.428-0700 notice   [DisplayRecorder: channel-1-display] Processed initial samples from buffer. bufferCount=3 id=channel-1-display
+2026-06-24T14:50:56.428-0700 notice   [DisplayRecorder: channel-1-display] Created SessionWriter id=channel-1-display
+2026-06-24T14:50:56.428-0700 notice   [Conductor] Called prepare recorders for session. recorders=3
+2026-06-24T14:50:56.428-0700 debug    [Conductor] Broadcasting over stdout that all recorders are prepared. recorders=3
+2026-06-24T14:50:56.428-0700 notice   [Conductor] Broadcasted over stdout that all recorders are prepared. recorders=3
+2026-06-24T14:50:56.430-0700 notice   [SignalHandler] Received SIGCONT.
+2026-06-24T14:50:56.430-0700 debug    [Conductor] Resuming recording.
+2026-06-24T14:50:56.430-0700 notice   [Conductor] Recording resumed. recordFrom=21176.409013458335
+2026-06-24T14:50:56.430-0700 debug    [Conductor] Start async updates for recording.
+2026-06-24T14:50:56.430-0700 notice   [Conductor] Started async updates for recording.
+2026-06-24T14:50:56.430-0700 debug    [Conductor] Update metadata file.
+2026-06-24T14:50:56.432-0700 debug    [polyrecorder] Metadata file updated.
+2026-06-24T14:50:56.432-0700 notice   [Conductor] Updated metadata file.
+2026-06-24T14:50:56.432-0700 debug    [Conductor] Broadcasting over stdout that session started. recorders=3
+2026-06-24T14:50:56.432-0700 notice   [Conductor] Broadcasted over stdout that sessions started. recorders=3
+2026-06-24T14:50:56.447-0700 debug    [SessionWriter: channel-1-display-0] Start session on AVAssetWriter id=channel-1-display sessionStart=CMTime(seconds:21176.409013458 timescale:1000000000 value:21176409013458 flags:valid, hasBeenRounded)
+2026-06-24T14:50:56.447-0700 notice   [SessionWriter: channel-1-display-0] Started session on AVAssetWriter id=channel-1-display sessionStart=CMTime(seconds:21176.409013458 timescale:1000000000 value:21176409013458 flags:valid, hasBeenRounded)
+2026-06-24T14:50:56.447-0700 notice   [SessionWriter: channel-1-display-0] Appending first sample buffer duration=CMTime(seconds:nan timescale:0 value:0 flags:<empty>) id=channel-1-display newPresentationTime=CMTime(seconds:21176.409013458 timescale:1000000000 value:21176409013458 flags:valid, hasBeenRounded) originalDecodeTime=CMTime(seconds:nan timescale:0 value:0 flags:<empty>) originalPresentationTime=CMTime(seconds:21176.38617025 timescale:1000000000 value:21176386170250 flags:valid)
+2026-06-24T14:50:56.453-0700 notice   [SessionWriter: channel-1-display-0] Appending second sample buffer duration=CMTime(seconds:nan timescale:0 value:0 flags:<empty>) id=channel-1-display newPresentationTime=CMTime(seconds:21176.427836208 timescale:1000000000 value:21176427836208 flags:valid) originalDecodeTime=CMTime(seconds:nan timescale:0 value:0 flags:<empty>) originalPresentationTime=CMTime(seconds:21176.427836208 timescale:1000000000 value:21176427836208 flags:valid)
+2026-06-24T14:50:56.455-0700 debug    [polyrecorder] Metadata file updated.
+2026-06-24T14:50:56.524-0700 info     [DiskSpaceInfo] Current disk space update file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54, total: 494.38 GB, available: 95.93 GB, availableForImportantUsage: 120.83 GB, availableForOpportunisticUsage: 94.06 GB available=95928766464 availableImportant=120832160681 availableOppertunistic=94060130562 total=494384795648
+2026-06-24T14:50:56.775-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21176.409013458335 generatedEvents=3 id=channel-0-input session=0 untilIncluding=21176.75244925
+2026-06-24T14:50:56.798-0700 debug    [polyrecorder] Metadata file updated.
+2026-06-24T14:50:58.066-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 698, segmentType:initialization, segmentReport:nil id=channel-1-display
+2026-06-24T14:50:58.066-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0000.mp4 id=channel-1-display
+2026-06-24T14:50:58.068-0700 debug    [polyrecorder] Created playlist writer at file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0.m3u8 id=channel-1-display
+2026-06-24T14:50:58.069-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 165979, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21176.408333333333 timescale:600 value:12705845 flags:valid) duration:CMTime(seconds:1.6016666666666666 timescale:600 value:961 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21176.408333333333 timescale:600 value:12705845 flags:valid) offset:956 length:24086 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:50:58.069-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0001.m4s id=channel-1-display
+2026-06-24T14:50:58.070-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0001.m4s: CMTime(seconds:21176.408333333333 timescale:600 value:12705845 flags:valid) id=channel-1-display
+2026-06-24T14:50:58.830-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21178.798369958 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21178.803611583
+2026-06-24T14:50:59.432-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21179.38909675 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21179.398192875
+2026-06-24T14:51:00.114-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 60397, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21178.01 timescale:600 value:12706806 flags:valid) duration:CMTime(seconds:2.0 timescale:600 value:1200 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21178.01 timescale:600 value:12706806 flags:valid, hasBeenRounded) offset:508 length:43563 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:51:00.114-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0002.m4s id=channel-1-display
+2026-06-24T14:51:00.117-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0002.m4s: CMTime(seconds:21178.01 timescale:600 value:12706806 flags:valid) id=channel-1-display
+2026-06-24T14:51:00.279-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21180.238817541 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21180.243650083
+2026-06-24T14:51:00.703-0700 debug    [StreamCoordinator: channel-1-display] SCFrameStatus summary for last 5 seconds id=channel-1-display summary=[("complete", 111), ("idle", 199)] total=310
+2026-06-24T14:51:02.054-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 291661, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21180.01 timescale:600 value:12708006 flags:valid) duration:CMTime(seconds:1.9916666666666667 timescale:600 value:1195 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21180.01 timescale:600 value:12708006 flags:valid, hasBeenRounded) offset:628 length:52886 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:51:02.054-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0003.m4s id=channel-1-display
+2026-06-24T14:51:02.058-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0003.m4s: CMTime(seconds:21180.01 timescale:600 value:12708006 flags:valid) id=channel-1-display
+2026-06-24T14:51:02.757-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21180.719060916 generatedEvents=3 id=channel-0-input session=0 untilIncluding=21182.734165291
+2026-06-24T14:51:04.066-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 452210, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21182.001666666667 timescale:600 value:12709201 flags:valid) duration:CMTime(seconds:2.0083333333333333 timescale:600 value:1205 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21182.001666666667 timescale:600 value:12709201 flags:valid, hasBeenRounded) offset:1076 length:74112 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:51:04.066-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0004.m4s id=channel-1-display
+2026-06-24T14:51:04.079-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0004.m4s: CMTime(seconds:21182.001666666667 timescale:600 value:12709201 flags:valid) id=channel-1-display
+2026-06-24T14:51:05.703-0700 debug    [StreamCoordinator: channel-1-display] SCFrameStatus summary for last 5 seconds id=channel-1-display summary=[("complete", 218), ("idle", 117)] total=335
+2026-06-24T14:51:06.054-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 361766, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21184.01 timescale:600 value:12710406 flags:valid) duration:CMTime(seconds:1.9916666666666667 timescale:600 value:1195 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21184.01 timescale:600 value:12710406 flags:valid, hasBeenRounded) offset:1556 length:64956 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:51:06.054-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0005.m4s id=channel-1-display
+2026-06-24T14:51:06.058-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0005.m4s: CMTime(seconds:21184.01 timescale:600 value:12710406 flags:valid) id=channel-1-display
+2026-06-24T14:51:06.092-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21186.05738925 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21186.067986041
+2026-06-24T14:51:08.050-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 690611, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21186.001666666667 timescale:600 value:12711601 flags:valid) duration:CMTime(seconds:2.0 timescale:600 value:1200 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21186.001666666667 timescale:600 value:12711601 flags:valid, hasBeenRounded) offset:1556 length:65824 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:51:08.050-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0006.m4s id=channel-1-display
+2026-06-24T14:51:08.054-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0006.m4s: CMTime(seconds:21186.001666666667 timescale:600 value:12711601 flags:valid) id=channel-1-display
+2026-06-24T14:51:08.371-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21186.596953041 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21188.34893475
+2026-06-24T14:51:08.498-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21188.4505665 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21188.4571305
+2026-06-24T14:51:08.677-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21188.639778875 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21188.6551155
+2026-06-24T14:51:08.695-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21188.6551155 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21188.664842
+2026-06-24T14:51:10.119-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 668264, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21188.001666666667 timescale:600 value:12712801 flags:valid) duration:CMTime(seconds:2.0166666666666666 timescale:600 value:1210 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21188.001666666667 timescale:600 value:12712801 flags:valid, hasBeenRounded) offset:1360 length:93613 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:51:10.119-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0007.m4s id=channel-1-display
+2026-06-24T14:51:10.125-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0007.m4s: CMTime(seconds:21188.001666666667 timescale:600 value:12712801 flags:valid) id=channel-1-display
+2026-06-24T14:51:10.563-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21189.049443541 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21190.541224916
+2026-06-24T14:51:10.702-0700 debug    [StreamCoordinator: channel-1-display] SCFrameStatus summary for last 5 seconds id=channel-1-display summary=[("complete", 243), ("idle", 95)] total=338
+2026-06-24T14:51:10.758-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21190.730421125 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21190.735706333
+2026-06-24T14:51:10.803-0700 debug    [InputRecorderSession: 0] Generated mouse move events for cursor changes between mouse moves. after=21190.773562916 generatedEvents=1 id=channel-0-input session=0 untilIncluding=21190.780952583
+2026-06-24T14:51:12.065-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 117395, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21190.018333333333 timescale:600 value:12714011 flags:valid) duration:CMTime(seconds:1.9916666666666667 timescale:600 value:1195 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21190.018333333333 timescale:600 value:12714011 flags:valid, hasBeenRounded) offset:736 length:56485 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:51:12.065-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0008.m4s id=channel-1-display
+2026-06-24T14:51:12.067-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0008.m4s: CMTime(seconds:21190.018333333333 timescale:600 value:12714011 flags:valid) id=channel-1-display
+2026-06-24T14:51:12.315-0700 notice   [SignalHandler] Received SIGTERM.
+2026-06-24T14:51:12.315-0700 warning  [Conductor] Pausing the recording to be able to stop.
+2026-06-24T14:51:12.315-0700 debug    [Conductor] Pausing recording.
+2026-06-24T14:51:12.315-0700 notice   [Conductor] Recording paused. recordUntil=21192.293458083335
+2026-06-24T14:51:12.315-0700 debug    [Conductor] Stopping recording.
+2026-06-24T14:51:12.315-0700 debug    [Conductor] Cleaning up recorders. recorders=3
+2026-06-24T14:51:12.315-0700 debug    [CursorRecorder] Stopping display link. id=channel-0-cursor
+2026-06-24T14:51:12.315-0700 debug    [InputRecorder] Stopping event monitor. id=channel-0-input
+2026-06-24T14:51:12.315-0700 debug    [DisplayRecorder: channel-1-display] Completing all session writers id=channel-1-display sessionWriters.count=1
+2026-06-24T14:51:12.315-0700 notice   [InputRecorder] Stopped eventTapForEvents. id=channel-0-input
+2026-06-24T14:51:12.315-0700 debug    [SessionWriter: channel-1-display-0] Starting new recording completion task id=channel-1-display
+2026-06-24T14:51:12.315-0700 info     [InputRecorder] Event monitor stopped. id=channel-0-input
+2026-06-24T14:51:12.315-0700 debug    [InputRecorder] Finishing sessions. id=channel-0-input
+2026-06-24T14:51:12.315-0700 debug    [InputRecorderSession: 0] Generating mouse move events for stationary cursor changes at end of session. id=channel-0-input session=0
+2026-06-24T14:51:12.315-0700 debug    [SessionWriter: channel-1-display-0] Completing recording. id=channel-1-display
+2026-06-24T14:51:12.315-0700 debug    [SessionWriter: channel-1-display-0] Waiting for final frames. id=channel-1-display
+2026-06-24T14:51:12.315-0700 notice   [InputRecorderSession: 0] Generated mouse move events for stationary cursor changes at end of session. after=21191.709371208 generatedEvents=0 id=channel-0-input session=0 untilIncluding=21192.293458083335
+2026-06-24T14:51:12.315-0700 debug    [polyrecorder] Closing streaming JSON file. fileUrl=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/mousemoves-0.json id=channel-0-input
+2026-06-24T14:51:12.315-0700 notice   [SessionWriter: channel-1-display-0] Newer item produced recently, waiting for another second. id=channel-1-display lastItemTime=CMTime(seconds:21192.285926083 timescale:1000000000 value:21192285926083 flags:valid) previousLastItemTime=CMTime(seconds:-inf timescale:0 value:0 flags:valid, negativeInfinity)
+2026-06-24T14:51:12.315-0700 notice   [CursorRecorder] Stopped display link. id=channel-0-cursor
+2026-06-24T14:51:12.316-0700 debug    [polyrecorder] Closing streaming JSON file. fileUrl=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/cursors.json
+2026-06-24T14:51:12.326-0700 info     [polyrecorder] Closed streaming JSON file successfully. fileUrl=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/mousemoves-0.json id=channel-0-input
+2026-06-24T14:51:12.326-0700 debug    [polyrecorder] Closing streaming JSON file. fileUrl=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/mouseclicks-0.json id=channel-0-input
+2026-06-24T14:51:12.326-0700 info     [polyrecorder] Closed streaming JSON file successfully. fileUrl=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/cursors.json
+2026-06-24T14:51:12.326-0700 notice   [CursorRecorder] Cursor information written to disk. count=39 folder=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/cursors/ id=channel-0-cursor
+2026-06-24T14:51:12.328-0700 info     [polyrecorder] Closed streaming JSON file successfully. fileUrl=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/mouseclicks-0.json id=channel-0-input
+2026-06-24T14:51:12.328-0700 debug    [polyrecorder] Closing streaming JSON file. fileUrl=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/keystrokes-0.json id=channel-0-input
+2026-06-24T14:51:12.329-0700 info     [polyrecorder] Closed streaming JSON file successfully. fileUrl=file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/keystrokes-0.json id=channel-0-input
+2026-06-24T14:51:12.329-0700 notice   [InputRecorder] Finished writers. id=channel-0-input
+2026-06-24T14:51:13.328-0700 notice   [SessionWriter: channel-1-display-0] Waiting for final frames completed. id=channel-1-display systemUptime=21193.306309791667
+2026-06-24T14:51:13.328-0700 debug    [SessionWriter: channel-1-display-0] Finishing SessionBoundedRetimer. id=channel-1-display
+2026-06-24T14:51:13.328-0700 notice   [SessionWriter: channel-1-display-0] Finished SessionBoundedRetimer. id=channel-1-display
+2026-06-24T14:51:13.328-0700 debug    [SessionWriter: channel-1-display-0] Flushing all frames from backpressure buffer. id=channel-1-display itemsInBuffer=0
+2026-06-24T14:51:13.328-0700 notice   [SessionWriter: channel-1-display-0] Flushed all frames from backpressure buffer. id=channel-1-display itemsInBuffer=0
+2026-06-24T14:51:13.328-0700 debug    [SessionWriter: channel-1-display-0] End session on AVAssetWriter id=channel-1-display sessionEnd=CMTime(seconds:21192.293458083 timescale:1000000000 value:21192293458083 flags:valid, hasBeenRounded)
+2026-06-24T14:51:13.328-0700 debug    [SegmentedAssetWriterDelegate] Did output segment data: 56499, segmentType:separable, segmentReport:AVAssetSegmentTrackReport(earliestPresentationTimeStamp:CMTime(seconds:21192.01 timescale:600 value:12715206 flags:valid) duration:CMTime(seconds:0.2916666666666667 timescale:600 value:175 flags:valid) firstVideoSampleInformation:(presentationTimeStamp:CMTime(seconds:21192.01 timescale:600 value:12715206 flags:valid, hasBeenRounded) offset:256 length:52890 isSyncSample:true)) id=channel-1-display
+2026-06-24T14:51:13.328-0700 debug    [SegmentedAssetWriterDelegate] Writing segment data: file:///Users/prakhlin/Library/Application%20Support/Screen%20Studio/Screen%20Studio%20Recordings/Area%202026-06-24%2014:50:54/channel-1-display-0-0009.m4s id=channel-1-display
+2026-06-24T14:51:13.331-0700 info     [SegmentedAssetWriterDelegate] Appending channel-1-display-0-0009.m4s: CMTime(seconds:21192.01 timescale:600 value:12715206 flags:valid) id=channel-1-display
+2026-06-24T14:51:13.331-0700 notice   [SessionWriter: channel-1-display-0] End session on AVAssetWriter id=channel-1-display sessionEnd=CMTime(seconds:21192.293458083 timescale:1000000000 value:21192293458083 flags:valid, hasBeenRounded)
+2026-06-24T14:51:13.331-0700 debug    [SessionWriter: channel-1-display-0] Finishing writing to asset writer. id=channel-1-display
+2026-06-24T14:51:13.336-0700 notice   [SessionWriter: channel-1-display-0] Finished writing to assset writer. id=channel-1-display
+2026-06-24T14:51:13.336-0700 debug    [SessionWriter: channel-1-display-0] Finishing writing to metadata file. id=channel-1-display
+2026-06-24T14:51:13.336-0700 notice   [SessionWriter: channel-1-display-0] Finished writing to metadata file. id=channel-1-display
+2026-06-24T14:51:13.336-0700 notice   [SessionWriter: channel-1-display-0] Completed recording, returning metadata. framesProcessed (excluding initial Ring buffer)=678 id=channel-1-display
+2026-06-24T14:51:13.336-0700 notice   [DisplayRecorder: channel-1-display] Completed all session writers id=channel-1-display sessionWriters.count=1
+2026-06-24T14:51:13.336-0700 debug    [DisplayRecorder: channel-1-display] Stopping stream capture. id=channel-1-display
+2026-06-24T14:51:13.347-0700 notice   [DisplayRecorder: channel-1-display] Stopped stream capture. id=channel-1-display
+2026-06-24T14:51:13.347-0700 debug    [DisplayRecorder: channel-1-display] Clearing frame timeout. id=channel-1-display
+2026-06-24T14:51:13.347-0700 notice   [DisplayRecorder: channel-1-display] Cleared frame timeout. id=channel-1-display
+2026-06-24T14:51:13.347-0700 debug    [DisplayRecorder: channel-1-display] Returning Metadata from cleanup id=channel-1-display totalFramesProcessed=685
+2026-06-24T14:51:13.347-0700 notice   [Conductor] Finalized recorders. errors=0 metadataCount=3 recorders=3 sessionsCount=1
+2026-06-24T14:51:13.347-0700 debug    [Conductor] Writing metadata file. metadataCount=3
+2026-06-24T14:51:13.348-0700 debug    [polyrecorder] Metadata file updated.
+2026-06-24T14:51:13.348-0700 notice   [Conductor] Metadata file written. metadataCount=3
+2026-06-24T14:51:13.348-0700 debug    [Conductor] Ending latency critical activity.
+2026-06-24T14:51:13.348-0700 notice   [Conductor] Ended latency critical activity.
+2026-06-24T14:51:13.348-0700 notice   [Conductor] Recording stopped. errorCount=0 metadataCount=3 recorders=3
+2026-06-24T14:51:13.348-0700 notice   [Conductor] Stopped recording. sessions=[
+from:     21176.409  2026-06-24T14:50:56.430-0700
+until:    21192.293  2026-06-24T14:51:12.315-0700
+duration: 15.884
+]
+2026-06-24T14:51:13.348-0700 notice   [Polyrecorder] Nominal recording ended.

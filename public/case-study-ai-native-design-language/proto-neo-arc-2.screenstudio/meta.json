@@ -1,0 +1,15 @@
+{
+  "json": {
+    "version": "3.7.0-4367",
+    "requiredVersion": "2.4.0-beta",
+    "createdAt": "2026-06-24T22:19:03.461Z"
+  },
+  "meta": {
+    "values": {
+      "createdAt": [
+        "Date"
+      ]
+    },
+    "v": 1
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "logFilename": "polyrecorder.log",
+  "polyrecorderVersion": "2.7.0",
+  "recorders": [
+    {
+      "configuration": {},
+      "cursorImagesFolder": "cursors",
+      "cursorsInfoFile": "cursors.json",
+      "id": "channel-0-cursor",
+      "type": "cursor"
+    },
+    {
+      "configuration": {
+        "captureKeyStrokes": true
+      },
+      "id": "channel-0-input",
+      "sessions": [
+        {
+          "durationMs": 15884.44462500047,
+          "keyStrokesFilename": "keystrokes-0.json",
+          "mouseClicksFilename": "mouseclicks-0.json",
+          "mouseMovesFilename": "mousemoves-0.json",
+          "processTimeEndMs": 16859.49679166879,
+          "processTimeStartMs": 975.0521666683198,
+          "unixEndMs": 1782337872314.6213,
+          "unixStartMs": 1782337856430.1768
+        }
+      ],
+      "type": "input"
+    },
+    {
+      "configuration": {
+        "cropRect": {
+          "height": 644,
+          "width": 1176,
+          "x": 288,
+          "y": 204,
+          "yAxis": "topBasedIncreasingDownwards"
+        },
+        "displayId": 1,
+        "excludeFinderDesktopIcons": false,
+        "excludedWindowIds": [
+          3294,
+          3295,
+          3346,
+          3347
+        ]
+      },
+      "id": "channel-1-display",
+      "sessions": [
+        {
+          "bounds": {
+            "height": 644,
+            "width": 1176,
+            "x": 288,
+            "y": 204
+          },
+          "displayRefreshRate": 120,
+          "durationMs": 15884.444625,
+          "outputFilename": "channel-1-display-0.mp4",
+          "processTimeEndMs": 16859.496791333626,
+          "processTimeStartMs": 975.0521663336258,
+          "recordingScale": 0.5,
+          "unixEndMs": 1782337872314.6213,
+          "unixStartMs": 1782337856430.1768
+        }
+      ],
+      "type": "display"
+    }
+  ],
+  "sessions": [
+    {
+      "durationMs": 15884.44462500047,
+      "processTimeEndMs": 16859.49679166879,
+      "processTimeStartMs": 975.0521666683198,
+      "unixEndMs": 1782337872314.6213,
+      "unixStartMs": 1782337856430.1768
+    }
+  ],
+  "state": "complete"
+}
