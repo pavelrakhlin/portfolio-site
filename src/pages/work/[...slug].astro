@@ -1,5 +1,5 @@
 ---
-import { render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import { formatSectionBody } from '../../lib/format-body';
@@ -9,12 +9,16 @@ export async function getStaticPaths() {
   const projects = await getProjects();
   return projects.map((project) => ({
     params: { slug: project.id },
-    props: { project },
   }));
 }
 
-const { project } = Astro.props;
-const { title, summary, role, year, tags, cover, coverAlt, sections } =
+const slug = Astro.params.slug!;
+const project = await getEntry('projects', slug);
+if (!project) {
+  return Astro.redirect('/work/');
+}
+
+const { title, summary, role, year, tags, cover, coverMedia, coverAlt, metrics, sections } =
   project.data;
 const { Content } = await render(project);
 
@@ -57,20 +61,64 @@ const normalized = sections.map((s) =>
     </header>
 
     <div class="case-hero">
-      <button
-        class="media-trigger"
-        data-lightbox
-        data-alt={coverAlt}
-        aria-label={`Enlarge image: ${coverAlt}`}
-      >
-        <Image
-          src={cover}
-          alt={coverAlt}
-          widths={[640, 1024, 1600]}
-          sizes="(max-width: 1088px) 100vw, 1088px"
-        />
-      </button>
+      {
+        coverMedia?.type === 'video' ? (
+          <button
+            class="media-trigger"
+            data-lightbox
+            data-media="video"
+            data-alt={coverMedia.alt}
+            aria-label={`Enlarge video: ${coverMedia.alt}`}
+          >
+            <video
+              class="case-hero__video"
+              poster={coverMedia.poster.src}
+              preload="metadata"
+              muted
+              loop
+              playsinline
+              aria-label={coverMedia.alt}
+              data-autoplay-video
+            >
+              {coverMedia.webm && (
+                <source src={coverMedia.webm} type="video/webm" />
+              )}
+              <source src={coverMedia.mp4} type="video/mp4" />
+            </video>
+          </button>
+        ) : (
+          <button
+            class="media-trigger"
+            data-lightbox
+            data-alt={coverAlt}
+            aria-label={`Enlarge image: ${coverAlt}`}
+          >
+            <Image
+              src={cover}
+              alt={coverAlt}
+              widths={[640, 1024, 1600]}
+              sizes="(max-width: 1088px) 100vw, 1088px"
+            />
+          </button>
+        )
+      }
     </div>
+
+    {
+      metrics && metrics.length > 0 && (
+        <>
+          <dl class="case-metrics">
+            {metrics.map((metric) => (
+              <div class="case-metrics__item">
+                <dt class="case-metrics__value">{metric.value}</dt>
+                <dd class="case-metrics__label">{metric.label}</dd>
+              </div>
+            ))}
+          </dl>
+          <hr class="section-divider metrics-divider" />
+        </>
+      )
+    }
 
     {
       normalized.length > 0 ? (
@@ -79,10 +127,12 @@ const normalized = sections.map((s) =>
             <>
               {section.dividerBefore && <hr class="section-divider" />}
               <section class="section">
-              <div class="section__text">
-                <h2>{section.heading}</h2>
-                <p set:html={formatSectionBody(section.body)} />
-              </div>
+              {section.body.trim() && (
+                <div class="section__text">
+                  <h2>{section.heading}</h2>
+                  <div class="section__body" set:html={formatSectionBody(section.body)} />
+                </div>
+              )}
               {section.media && (
               <div class="section__media">
                 {section.media.type === 'image' && (
@@ -198,6 +248,41 @@ const normalized = sections.map((s) =>
     font-size: var(--text-sm);
   }
 
+  .case-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin: 0;
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  .case-metrics__item {
+    margin: 0;
+  }
+  .case-metrics__value {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-2);
+  }
+  .case-metrics__label {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    .case-metrics {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  .metrics-divider {
+    margin: 0 0 var(--space-16);
+  }
+
   /* Layout-neutral button wrapper so media stays clickable + keyboard-
      accessible without changing how it renders. */
   .media-trigger {
@@ -211,10 +296,12 @@ const normalized = sections.map((s) =>
     color: inherit;
   }
 
-  .case-hero img {
+  .case-hero img,
+  .case-hero video {
     width: 100%;
     border-radius: 0;
     margin-bottom: var(--space-16);
+    display: block;
   }
 
   /* Stacked text + full-width image sections. Even spacing around each text
@@ -243,11 +330,16 @@ const normalized = sections.map((s) =>
     font-size: var(--text-2xl);
     margin: 0;
   }
-  .section__text p {
+  .section__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: var(--max-width-prose);
+  }
+  .section__body p {
     color: var(--color-text);
     margin: 0;
     font-size: 16px;
-    max-width: var(--max-width-prose);
   }
 
   /* Stack heading above body on narrow screens. */

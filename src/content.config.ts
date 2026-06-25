@@ -16,7 +16,27 @@ const projects = defineCollection({
       // Cover image: place the file next to the markdown or in src/assets/
       // and reference it by relative path. Astro optimizes it via astro:assets.
       cover: image(),
+      // Optional looping hero video. `cover` still powers listing thumbnails;
+      // when `coverMedia` is set, the case-study hero renders that instead.
+      coverMedia: z
+        .object({
+          type: z.literal('video'),
+          webm: z.string().optional(),
+          mp4: z.string(),
+          poster: image(),
+          alt: z.string(),
+        })
+        .optional(),
       coverAlt: z.string(),
+      // Optional headline stats shown in a horizontal row below the case header.
+      metrics: z
+        .array(
+          z.object({
+            value: z.string(),
+            label: z.string(),
+          }),
+        )
+        .optional(),
       featured: z.boolean().default(false),
       // Lower numbers sort first on listing pages.
       order: z.number().default(99),
