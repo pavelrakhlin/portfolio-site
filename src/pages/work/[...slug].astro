@@ -106,14 +106,17 @@ const normalized = sections.map((s) =>
 
     {
       metrics && metrics.length > 0 && (
-        <dl class="case-metrics">
-          {metrics.map((metric) => (
-            <div class="case-metrics__item">
-              <dt class="case-metrics__value">{metric.value}</dt>
-              <dd class="case-metrics__label">{metric.label}</dd>
-            </div>
-          ))}
-        </dl>
+        <>
+          <dl class="case-metrics">
+            {metrics.map((metric) => (
+              <div class="case-metrics__item">
+                <dt class="case-metrics__value">{metric.value}</dt>
+                <dd class="case-metrics__label">{metric.label}</dd>
+              </div>
+            ))}
+          </dl>
+          <hr class="section-divider metrics-divider" />
+        </>
       )
     }
 
@@ -127,7 +130,7 @@ const normalized = sections.map((s) =>
               {section.body.trim() && (
                 <div class="section__text">
                   <h2>{section.heading}</h2>
-                  <p set:html={formatSectionBody(section.body)} />
+                  <div class="section__body" set:html={formatSectionBody(section.body)} />
                 </div>
               )}
               {section.media && (
@@ -249,8 +252,8 @@ const normalized = sections.map((s) =>
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-8);
-    margin: 0 0 var(--space-16);
-    padding-top: var(--space-8);
+    margin: 0;
+    padding-block: var(--space-8);
     border-top: 1px solid var(--color-border);
   }
   .case-metrics__item {
@@ -274,6 +277,10 @@ const normalized = sections.map((s) =>
       grid-template-columns: 1fr;
       gap: var(--space-6);
     }
+  }
+
+  .metrics-divider {
+    margin: 0 0 var(--space-16);
   }
 
   /* Layout-neutral button wrapper so media stays clickable + keyboard-
@@ -323,11 +330,16 @@ const normalized = sections.map((s) =>
     font-size: var(--text-2xl);
     margin: 0;
   }
-  .section__text p {
+  .section__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: var(--max-width-prose);
+  }
+  .section__body p {
     color: var(--color-text);
     margin: 0;
     font-size: 16px;
-    max-width: var(--max-width-prose);
   }
 
   /* Stack heading above body on narrow screens. */

@@ -25,25 +25,13 @@ featured: true
 order: 2
 draft: true
 sections:
-  - heading: The customer problem
+  - heading: Customer problem & opportunities
     body: >-
-      When Intuit customers get stuck completing a workflow and turn to the
-      product's self-help instructions, they often find themselves more lost than
-      before — forced to escalate to a live agent. The instructions are hard to
-      follow, and mapping generic steps to a specific personal situation demands
-      a high cognitive load. The result: customers feel defeated and frustrated
-      before they ever resolve the issue.
-    image: ../../assets/placeholder-1.png
-    imageAlt: PLACEHOLDER — Customer problem slide from the design provocation deck.
-  - heading: The opportunity
-    body: >-
-      Approximately 33% of contacts handled by Tier 1 product experts involve
-      guiding customers through product workflows. Fully automating these
-      interactions unlocks a significant $33M in cost savings — while
-      simultaneously improving the customer experience for millions of users
-      who currently have no path forward without a live agent.
-    image: ../../assets/placeholder-2.png
-    imageAlt: PLACEHOLDER — Opportunity slide showing the 33% contact share and $33M figure.
+      When customers get stuck in a product workflow, self-help instructions
+      often add confusion rather than clarity — forcing escalation to a live
+      agent before the issue is resolved. With one in three Tier 1 contacts
+      spent on workflow guidance, automating those walkthroughs unlocks $33M in
+      savings and a self-serve path forward for millions.
   - heading: Hypothesis
     body: >-
       If we augment the in-product experience with detailed, conversational
@@ -52,8 +40,6 @@ sections:
       be more willing to trust AI assistance. We measure success by an increase
       in containment rate, improved customer satisfaction, and a decrease in
       contact rate.
-    image: ../../assets/placeholder-3.png
-    imageAlt: PLACEHOLDER — Hypothesis slide (If we / then / which we can measure by).
   - heading: Product vision
     body: >-
       Build conversational help and platform features to meet the BB1-IG6 goal
@@ -65,8 +51,6 @@ sections:
       complexity: from Guide (assist) through Execute (automate) to Orchestrate
       (reason), applied to workflows ranging from a single task like connecting
       a bank, to multi-step jobs like setting up payroll tax.
-    image: ../../assets/placeholder-1.png
-    imageAlt: PLACEHOLDER — Product vision slide with agent complexity and workflow complexity spectrums.
   - heading: Ideal state
     body: ''
     media:
