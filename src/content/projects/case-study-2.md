@@ -23,7 +23,7 @@ metrics:
     label: Target savings from automating guided walkthroughs
 featured: true
 order: 2
-draft: true
+draft: false
 sections:
   - heading: Customer problem & opportunity
     body: >-
