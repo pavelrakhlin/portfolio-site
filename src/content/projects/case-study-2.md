@@ -40,6 +40,19 @@ sections:
       be more willing to trust AI assistance. We measure success by an increase
       in containment rate, improved customer satisfaction, and a decrease in
       contact rate.
+  - heading: FTU experience
+    body: >-
+      First-time users often hesitate to try a new AI-guided flow — uncertainty
+      about what will happen, whether they'll lose control, or whether it will
+      actually help. A dedicated first-time-user introduction became essential:
+      preview the experience before they commit, set expectations for how the
+      agent will guide them, and give enough context to overcome reluctance and
+      build trust to try something new.
+    media:
+      type: video
+      mp4: /case-study-guidance-agent/FTU-Full-05092025.mp4
+      poster: ../../assets/cover-placeholder.png
+      alt: First-time-user introduction previewing the Guidance Agent experience before the customer begins a guided workflow.
   - heading: Product vision
     body: >-
       Build conversational help and platform features to meet the BB1-IG6 goal
@@ -73,6 +86,15 @@ sections:
       mp4: /case-study-guidance-agent/AI%20VEP%20Workshop%20-%20Scenario%202.mp4
       poster: ../../assets/cover-placeholder.png
       alt: Future-state scenario — the Guidance Agent executes on the customer's behalf and escalates to a human expert when needed.
+  - heading: Documentation
+    body: >-
+      Alongside the prototypes, I documented how the Guidance Agent should
+      behave across workflows — interaction patterns, escalation rules, and the
+      criteria for when the agent guides versus executes. This documentation
+      gives product and engineering teams a shared reference as the capability
+      moves from concept toward implementation.
+    image: ../../assets/case-study-guidance-agent/future-statepdocumentation.png
+    imageAlt: Guidance Agent documentation — future state and interaction patterns.
 ---
 
 This case study is built from the Guidance Agent design provocation deck (VEP Innovations Team, 2025).
