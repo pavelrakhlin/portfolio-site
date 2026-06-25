@@ -9,6 +9,11 @@ tags:
   - AI / Conversational UX
 cover: ../../assets/cover-placeholder.png
 coverAlt: Guidance Agent — conversational step-by-step help embedded in Intuit products.
+coverMedia:
+  type: video
+  mp4: /case-study-guidance-agent/e2e-Guided-Workflows-Ideal-State-2.mp4
+  poster: ../../assets/cover-placeholder.png
+  alt: Guidance Agent — conversational step-by-step help embedded in Intuit products.
 featured: true
 order: 2
 draft: true
@@ -64,6 +69,21 @@ sections:
       expert.
     image: ../../assets/placeholder-2.png
     imageAlt: PLACEHOLDER — Business objective slide ($186M / 20% / $33M figures).
+  - heading: Future state
+    body: >-
+      The near-term Guidance Agent points the way — walking customers through
+      each step with clarity and patience. The future state goes further: the
+      agent acts on the customer's behalf, completing tasks inside the product
+      instead of only describing them. When it hits a question outside its
+      expertise or runs into an issue it cannot resolve, it does not leave the
+      customer stranded — it connects and consults a human expert, carrying
+      full context forward so the handoff feels seamless rather than like
+      starting over.
+    media:
+      type: video
+      mp4: /case-study-guidance-agent/AI%20VEP%20Workshop%20-%20Scenario%202.mp4
+      poster: ../../assets/cover-placeholder.png
+      alt: Future-state scenario — the Guidance Agent executes on the customer's behalf and escalates to a human expert when needed.
 ---
 
 This case study is built from the Guidance Agent design provocation deck (VEP Innovations Team, 2025).
