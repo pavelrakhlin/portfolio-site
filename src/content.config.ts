@@ -28,6 +28,15 @@ const projects = defineCollection({
         })
         .optional(),
       coverAlt: z.string(),
+      // Optional headline stats shown in a horizontal row below the case header.
+      metrics: z
+        .array(
+          z.object({
+            value: z.string(),
+            label: z.string(),
+          }),
+        )
+        .optional(),
       featured: z.boolean().default(false),
       // Lower numbers sort first on listing pages.
       order: z.number().default(99),

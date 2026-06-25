@@ -1,6 +1,6 @@
 ---
 title: Guidance Agent
-summary: Cutting first-run drop-off by rethinking the first five minutes of the product.
+summary: Automate guided workflow walkthroughs to unlock $33M in savings and give millions of customers a self-serve path forward.
 role: Product Designer
 year: 2025
 tags:
@@ -11,9 +11,16 @@ cover: ../../assets/cover-placeholder.png
 coverAlt: Guidance Agent — conversational step-by-step help embedded in Intuit products.
 coverMedia:
   type: video
-  mp4: /case-study-guidance-agent/e2e-Guided-Workflows-Ideal-State-2.mp4
+  mp4: /case-study-guidance-agent/FTU-Body-050725.mp4
   poster: ../../assets/cover-placeholder.png
   alt: Guidance Agent — conversational step-by-step help embedded in Intuit products.
+metrics:
+  - value: $186M
+    label: Support costs tied to the top 10 contact drivers
+  - value: 20%
+    label: Contacts related to product workflow questions
+  - value: $33M
+    label: Target savings from automating guided walkthroughs
 featured: true
 order: 2
 draft: true
@@ -60,15 +67,13 @@ sections:
       a bank, to multi-step jobs like setting up payroll tax.
     image: ../../assets/placeholder-1.png
     imageAlt: PLACEHOLDER — Product vision slide with agent complexity and workflow complexity spectrums.
-  - heading: Business objective
-    body: >-
-      $186M in support costs are tied to the top 10 contact drivers. 20% of all
-      contacts relate to product workflow questions — the exact category a
-      Guidance Agent is built to deflect. The target: unlock $33M in cost
-      savings by automating guided walkthroughs that today require a live
-      expert.
-    image: ../../assets/placeholder-2.png
-    imageAlt: PLACEHOLDER — Business objective slide ($186M / 20% / $33M figures).
+  - heading: Ideal state
+    body: ''
+    media:
+      type: video
+      mp4: /case-study-guidance-agent/e2e-Guided-Workflows-Ideal-State-2.mp4
+      poster: ../../assets/cover-placeholder.png
+      alt: Guidance Agent — conversational step-by-step help embedded in Intuit products.
   - heading: Future state
     body: >-
       The near-term Guidance Agent points the way — walking customers through

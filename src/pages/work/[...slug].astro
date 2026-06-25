@@ -18,7 +18,7 @@ if (!project) {
   return Astro.redirect('/work/');
 }
 
-const { title, summary, role, year, tags, cover, coverMedia, coverAlt, sections } =
+const { title, summary, role, year, tags, cover, coverMedia, coverAlt, metrics, sections } =
   project.data;
 const { Content } = await render(project);
 
@@ -105,16 +105,31 @@ const normalized = sections.map((s) =>
     </div>
 
     {
+      metrics && metrics.length > 0 && (
+        <dl class="case-metrics">
+          {metrics.map((metric) => (
+            <div class="case-metrics__item">
+              <dt class="case-metrics__value">{metric.value}</dt>
+              <dd class="case-metrics__label">{metric.label}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+
+    {
       normalized.length > 0 ? (
         <div class="sections">
           {normalized.map((section) => (
             <>
               {section.dividerBefore && <hr class="section-divider" />}
               <section class="section">
-              <div class="section__text">
-                <h2>{section.heading}</h2>
-                <p set:html={formatSectionBody(section.body)} />
-              </div>
+              {section.body.trim() && (
+                <div class="section__text">
+                  <h2>{section.heading}</h2>
+                  <p set:html={formatSectionBody(section.body)} />
+                </div>
+              )}
               {section.media && (
               <div class="section__media">
                 {section.media.type === 'image' && (
@@ -228,6 +243,37 @@ const normalized = sections.map((s) =>
   .info-row dd {
     margin: 0;
     font-size: var(--text-sm);
+  }
+
+  .case-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin: 0 0 var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  .case-metrics__item {
+    margin: 0;
+  }
+  .case-metrics__value {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-2);
+  }
+  .case-metrics__label {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 768px) {
+    .case-metrics {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
   }
 
   /* Layout-neutral button wrapper so media stays clickable + keyboard-
