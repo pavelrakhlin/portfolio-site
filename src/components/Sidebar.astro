@@ -7,6 +7,9 @@ const onContact = path.startsWith('/contact');
 const isCurrent = (href: string) => path === href || path === `${href}/`;
 ---
 
+<!-- Mobile backdrop: fades in behind the drawer. -->
+<div class="nav-backdrop" aria-hidden="true"></div>
+
 <!-- Mobile top bar: brand + hamburger toggle. Hidden on desktop. -->
 <div class="topbar">
   <a href="/" class="topbar__brand">Pavel R</a>
@@ -14,7 +17,7 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     class="topbar__toggle"
     aria-expanded="false"
     aria-controls="sidebar"
-    aria-label="Toggle navigation"
+    aria-label="Open navigation"
   >
     <span class="topbar__bars" aria-hidden="true"></span>
   </button>
@@ -162,17 +165,136 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     });
   }
 
-  // Mobile toggle: open/close the sidebar. Guarded so the listener is only
-  // attached once even though init() re-runs after each View Transition.
+  const MOBILE = window.matchMedia('(max-width: 1024px)');
+  const NAV_MS = 520;
+  let navListenersReady = false;
+  let navCloseTimer: ReturnType<typeof setTimeout> | null = null;
+
+  const focusableIn = (root: HTMLElement) =>
+    Array.from(
+      root.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
+      ),
+    );
+
+  const setNavOpen = (open: boolean, returnFocusToToggle = false) => {
+    const btn = document.querySelector<HTMLButtonElement>('.topbar__toggle');
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main');
+    const root = document.documentElement;
+    if (!btn || !sidebar) return;
+
+    root.classList.toggle('nav-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+
+    if (!MOBILE.matches) return;
+
+    document.body.style.overflow = open ? 'hidden' : '';
+    main?.toggleAttribute('inert', open);
+
+    if (navCloseTimer) {
+      clearTimeout(navCloseTimer);
+      navCloseTimer = null;
+    }
+
+    if (open) {
+      sidebar.removeAttribute('inert');
+    } else {
+      navCloseTimer = setTimeout(() => {
+        if (!root.classList.contains('nav-open')) {
+          sidebar.setAttribute('inert', '');
+        }
+        navCloseTimer = null;
+      }, NAV_MS);
+    }
+
+    if (returnFocusToToggle) {
+      btn.focus();
+    } else if (open) {
+      focusableIn(sidebar)[0]?.focus();
+    }
+  };
+
+  // Mobile drawer: open/close, scroll lock, focus trap, Escape to dismiss.
   const setupToggle = () => {
     const btn = document.querySelector<HTMLButtonElement>('.topbar__toggle');
+    const sidebar = document.getElementById('sidebar');
     const root = document.documentElement;
-    if (!btn || btn.dataset.toggle === 'ready') return;
+    if (!btn || !sidebar || btn.dataset.toggle === 'ready') return;
     btn.dataset.toggle = 'ready';
-    btn.addEventListener('click', () => {
-      const open = root.classList.toggle('nav-open');
-      btn.setAttribute('aria-expanded', String(open));
-    });
+
+    btn.addEventListener('click', () =>
+      setNavOpen(!root.classList.contains('nav-open')),
+    );
+
+    const backdrop = document.querySelector('.nav-backdrop');
+    backdrop?.addEventListener('click', () => setNavOpen(false, true));
+
+    if (!navListenersReady) {
+      navListenersReady = true;
+
+      document.addEventListener('click', (e) => {
+        const sidebarEl = document.getElementById('sidebar');
+        if (
+          !MOBILE.matches ||
+          !document.documentElement.classList.contains('nav-open') ||
+          !sidebarEl
+        ) {
+          return;
+        }
+        const link = (e.target as Element).closest('a[href]');
+        if (link && sidebarEl.contains(link)) setNavOpen(false, true);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        const sidebarEl = document.getElementById('sidebar');
+        const rootEl = document.documentElement;
+        if (e.key === 'Escape' && rootEl.classList.contains('nav-open')) {
+          e.preventDefault();
+          setNavOpen(false, true);
+          return;
+        }
+        if (
+          e.key !== 'Tab' ||
+          !rootEl.classList.contains('nav-open') ||
+          !MOBILE.matches ||
+          !sidebarEl
+        ) {
+          return;
+        }
+        const items = focusableIn(sidebarEl);
+        if (items.length === 0) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+
+      MOBILE.addEventListener('change', (e) => {
+        const sidebarEl = document.getElementById('sidebar');
+        const mainEl = document.getElementById('main');
+        const rootEl = document.documentElement;
+        if (e.matches) {
+          sidebarEl?.toggleAttribute('inert', !rootEl.classList.contains('nav-open'));
+          mainEl?.toggleAttribute('inert', rootEl.classList.contains('nav-open'));
+        } else if (rootEl.classList.contains('nav-open')) {
+          setNavOpen(false);
+          sidebarEl?.removeAttribute('inert');
+          mainEl?.removeAttribute('inert');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    if (MOBILE.matches && !root.classList.contains('nav-open')) {
+      sidebar.setAttribute('inert', '');
+    }
   };
 
   const init = () => {
@@ -181,7 +303,23 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
   };
   init();
   document.addEventListener('astro:page-load', () => {
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main');
+    if (navCloseTimer) {
+      clearTimeout(navCloseTimer);
+      navCloseTimer = null;
+    }
     document.documentElement.classList.remove('nav-open');
+    document.body.style.overflow = '';
+    main?.removeAttribute('inert');
+    if (MOBILE.matches && sidebar) {
+      sidebar.setAttribute('inert', '');
+    } else {
+      sidebar?.removeAttribute('inert');
+    }
+    const btn = document.querySelector<HTMLButtonElement>('.topbar__toggle');
+    btn?.setAttribute('aria-expanded', 'false');
+    btn?.setAttribute('aria-label', 'Open navigation');
     init();
   });
 </script>
@@ -313,7 +451,10 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     width: 22px;
     height: 2px;
     background: var(--color-text);
-    transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+    transition:
+      transform var(--nav-duration) var(--ease-drawer),
+      opacity calc(var(--nav-duration) * 0.75) var(--ease-drawer),
+      top var(--nav-duration) var(--ease-drawer);
   }
   .topbar__bars {
     position: relative;
@@ -339,28 +480,82 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     transform: rotate(-45deg);
   }
 
-  @media (max-width: 768px) {
+  .nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 24;
+    background: color-mix(in srgb, var(--color-text) 18%, transparent);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity var(--nav-duration) var(--ease-drawer),
+      visibility 0s linear var(--nav-duration-close);
+  }
+
+  @media (max-width: 1024px) {
     .topbar {
       display: flex;
+    }
+    .nav-backdrop {
+      display: block;
     }
     .sidebar {
       position: fixed;
       inset: 0;
       width: 100%;
+      height: 100dvh;
       max-height: none;
-      transform: translateX(-100%);
-      transition: transform 0.3s var(--ease);
+      z-index: 25;
+      background: var(--color-bg);
+      overflow-y: auto;
+      visibility: hidden;
+      clip-path: inset(0 0 100% 0);
+      transition:
+        clip-path var(--nav-duration) var(--ease-drawer),
+        visibility 0s linear var(--nav-duration-close);
+    }
+    .sidebar__brand {
+      display: none; /* brand lives in the sticky top bar */
     }
     .sidebar__inner {
-      padding: var(--space-12) var(--space-6) var(--space-6);
+      min-height: 100%;
+      padding: calc(var(--topbar-height) + var(--space-6)) var(--space-6) var(--space-6);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition:
+        opacity calc(var(--nav-duration) * 0.85) var(--ease-drawer) 0.1s,
+        transform var(--nav-duration) var(--ease-drawer) 0.08s;
+    }
+    :global(.nav-open) .nav-backdrop {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition:
+        opacity var(--nav-duration) var(--ease-drawer),
+        visibility 0s linear 0s;
     }
     :global(.nav-open) .sidebar {
-      transform: translateX(0);
+      visibility: visible;
+      clip-path: inset(0 0 0 0);
+      transition:
+        clip-path var(--nav-duration) var(--ease-drawer),
+        visibility 0s linear 0s;
+    }
+    :global(.nav-open) .sidebar__inner {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sidebar {
+    .nav-backdrop,
+    .sidebar,
+    .sidebar__inner,
+    .topbar__bars,
+    .topbar__bars::before,
+    .topbar__bars::after {
       transition: none;
     }
   }

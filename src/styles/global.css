@@ -40,11 +40,16 @@
   --max-width: 1400px;
   --max-width-prose: 42rem;
   --sidebar-width: 17rem;
+  --nav-breakpoint: 1024px;
+  --topbar-height: calc(var(--space-4) * 2 + 40px);
   --radius: 10px;
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-drawer: cubic-bezier(0.16, 1, 0.3, 1);
   --duration: 0.5s;
+  --nav-duration: 0.52s;
+  --nav-duration-close: 0.44s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -129,7 +134,7 @@ img {
 .container {
   width: 100%;
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .container {
     padding: var(--space-6);
   }
