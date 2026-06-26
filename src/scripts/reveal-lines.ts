@@ -17,6 +17,22 @@ function normalizeRevealWord(word: string): string {
   return word.replace(/(\w)-(\w)/g, '$1\u2011$2');
 }
 
+/** Restore plain text before re-splitting lines (e.g. after View Transitions). */
+function resetRevealHeading(heading: HTMLElement): void {
+  const lines = heading.querySelectorAll('.reveal-line');
+  const text =
+    lines.length > 0
+      ? [...lines]
+          .map((line) => line.textContent?.trim())
+          .filter(Boolean)
+          .join(' ')
+      : (heading.textContent?.trim().replace(/[ \t\r\n]+/g, ' ') ?? '');
+
+  heading.replaceChildren(document.createTextNode(text));
+  heading.removeAttribute('data-reveal-lines-ready');
+  heading.style.removeProperty('opacity');
+}
+
 /** Wrap each rendered line in `.reveal-line` with a staggered `--reveal-delay`. */
 export function groupWordsIntoLines(container: HTMLElement): number {
   const text = container.textContent?.trim().replace(/[ \t\r\n]+/g, ' ') ?? '';
@@ -91,16 +107,16 @@ function processHeadings(): void {
 
   document.querySelectorAll<HTMLElement>('[data-reveal-lines]').forEach((heading) => {
     if (reduced) {
+      resetRevealHeading(heading);
       heading.dataset.revealLinesReady = 'true';
       heading.style.opacity = '1';
       return;
     }
 
-    if (!heading.querySelector('.reveal-line')) {
-      heading.dataset.revealLinesReady = 'true';
-      groupWordsIntoLines(heading);
-      heading.style.opacity = '1';
-    }
+    resetRevealHeading(heading);
+    heading.dataset.revealLinesReady = 'true';
+    groupWordsIntoLines(heading);
+    heading.style.opacity = '1';
   });
 
   if (reduced) {
@@ -114,9 +130,14 @@ function processHeadings(): void {
 export function initRevealLines(): Promise<void> {
   const run = () =>
     new Promise<void>((resolve) => {
-      processHeadings();
-      resolve();
-      document.dispatchEvent(new Event(REVEAL_LINES_READY));
+      // Wait for View Transition styles to paint before measuring line breaks.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          processHeadings();
+          resolve();
+          document.dispatchEvent(new Event(REVEAL_LINES_READY));
+        });
+      });
     });
 
   if (document.fonts?.ready) {
