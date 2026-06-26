@@ -19,10 +19,10 @@ function normalizeRevealWord(word: string): string {
 
 /** Wrap each rendered line in `.reveal-line` with a staggered `--reveal-delay`. */
 export function groupWordsIntoLines(container: HTMLElement): number {
-  const text = container.textContent?.trim() ?? '';
+  const text = container.textContent?.trim().replace(/[ \t\r\n]+/g, ' ') ?? '';
   if (!text) return 0;
 
-  const words = text.split(/\s+/).map(normalizeRevealWord);
+  const words = text.split(/ +/).map(normalizeRevealWord);
   container.replaceChildren();
 
   const wordSpans = words.map((word) => {
