@@ -1,6 +1,6 @@
 ---
 title: AI Native Visual Language
-summary: Defining a new visual and interaction language for an AI-first expert platform — fluid, anticipatory, and human by design.
+summary: Defining a visual and interaction language for the AI-first expert platform
 role: Product Designer
 year: 2026
 tags:
