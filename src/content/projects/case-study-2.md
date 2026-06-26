@@ -1,6 +1,6 @@
 ---
 title: Guidance Agent
-summary: Automate guided workflow walkthroughs to unlock $33M in savings and give millions of customers a self-serve path forward
+summary: Guided workflow walkthroughs to give millions of customers a self-serve path forward
 role: Product Designer
 year: 2025
 tags:
