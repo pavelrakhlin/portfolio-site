@@ -64,12 +64,16 @@ const ogImageUrl = ogImage
 
     <script>
       import { initVideos } from '../scripts/reveal';
+      import { initRevealLines, initScrollReveals, initInfoRowLayout } from '../scripts/reveal-lines';
       import { initLightbox, initCursor } from '../scripts/lightbox';
       // Run on first load and after every View Transition navigation.
       const init = () => {
         initVideos();
         initLightbox();
         initCursor();
+        initRevealLines();
+        initScrollReveals();
+        initInfoRowLayout();
       };
       init();
       document.addEventListener('astro:page-load', init);
