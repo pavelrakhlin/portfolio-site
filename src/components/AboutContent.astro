@@ -1,4 +1,4 @@
-<section class="about prose">
+<section class="about">
   <!-- <p class="eyebrow">About</p> -->
   <h1
     class="about__bio"
@@ -6,8 +6,7 @@
     data-line-base-delay="0.1"
     data-line-stagger="0.09"
   >
-    Product designer with 10+ years of experience spanning interaction,
-    visual, and systems design.
+    Product&nbsp;designer with&nbsp;10+&nbsp;years of&nbsp;experience spanning interaction, visual,&nbsp;and systems&nbsp;design.
   </h1>
 
   <div class="about__pills">
@@ -22,6 +21,8 @@
     margin-inline: 0;
   }
   .about__bio {
+    width: 100%;
+    max-width: none;
     font-size: clamp(var(--text-3xl), 3.25vw + 1rem, 3.75rem);
     line-height: 1.1;
     letter-spacing: -0.03em;
@@ -51,12 +52,13 @@
     font-size: var(--text-sm);
     font-weight: 500;
     line-height: 1.4;
-    color: var(--color-accent-contrast);
-    background: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-contrast);
     border: 1px solid var(--color-accent);
     border-radius: 9999px;
     opacity: 1;
     transition:
+      color 0.2s var(--ease),
       background 0.2s var(--ease),
       border-color 0.2s var(--ease),
       transform 0.2s var(--ease);
@@ -64,8 +66,8 @@
 
   .about__pill:hover {
     color: var(--color-accent-contrast);
-    background: color-mix(in srgb, var(--color-accent) 82%, var(--color-accent-contrast));
-    border-color: color-mix(in srgb, var(--color-accent) 82%, var(--color-accent-contrast));
+    background: var(--color-accent);
+    border-color: var(--color-accent);
     transform: translateY(-1px);
   }
 
