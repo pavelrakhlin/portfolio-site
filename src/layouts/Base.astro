@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import BackToTop from '../components/BackToTop.astro';
 import Sidebar from '../components/Sidebar.astro';
 import '@fontsource-variable/geist';
 import '../styles/global.css';
@@ -61,8 +62,10 @@ const ogImageUrl = ogImage
         <slot />
       </main>
     </div>
+    <BackToTop />
 
     <script>
+      import { initBackToTop } from '../scripts/back-to-top';
       import { initVideos } from '../scripts/reveal';
       import { initRevealLines, initScrollReveals, initInfoRowLayout } from '../scripts/reveal-lines';
       import { initLightbox, initCursor } from '../scripts/lightbox';
@@ -74,6 +77,7 @@ const ogImageUrl = ogImage
         initRevealLines();
         initScrollReveals();
         initInfoRowLayout();
+        initBackToTop();
       };
       init();
       document.addEventListener('astro:page-load', init);
