@@ -1,60 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getFeaturedProjects } from '../lib/projects';
-
-const featured = await getFeaturedProjects();
+import AboutContent from '../components/AboutContent.astro';
 ---
 
-<Base title="Your Name — Designer">
+<Base
+  title="Your Name — Designer"
+  description="Background, approach, and how to get in touch."
+>
   <div class="container">
-    <section class="intro">
-      <h1>
-        I design clear, human interfaces for products people rely on.
-      </h1>
-      <p class="intro__lede muted">
-        Selected work is in the sidebar. I care about the details — and about
-        the story behind each decision.
-      </p>
-    </section>
-
-    {
-      featured.length > 0 && (
-        <section class="featured">
-          <p class="section-label">Selected</p>
-          <div class="grid">
-            {featured.map((project) => (
-              <ProjectCard project={project} />
-            ))}
-          </div>
-        </section>
-      )
-    }
+    <AboutContent />
   </div>
 </Base>
-
-<style>
-  .intro {
-    max-width: 36rem;
-    margin-bottom: var(--space-16);
-  }
-  .intro h1 {
-    font-size: var(--text-4xl);
-    margin-bottom: var(--space-6);
-  }
-  .intro__lede {
-    font-size: var(--text-lg);
-  }
-  .section-label {
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-muted);
-    margin-bottom: var(--space-6);
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--space-8);
-  }
-</style>
