@@ -3,7 +3,6 @@ import { getProjects } from '../lib/projects';
 
 const projects = await getProjects();
 const path = Astro.url.pathname;
-const onWork = path.startsWith('/work');
 const onContact = path.startsWith('/contact');
 const isCurrent = (href: string) => path === href || path === `${href}/`;
 ---
@@ -32,7 +31,7 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     <nav class="sidebar__nav" aria-label="Primary">
       <ul class="nav">
         <li>
-          <details class="group" open={onWork}>
+          <details class="group" open>
             <summary>Work</summary>
             <div class="group__content">
               <ul class="children">

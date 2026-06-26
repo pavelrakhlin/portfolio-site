@@ -1,48 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import AboutContent from '../components/AboutContent.astro';
 ---
 
 <Base
   title="About — Your Name"
   description="Background, approach, and how to get in touch."
 >
-  <section class="container about prose">
-    <!-- <p class="eyebrow">About</p> -->
-    <h1>A few words about how I work.</h1>
-
-    <div>
-      <p>
-        Write your bio here. Who you are, what you design, and the kinds of
-        problems you like to solve. Keep it human — this is the page people read
-        after your work has caught their eye.
-      </p>
-      <p>
-        Mention your focus areas, the teams or industries you've worked with,
-        and what you're looking for next.
-      </p>
-    </div>
-
-    <h2>Get in touch</h2>
-    <ul class="links">
-      <li><a href="mailto:you@example.com">you@example.com</a></li>
-      <li><a href="https://www.linkedin.com/" target="_blank" rel="me noopener">LinkedIn</a></li>
-      <li><a href="/resume.pdf">Download résumé (PDF)</a></li>
-    </ul>
-  </section>
+  <div class="container">
+    <AboutContent />
+  </div>
 </Base>
-
-<style>
-  .about {
-    margin-inline: 0;
-  }
-  .about h2 {
-    margin-top: var(--space-12);
-  }
-  .links {
-    list-style: none;
-    padding: 0;
-  }
-  .links li {
-    margin-bottom: var(--space-2);
-  }
-</style>
