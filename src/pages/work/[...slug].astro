@@ -35,12 +35,18 @@ const normalized = sections.map((s) =>
 ---
 
 <Base title={`${title} — Pavel R`} description={summary}>
-  <article class="container">
+  <article class="container case-study">
     <header class="case-head">
-      <h1>{title}</h1>
-      <p class="case-head__summary muted">{summary}</p>
+      <h1
+        class="case-head__title"
+        data-reveal-lines
+        data-line-base-delay="0.1"
+        data-line-stagger="0.09"
+      >
+        {summary}
+      </h1>
 
-      <dl class="info-row">
+      <dl class="info-row reveal-block" data-reveal-scroll>
         <div class="info-row__item">
           <dt>Role</dt>
           <dd>{role}</dd>
@@ -60,7 +66,7 @@ const normalized = sections.map((s) =>
       </dl>
     </header>
 
-    <div class="case-hero">
+    <div class="case-hero reveal-block" data-reveal-scroll>
       {
         coverMedia?.type === 'video' ? (
           <button
@@ -98,6 +104,9 @@ const normalized = sections.map((s) =>
               alt={coverAlt}
               widths={[640, 1024, 1600]}
               sizes="(max-width: 1088px) 100vw, 1088px"
+              loading="eager"
+              decoding="sync"
+              fetchpriority="high"
             />
           </button>
         )
@@ -107,7 +116,7 @@ const normalized = sections.map((s) =>
     {
       metrics && metrics.length > 0 && (
         <>
-          <dl class="case-metrics">
+          <dl class="case-metrics reveal-block" data-reveal-scroll>
             {metrics.map((metric) => (
               <div class="case-metrics__item">
                 <dt class="case-metrics__value">{metric.value}</dt>
@@ -128,13 +137,13 @@ const normalized = sections.map((s) =>
               {section.dividerBefore && <hr class="section-divider" />}
               <section class="section">
               {section.body.trim() && (
-                <div class="section__text">
+                <div class="section__text reveal-block" data-reveal-scroll>
                   <h2>{section.heading}</h2>
                   <div class="section__body" set:html={formatSectionBody(section.body)} />
                 </div>
               )}
               {section.media && (
-              <div class="section__media">
+              <div class="section__media reveal-block" data-reveal-scroll>
                 {section.media.type === 'image' && (
                   <button
                     class="media-trigger"
@@ -202,7 +211,7 @@ const normalized = sections.map((s) =>
           ))}
         </div>
       ) : (
-        <div class="prose case-body">
+        <div class="prose case-body reveal-block" data-reveal-scroll>
           <Content />
         </div>
       )
@@ -214,23 +223,28 @@ const normalized = sections.map((s) =>
   .case-head {
     margin-bottom: var(--space-12);
   }
-  .case-head h1 {
-    margin-bottom: var(--space-3);
-  }
-  .case-head__summary {
-    font-size: var(--text-lg);
+  .case-head__title {
     max-width: var(--max-width-prose);
     margin-bottom: var(--space-8);
   }
 
-  /* Info row: Role · Discipline · Year */
+  /* Info row: Role · Discipline · Year — all inline or all stacked. */
   .info-row {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: var(--space-12);
     margin: 0;
     padding-top: var(--space-6);
     border-top: 1px solid var(--color-border);
+  }
+  .info-row--stacked {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .info-row:not(.info-row--stacked) .info-row__item {
+    flex-shrink: 0;
+    white-space: nowrap;
   }
   .info-row__item {
     display: flex;
@@ -302,6 +316,10 @@ const normalized = sections.map((s) =>
     border-radius: 0;
     margin-bottom: var(--space-16);
     display: block;
+  }
+  /* Reserve hero space while the reveal block is hidden. */
+  .case-hero.reveal-block[data-reveal-scroll]:not(.is-revealed) {
+    min-height: clamp(12rem, 56vw, 28rem);
   }
 
   /* Stacked text + full-width image sections. Even spacing around each text

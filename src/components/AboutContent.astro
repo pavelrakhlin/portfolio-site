@@ -74,142 +74,38 @@
     animation: none;
   }
 
-  .about__bio[data-reveal-lines]:not([data-reveal-lines-ready]) {
-    opacity: 0;
-  }
-
-  /* Lines are built in JS — must be global to receive scoped styles. */
-  :global(.about__bio-line) {
-    display: block;
-    opacity: 0;
-    transform: translateY(0.6rem);
-    animation: about-bio-in 0.75s var(--ease) forwards;
-    animation-delay: var(--bio-delay, 0s);
-  }
-
   .about__reveal {
     opacity: 0;
     transform: translateY(0.6rem);
-    animation: about-bio-in 0.75s var(--ease) forwards;
-    animation-delay: var(--bio-delay, 0.22s);
-  }
-
-  @keyframes about-bio-in {
-    from {
-      opacity: 0;
-      transform: translateY(0.6rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .about__bio[data-reveal-lines] {
-      opacity: 1;
-    }
-
-    :global(.about__bio-line),
-    .about__reveal {
-      opacity: 1;
-      transform: none;
-      animation: none;
-    }
+    animation: reveal-line-in 0.75s var(--ease) forwards;
+    animation-delay: var(--reveal-delay, 0.22s);
   }
 </style>
 
 <script>
-  const prefersReduced = () =>
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  import {
+    REVEAL_LINES_READY,
+    getHeadingRevealEndDelay,
+    revealAt,
+  } from '../scripts/reveal-lines';
 
-  function groupWordsIntoLines(container: HTMLElement) {
-    const text = container.textContent?.trim() ?? '';
-    if (!text) return 0;
-
-    const words = text.split(/\s+/);
-    container.replaceChildren();
-
-    const wordSpans = words.map((word) => {
-      const span = document.createElement('span');
-      span.textContent = word;
-      span.style.display = 'inline';
-      container.appendChild(span);
-      container.appendChild(document.createTextNode(' '));
-      return span;
-    });
-
-    const lines: HTMLElement[][] = [];
-    let current: HTMLElement[] = [];
-    let lastTop = -1;
-
-    wordSpans.forEach((span) => {
-      const top = span.offsetTop;
-      if (lastTop !== -1 && top > lastTop + 1) {
-        lines.push(current);
-        current = [];
-      }
-      current.push(span);
-      lastTop = top;
-    });
-    if (current.length) lines.push(current);
-
-    const baseDelay = Number(container.dataset.lineBaseDelay ?? 0.1);
-    const stagger = Number(container.dataset.lineStagger ?? 0.09);
-
-    container.replaceChildren();
-    lines.forEach((lineWords, index) => {
-      const line = document.createElement('span');
-      line.className = 'about__bio-line';
-      line.style.setProperty(
-        '--bio-delay',
-        `${baseDelay + index * stagger}s`,
-      );
-      lineWords.forEach((word, wordIndex) => {
-        line.appendChild(word.cloneNode(true));
-        if (wordIndex < lineWords.length - 1) {
-          line.appendChild(document.createTextNode(' '));
-        }
-      });
-      container.appendChild(line);
-    });
-
-    return lines.length;
-  }
-
-  function revealAt(el: HTMLElement, delay: number) {
-    el.style.setProperty('--bio-delay', `${delay}s`);
-    el.removeAttribute('data-reveal-wait');
-  }
-
-  function initAboutReveals() {
+  function initAboutPills() {
     document.querySelectorAll<HTMLElement>('.about').forEach((section) => {
       const heading = section.querySelector<HTMLElement>('[data-reveal-lines]');
       if (!heading) return;
 
-      const baseDelay = Number(heading.dataset.lineBaseDelay ?? 0.1);
-      const stagger = Number(heading.dataset.lineStagger ?? 0.09);
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches;
 
-      if (prefersReduced()) {
-        heading.dataset.revealLinesReady = 'true';
-        heading.style.opacity = '1';
+      if (reduced) {
         section
           .querySelectorAll('[data-reveal-wait]')
           .forEach((el) => el.removeAttribute('data-reveal-wait'));
         return;
       }
 
-      let delay = baseDelay;
-
-      if (!heading.querySelector('.about__bio-line')) {
-        heading.dataset.revealLinesReady = 'true';
-        const lineCount = groupWordsIntoLines(heading);
-        heading.style.opacity = '1';
-        delay = baseDelay + lineCount * stagger + 0.12;
-      } else {
-        const lineCount = heading.querySelectorAll('.about__bio-line').length;
-        delay = baseDelay + lineCount * stagger + 0.12;
-      }
+      let delay = getHeadingRevealEndDelay(heading);
 
       const sub = section.querySelector<HTMLElement>('.about__bio-sub');
       if (sub) {
@@ -217,21 +113,14 @@
         delay += 0.2;
       }
 
-      section.querySelectorAll<HTMLElement>('.about__pills .about__reveal').forEach((item) => {
-        revealAt(item, delay);
-        delay += 0.07;
-      });
+      section
+        .querySelectorAll<HTMLElement>('.about__pills .about__reveal')
+        .forEach((item) => {
+          revealAt(item, delay);
+          delay += 0.07;
+        });
     });
   }
 
-  const run = () => {
-    if (document.fonts?.ready) {
-      document.fonts.ready.then(initAboutReveals);
-    } else {
-      initAboutReveals();
-    }
-  };
-
-  run();
-  document.addEventListener('astro:page-load', run);
+  document.addEventListener(REVEAL_LINES_READY, initAboutPills);
 </script>

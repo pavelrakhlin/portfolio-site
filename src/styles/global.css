@@ -203,11 +203,66 @@ mark {
   transition: transform 0.5s var(--ease);
 }
 
+/* ============================================================
+   Line-by-line text reveal (About bio, case-study titles)
+   ============================================================ */
+[data-reveal-lines]:not([data-reveal-lines-ready]) {
+  opacity: 0;
+}
+
+/* Even line lengths + no mid-word hyphen breaks in animated headings. */
+[data-reveal-lines] {
+  text-wrap: balance;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+.reveal-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(0.6rem);
+  animation: reveal-line-in 0.75s var(--ease) forwards;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+@keyframes reveal-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll-triggered block reveal (case-study content below the title). */
+.reveal-block[data-reveal-scroll] {
+  opacity: 0;
+  transform: translateY(0.6rem);
+  animation: none;
+}
+.reveal-block[data-reveal-scroll].is-revealed {
+  animation: reveal-line-in 0.75s var(--ease) forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+
+  [data-reveal-lines] {
+    opacity: 1;
+  }
+
+  .reveal-line,
+  [data-reveal-wait],
+  .reveal-block[data-reveal-scroll] {
+    opacity: 1;
+    transform: none;
+    animation: none;
   }
 }
 
