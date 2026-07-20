@@ -76,6 +76,15 @@ export function groupWordsIntoLines(container: HTMLElement): number {
       '--reveal-delay',
       `${baseDelay + index * stagger}s`,
     );
+    // Drop the compositing hint once the blur-in finishes; keeping it
+    // indefinitely wastes GPU memory on an element that never animates again.
+    line.addEventListener(
+      'animationend',
+      () => {
+        line.style.willChange = 'auto';
+      },
+      { once: true },
+    );
     lineWords.forEach((word, wordIndex) => {
       line.appendChild(word.cloneNode(true));
       if (wordIndex < lineWords.length - 1) {
