@@ -265,6 +265,19 @@ mark {
   animation: reveal-line-in 0.75s var(--ease) forwards;
 }
 
+/* Deferred reveal: hidden until JS schedules it after a heading's blur-in
+   finishes (see initDeferredReveals in reveal-lines.ts). */
+.reveal-wait {
+  opacity: 0;
+  transform: translateY(0.6rem);
+  animation: reveal-line-in 0.75s var(--ease) forwards;
+  animation-delay: var(--reveal-delay, 0.22s);
+}
+.reveal-wait[data-reveal-wait] {
+  opacity: 0;
+  animation: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
