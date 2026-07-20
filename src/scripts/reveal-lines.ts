@@ -148,6 +148,13 @@ function processHeadings(): void {
   const reduced = prefersReduced();
 
   document.querySelectorAll<HTMLElement>('[data-reveal-lines]').forEach((heading) => {
+    // init() runs twice per document instance (the inline script's direct call,
+    // then again on the redundant `astro:page-load` dispatch that also fires on
+    // a plain load/reload, not just View Transition nav). Skip a heading that's
+    // already been revealed so the second pass doesn't reset + replay its
+    // animation mid-flight — that replay is the source of the reload flicker.
+    if (heading.dataset.revealLinesReady === 'true') return;
+
     if (reduced) {
       resetRevealHeading(heading);
       heading.dataset.revealLinesReady = 'true';
