@@ -35,7 +35,7 @@ const normalized = sections.map((s) =>
 ---
 
 <Base title={`${title} — Pavel R`} description={summary}>
-  <article class="container case-study">
+  <article class="container case-study" data-reveal-scope>
     <header class="case-head">
       <h1
         class="case-head__title"
@@ -46,7 +46,7 @@ const normalized = sections.map((s) =>
         {summary}
       </h1>
 
-      <dl class="info-row reveal-block" data-reveal-scroll>
+      <dl class="info-row reveal-wait" data-reveal-wait data-reveal-step="0.12">
         <div class="info-row__item">
           <dt>Role</dt>
           <dd>{role}</dd>
@@ -66,7 +66,7 @@ const normalized = sections.map((s) =>
       </dl>
     </header>
 
-    <div class="case-hero reveal-block" data-reveal-scroll>
+    <div class="case-hero reveal-wait" data-reveal-wait data-reveal-step="0.12">
       {
         coverMedia?.type === 'video' ? (
           <button
@@ -116,7 +116,7 @@ const normalized = sections.map((s) =>
     {
       metrics && metrics.length > 0 && (
         <>
-          <dl class="case-metrics reveal-block" data-reveal-scroll>
+          <dl class="case-metrics reveal-wait" data-reveal-wait>
             {metrics.map((metric) => (
               <div class="case-metrics__item">
                 <dt class="case-metrics__value">{metric.value}</dt>
@@ -319,7 +319,7 @@ const normalized = sections.map((s) =>
     display: block;
   }
   /* Reserve hero space while the reveal block is hidden. */
-  .case-hero.reveal-block[data-reveal-scroll]:not(.is-revealed) {
+  .case-hero[data-reveal-wait] {
     min-height: clamp(12rem, 56vw, 28rem);
   }
 

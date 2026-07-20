@@ -67,8 +67,11 @@ const ogImageUrl = ogImage
     <script>
       import { initBackToTop } from '../scripts/back-to-top';
       import { initVideos } from '../scripts/reveal';
-      import { initRevealLines, initScrollReveals, initInfoRowLayout } from '../scripts/reveal-lines';
+      import { initRevealLines, initScrollReveals, initInfoRowLayout, initDeferredReveals } from '../scripts/reveal-lines';
       import { initLightbox, initCursor } from '../scripts/lightbox';
+      // Listener is registered once per session; every REVEAL_LINES_READY
+      // dispatch (first load + each View Transition nav) reuses it.
+      initDeferredReveals();
       // Run on first load and after every View Transition navigation.
       const init = () => {
         initVideos();

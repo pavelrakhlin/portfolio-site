@@ -111,6 +111,39 @@ export function revealAt(el: HTMLElement, delay: number): void {
   el.removeAttribute('data-reveal-wait');
 }
 
+/** Like `revealAt`, but holds until embedded media is ready (e.g. a hero image). */
+function scheduleReveal(el: HTMLElement, delaySeconds: number): void {
+  const start = performance.now();
+  whenMediaReady(el).then(() => {
+    const elapsed = (performance.now() - start) / 1000;
+    revealAt(el, Math.max(0, delaySeconds - elapsed));
+  });
+}
+
+/**
+ * Cascade `[data-reveal-wait]` elements in after their scope's heading
+ * finishes its blur-in reveal. Scope is the nearest `[data-reveal-scope]`
+ * ancestor of a `[data-reveal-lines]` heading; elements stagger in DOM
+ * order, each adding its own `data-reveal-step` (default 0.07s) to the
+ * running delay. `revealAt` removes `data-reveal-wait` as it fires, so
+ * repeat dispatches (e.g. the double `astro:page-load` on first paint) are
+ * no-ops for already-revealed elements.
+ */
+export function initDeferredReveals(): void {
+  document.addEventListener(REVEAL_LINES_READY, () => {
+    document.querySelectorAll<HTMLElement>('[data-reveal-lines]').forEach((heading) => {
+      const scope = heading.closest<HTMLElement>('[data-reveal-scope]');
+      if (!scope) return;
+
+      let delay = getHeadingRevealEndDelay(heading);
+      scope.querySelectorAll<HTMLElement>('[data-reveal-wait]').forEach((el) => {
+        scheduleReveal(el, delay);
+        delay += Number(el.dataset.revealStep ?? 0.07);
+      });
+    });
+  });
+}
+
 function processHeadings(): void {
   const reduced = prefersReduced();
 
@@ -155,35 +188,39 @@ export function initRevealLines(): Promise<void> {
   return run();
 }
 
+/** Resolve once any image/video inside `el` has finished loading (or immediately if none). */
+function whenMediaReady(el: HTMLElement): Promise<void> {
+  return new Promise((resolve) => {
+    const img = el.querySelector('img');
+    if (img instanceof HTMLImageElement) {
+      if (img.complete && img.naturalWidth > 0) {
+        resolve();
+      } else {
+        img.addEventListener('load', () => resolve(), { once: true });
+        img.addEventListener('error', () => resolve(), { once: true });
+      }
+      return;
+    }
+
+    const video = el.querySelector('video');
+    if (video instanceof HTMLVideoElement) {
+      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        resolve();
+      } else {
+        video.addEventListener('loadeddata', () => resolve(), { once: true });
+        video.addEventListener('error', () => resolve(), { once: true });
+      }
+      return;
+    }
+
+    resolve();
+  });
+}
+
 /** Fade up a block once any embedded media has finished loading. */
 function revealBlock(el: HTMLElement): void {
   if (el.classList.contains('is-revealed')) return;
-
-  const reveal = () => el.classList.add('is-revealed');
-  const img = el.querySelector('img');
-
-  if (img instanceof HTMLImageElement) {
-    if (img.complete && img.naturalWidth > 0) {
-      reveal();
-    } else {
-      img.addEventListener('load', reveal, { once: true });
-      img.addEventListener('error', reveal, { once: true });
-    }
-    return;
-  }
-
-  const video = el.querySelector('video');
-  if (video instanceof HTMLVideoElement) {
-    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      reveal();
-    } else {
-      video.addEventListener('loadeddata', reveal, { once: true });
-      video.addEventListener('error', reveal, { once: true });
-    }
-    return;
-  }
-
-  reveal();
+  whenMediaReady(el).then(() => el.classList.add('is-revealed'));
 }
 
 /** Fade up case-study content blocks as they scroll into view. */

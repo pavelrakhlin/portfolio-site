@@ -1,4 +1,4 @@
-<section class="about">
+<section class="about" data-reveal-scope>
   <!-- <p class="eyebrow">About</p> -->
   <h1
     class="about__bio"
@@ -10,9 +10,9 @@
   </h1>
 
   <div class="about__pills">
-    <a class="about__pill about__reveal" data-reveal-wait href="mailto:pavel.rakhlin@gmail.com">pavel.rakhlin@gmail.com</a>
-    <a class="about__pill about__reveal" data-reveal-wait href="https://www.linkedin.com/in/pavelrakhlin/" target="_blank" rel="me noopener">LinkedIn</a>
-    <a class="about__pill about__reveal" data-reveal-wait href="/resume.pdf">Resume (PDF)</a>
+    <a class="about__pill reveal-wait" data-reveal-wait href="mailto:pavel.rakhlin@gmail.com">pavel.rakhlin@gmail.com</a>
+    <a class="about__pill reveal-wait" data-reveal-wait href="https://www.linkedin.com/in/pavelrakhlin/" target="_blank" rel="me noopener">LinkedIn</a>
+    <a class="about__pill reveal-wait" data-reveal-wait href="/resume.pdf">Resume (PDF)</a>
   </div>
 </section>
 
@@ -66,59 +66,4 @@
     border-color: var(--color-accent);
     transform: translateY(-1px);
   }
-
-  .about__reveal[data-reveal-wait] {
-    opacity: 0;
-    animation: none;
-  }
-
-  .about__reveal {
-    opacity: 0;
-    transform: translateY(0.6rem);
-    animation: reveal-line-in 0.75s var(--ease) forwards;
-    animation-delay: var(--reveal-delay, 0.22s);
-  }
 </style>
-
-<script>
-  import {
-    REVEAL_LINES_READY,
-    getHeadingRevealEndDelay,
-    revealAt,
-  } from '../scripts/reveal-lines';
-
-  function initAboutPills() {
-    document.querySelectorAll<HTMLElement>('.about').forEach((section) => {
-      const heading = section.querySelector<HTMLElement>('[data-reveal-lines]');
-      if (!heading) return;
-
-      const reduced = window.matchMedia(
-        '(prefers-reduced-motion: reduce)',
-      ).matches;
-
-      if (reduced) {
-        section
-          .querySelectorAll('[data-reveal-wait]')
-          .forEach((el) => el.removeAttribute('data-reveal-wait'));
-        return;
-      }
-
-      let delay = getHeadingRevealEndDelay(heading);
-
-      const sub = section.querySelector<HTMLElement>('.about__bio-sub');
-      if (sub) {
-        revealAt(sub, delay);
-        delay += 0.2;
-      }
-
-      section
-        .querySelectorAll<HTMLElement>('.about__pills .about__reveal')
-        .forEach((item) => {
-          revealAt(item, delay);
-          delay += 0.07;
-        });
-    });
-  }
-
-  document.addEventListener(REVEAL_LINES_READY, initAboutPills);
-</script>
