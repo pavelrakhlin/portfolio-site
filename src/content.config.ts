@@ -1,11 +1,11 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Each case study is one Markdown file in src/content/projects/.
+// Each case study is one Markdown file in src/content/case-studies/.
 // This schema validates frontmatter at build time — a broken or missing
 // field fails the build with a clear error (your content guardrail).
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  loader: glob({ pattern: '**/*.md', base: './src/content/case-studies' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
