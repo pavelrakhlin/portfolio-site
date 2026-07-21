@@ -1,5 +1,6 @@
 ---
 import { getProjects } from '../lib/projects';
+import ThemeToggle from './ThemeToggle.astro';
 
 const projects = await getProjects();
 const path = Astro.url.pathname;
@@ -13,23 +14,29 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
 <!-- Mobile top bar: brand + hamburger toggle. Hidden on desktop. -->
 <div class="topbar">
   <a href="/" class="topbar__brand">Pavel Rakhlin</a>
-  <button
-    class="topbar__toggle"
-    aria-expanded="false"
-    aria-controls="sidebar"
-    aria-label="Open navigation"
-  >
-    <span class="topbar__bars" aria-hidden="true"></span>
-  </button>
+  <div class="topbar__actions">
+    <ThemeToggle />
+    <button
+      class="topbar__toggle"
+      aria-expanded="false"
+      aria-controls="sidebar"
+      aria-label="Open navigation"
+    >
+      <span class="topbar__bars" aria-hidden="true"></span>
+    </button>
+  </div>
 </div>
 
 <aside class="sidebar" id="sidebar">
   <div class="sidebar__inner">
-    <a
-      href="/"
-      class="sidebar__brand"
-      aria-current={path === '/' ? 'page' : undefined}>Pavel Rakhlin</a
-    >
+    <div class="sidebar__header">
+      <a
+        href="/"
+        class="sidebar__brand"
+        aria-current={path === '/' ? 'page' : undefined}>Pavel Rakhlin</a
+      >
+      <ThemeToggle />
+    </div>
 
     <nav class="sidebar__nav" aria-label="Primary">
       <ul class="nav">
@@ -336,6 +343,7 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     background: var(--color-bg);
     overflow-y: auto;
     z-index: 20;
+    transition: background-color var(--duration) var(--ease);
   }
   .sidebar__inner {
     display: flex;
@@ -343,11 +351,19 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     gap: var(--space-8);
   }
 
+  .sidebar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
   .sidebar__brand {
     font-size: 1rem;
     font-weight: 700;
     color: var(--color-text);
     line-height: 1.2;
+    transition: color 0.2s var(--ease);
   }
   .sidebar__brand[aria-current='page'] {
     color: var(--color-accent);
@@ -425,10 +441,17 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     padding: var(--space-4) var(--space-6);
     background: color-mix(in srgb, var(--color-bg) 85%, transparent);
     backdrop-filter: saturate(180%) blur(10px);
+    transition: background-color var(--duration) var(--ease);
   }
   .topbar__brand {
     font-weight: 700;
     color: var(--color-text);
+    transition: color 0.2s var(--ease);
+  }
+  .topbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
   }
   .topbar__toggle {
     display: inline-flex;
@@ -516,8 +539,8 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
         clip-path var(--nav-duration) var(--ease-drawer),
         visibility 0s linear var(--nav-duration-close);
     }
-    .sidebar__brand {
-      display: none; /* brand lives in the sticky top bar */
+    .sidebar__header {
+      display: none; /* brand + theme toggle live in the sticky top bar */
     }
     .sidebar__inner {
       min-height: 100%;

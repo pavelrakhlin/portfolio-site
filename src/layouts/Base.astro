@@ -47,6 +47,22 @@ const ogImageUrl = ogImage
       content={ogImageUrl ? 'summary_large_image' : 'summary'}
     />
 
+    <!-- Set data-theme before first paint to avoid a flash of the wrong
+         theme. Must run before any stylesheet finishes resolving. -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.setAttribute('data-theme', stored);
+            document.documentElement.setAttribute('data-theme-pref', stored);
+          } else {
+            document.documentElement.setAttribute('data-theme-pref', 'system');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Swap no-js -> js so reveal fallback only applies without JS. -->
     <script is:inline>
       document.documentElement.classList.remove('no-js');
@@ -63,15 +79,18 @@ const ogImageUrl = ogImage
       </main>
     </div>
     <BackToTop />
+    <p class="sr-only" aria-live="polite" data-theme-announce></p>
 
     <script>
       import { initBackToTop } from '../scripts/back-to-top';
       import { initVideos } from '../scripts/reveal';
       import { initRevealLines, initScrollReveals, initInfoRowLayout, initDeferredReveals } from '../scripts/reveal-lines';
       import { initLightbox, initCursor } from '../scripts/lightbox';
+      import { initThemeToggle, bindSystemThemeListener } from '../scripts/theme';
       // Listener is registered once per session; every REVEAL_LINES_READY
       // dispatch (first load + each View Transition nav) reuses it.
       initDeferredReveals();
+      bindSystemThemeListener();
       // Run on first load and after every View Transition navigation.
       const init = () => {
         initVideos();
@@ -81,6 +100,7 @@ const ogImageUrl = ogImage
         initScrollReveals();
         initInfoRowLayout();
         initBackToTop();
+        initThemeToggle();
       };
       init();
       document.addEventListener('astro:page-load', init);

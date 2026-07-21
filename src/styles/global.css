@@ -52,8 +52,10 @@
   --nav-duration-close: 0.44s;
 }
 
+/* System mode: no explicit override present → follow OS. Keep in sync with
+   :root[data-theme="dark"] below. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  html:not([data-theme]) {
     --color-bg: #131312;
     --color-surface: #1c1b1a;
     --color-text: #f2f0ec;
@@ -62,6 +64,19 @@
     --color-accent: #f2f0ec;
     --color-accent-contrast: #131312;
   }
+}
+
+/* Explicit override wins regardless of OS setting. Keep in sync with the
+   media query above. :root[data-theme="light"] needs no rule — base :root
+   already holds the light values. */
+:root[data-theme='dark'] {
+  --color-bg: #131312;
+  --color-surface: #1c1b1a;
+  --color-text: #f2f0ec;
+  --color-muted: #a3a09a;
+  --color-border: #2e2c29;
+  --color-accent: #f2f0ec;
+  --color-accent-contrast: #131312;
 }
 
 /* ============================================================
@@ -90,6 +105,7 @@ body {
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
 }
 
 h1,
@@ -157,13 +173,20 @@ mark {
   border-radius: 2px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
 }
 
+/* Keep in sync with :root[data-theme="dark"] mark below. */
 @media (prefers-color-scheme: dark) {
-  mark {
+  html:not([data-theme]) mark {
     background: #6b5a00;
     color: #faf6e8;
   }
+}
+
+:root[data-theme='dark'] mark {
+  background: #6b5a00;
+  color: #faf6e8;
 }
 
 .eyebrow {
