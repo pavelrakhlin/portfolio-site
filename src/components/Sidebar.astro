@@ -99,6 +99,8 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
 </aside>
 
 <script>
+  import { navigate } from 'astro:transitions/client';
+
   const prefersReduced = () =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -241,18 +243,46 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     if (!navListenersReady) {
       navListenersReady = true;
 
-      document.addEventListener('click', (e) => {
-        const sidebarEl = document.getElementById('sidebar');
-        if (
-          !MOBILE.matches ||
-          !document.documentElement.classList.contains('nav-open') ||
-          !sidebarEl
-        ) {
-          return;
-        }
-        const link = (e.target as Element).closest('a[href]');
-        if (link && sidebarEl.contains(link)) setNavOpen(false, true);
-      });
+      document.addEventListener(
+        'click',
+        (e) => {
+          const sidebarEl = document.getElementById('sidebar');
+          if (
+            !MOBILE.matches ||
+            !document.documentElement.classList.contains('nav-open') ||
+            !sidebarEl
+          ) {
+            return;
+          }
+          const link = (e.target as Element).closest(
+            'a[href]',
+          ) as HTMLAnchorElement | null;
+          if (!link || !sidebarEl.contains(link)) return;
+
+          // Same-tab internal links would otherwise navigate instantly (via
+          // the ClientRouter's own click listener) and cut the drawer's close
+          // animation short. Preempt it here in the capture phase — our
+          // preventDefault() must run before ClientRouter's bubble-phase
+          // listener checks `ev.defaultPrevented`, or it navigates anyway.
+          const isInternalNav =
+            link.origin === location.origin &&
+            !link.target &&
+            !link.hasAttribute('download') &&
+            !e.metaKey &&
+            !e.ctrlKey &&
+            !e.shiftKey &&
+            !e.altKey;
+
+          if (isInternalNav && !prefersReduced()) {
+            e.preventDefault();
+            setNavOpen(false, true);
+            setTimeout(() => navigate(link.href), NAV_MS);
+          } else {
+            setNavOpen(false, true);
+          }
+        },
+        true,
+      );
 
       document.addEventListener('keydown', (e) => {
         const sidebarEl = document.getElementById('sidebar');
@@ -569,6 +599,27 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     :global(.nav-open) .sidebar__inner {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Drawer menu: larger, centered, tap-friendly items (mobile only) */
+    .sidebar__nav {
+      text-align: center;
+    }
+    .group > summary,
+    .nav__top {
+      font-size: var(--text-xl);
+      padding: var(--space-2) 0;
+    }
+    .children {
+      padding-left: 0;
+    }
+    .children li {
+      margin-bottom: 0;
+    }
+    .children a {
+      display: block;
+      font-size: var(--text-lg);
+      padding: var(--space-2) 0;
     }
   }
 
