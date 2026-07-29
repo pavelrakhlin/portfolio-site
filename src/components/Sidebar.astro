@@ -174,7 +174,7 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
     });
   }
 
-  const MOBILE = window.matchMedia('(max-width: 1024px)');
+  const MOBILE = window.matchMedia('(max-width: 1200px)');
   const NAV_MS = 520;
   let navListenersReady = false;
   let navCloseTimer: ReturnType<typeof setTimeout> | null = null;
@@ -547,7 +547,7 @@ const isCurrent = (href: string) => path === href || path === `${href}/`;
       visibility 0s linear var(--nav-duration-close);
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     .topbar {
       display: flex;
     }

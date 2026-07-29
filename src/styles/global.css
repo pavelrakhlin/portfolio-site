@@ -40,7 +40,7 @@
   --max-width: 1400px;
   --max-width-prose: 42rem;
   --sidebar-width: 17rem;
-  --nav-breakpoint: 1024px;
+  --nav-breakpoint: 1200px;
   --topbar-height: calc(var(--space-4) * 2 + 40px);
   --radius: 10px;
 
@@ -150,7 +150,7 @@ img {
 .container {
   width: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .container {
     padding: var(--space-6);
   }
