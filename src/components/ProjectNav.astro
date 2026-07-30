@@ -17,7 +17,7 @@ const { prev, next } = Astro.props;
     <span class="eyebrow project-nav__label">
       <span class="project-nav__arrow" aria-hidden="true">&larr;</span> Previous
     </span>
-    <span class="project-nav__title"><span aria-hidden="true">&larr;&nbsp;</span>{prev.data.title}</span>
+    <span class="project-nav__title">{prev.data.title}</span>
   </a>
   <a
     href={`/work/${next.id}/`}
@@ -27,7 +27,7 @@ const { prev, next } = Astro.props;
     <span class="eyebrow project-nav__label">
       Next <span class="project-nav__arrow" aria-hidden="true">&rarr;</span>
     </span>
-    <span class="project-nav__title">{next.data.title}<span aria-hidden="true">&nbsp;&rarr;</span></span>
+    <span class="project-nav__title">{next.data.title}</span>
   </a>
 </nav>
 
@@ -54,18 +54,9 @@ const { prev, next } = Astro.props;
     line-height: 1.2;
     letter-spacing: -0.02em;
   }
-  /* Mobile shows the label + arrow inline; the desktop title (which already
-     carries its own arrow) takes over above 768px. */
-  .project-nav__arrow {
-    display: none;
-  }
-
   @media (max-width: 768px) {
     .project-nav__title {
       display: none;
-    }
-    .project-nav__arrow {
-      display: inline;
     }
   }
 </style>
