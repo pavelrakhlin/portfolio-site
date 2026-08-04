@@ -2,16 +2,22 @@
 import { getEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
+import ProjectNav from '../../components/ProjectNav.astro';
 import { formatSectionBody } from '../../lib/format-body';
 import { getProjects } from '../../lib/projects';
 
 export async function getStaticPaths() {
   const projects = await getProjects();
-  return projects.map((project) => ({
+  return projects.map((project, i) => ({
     params: { slug: project.id },
+    props: {
+      prev: projects[(i - 1 + projects.length) % projects.length],
+      next: projects[(i + 1) % projects.length],
+    },
   }));
 }
 
+const { prev, next } = Astro.props;
 const slug = Astro.params.slug!;
 const project = await getEntry('projects', slug);
 if (!project) {
@@ -216,6 +222,8 @@ const normalized = sections.map((s) =>
         </div>
       )
     }
+
+    <ProjectNav prev={prev} next={next} />
   </article>
 </Base>
 

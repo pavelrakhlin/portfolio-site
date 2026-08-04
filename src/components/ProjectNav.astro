@@ -1,0 +1,97 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  prev: CollectionEntry<'projects'>;
+  next: CollectionEntry<'projects'>;
+}
+const { prev, next } = Astro.props;
+---
+
+<nav class="project-nav reveal-block" data-reveal-scroll aria-label="Case study navigation">
+  <a
+    href={`/work/${prev.id}/`}
+    class="project-nav__link"
+    aria-label={`Previous case study: ${prev.data.title}`}
+  >
+    <span class="eyebrow project-nav__label">
+      <svg
+        class="project-nav__arrow"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg
+      > Previous
+    </span>
+    <span class="project-nav__title">{prev.data.title}</span>
+  </a>
+  <a
+    href={`/work/${next.id}/`}
+    class="project-nav__link project-nav__link--next"
+    aria-label={`Next case study: ${next.data.title}`}
+  >
+    <span class="eyebrow project-nav__label">
+      Next <svg
+        class="project-nav__arrow"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg
+      >
+    </span>
+    <span class="project-nav__title">{next.data.title}</span>
+  </a>
+</nav>
+
+<style>
+  .project-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  .project-nav__link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .project-nav__link--next {
+    text-align: right;
+    align-items: flex-end;
+  }
+  .project-nav__label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .project-nav__arrow {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s var(--ease);
+  }
+  .project-nav__link:hover .project-nav__arrow {
+    transform: translateX(-3px);
+  }
+  .project-nav__link--next:hover .project-nav__arrow {
+    transform: translateX(3px);
+  }
+  .project-nav__title {
+    font-size: var(--text-xl);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 768px) {
+    .project-nav__title {
+      display: none;
+    }
+  }
+</style>
