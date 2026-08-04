@@ -15,7 +15,16 @@ const { prev, next } = Astro.props;
     aria-label={`Previous case study: ${prev.data.title}`}
   >
     <span class="eyebrow project-nav__label">
-      <span class="project-nav__arrow" aria-hidden="true">&larr;</span> Previous
+      <svg
+        class="project-nav__arrow"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg
+      > Previous
     </span>
     <span class="project-nav__title">{prev.data.title}</span>
   </a>
@@ -25,7 +34,16 @@ const { prev, next } = Astro.props;
     aria-label={`Next case study: ${next.data.title}`}
   >
     <span class="eyebrow project-nav__label">
-      Next <span class="project-nav__arrow" aria-hidden="true">&rarr;</span>
+      Next <svg
+        class="project-nav__arrow"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg
+      >
     </span>
     <span class="project-nav__title">{next.data.title}</span>
   </a>
@@ -48,6 +66,23 @@ const { prev, next } = Astro.props;
   .project-nav__link--next {
     text-align: right;
     align-items: flex-end;
+  }
+  .project-nav__label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .project-nav__arrow {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s var(--ease);
+  }
+  .project-nav__link:hover .project-nav__arrow {
+    transform: translateX(-3px);
+  }
+  .project-nav__link--next:hover .project-nav__arrow {
+    transform: translateX(3px);
   }
   .project-nav__title {
     font-size: var(--text-xl);
